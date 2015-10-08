@@ -65,6 +65,7 @@ public class K9TeleOp extends OpMode {
 
 	// amount to change the claw servo position by
 	double clawDelta = 0.1;
+	//mess up max amount of code TROLOLOl ttrollol doing all the code cahanges
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
