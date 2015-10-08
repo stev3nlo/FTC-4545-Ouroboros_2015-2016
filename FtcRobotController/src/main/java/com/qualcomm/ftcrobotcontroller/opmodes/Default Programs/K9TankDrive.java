@@ -121,7 +121,7 @@ public class K9TankDrive extends OpMode {
 	@Override
 	public void loop() {
 
-		/*
+		/*qq
 		 * Gamepad 1
 		 * 
 		 * Gamepad 1 controls the motors via the left stick, and it controls the
