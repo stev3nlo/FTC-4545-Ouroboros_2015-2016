@@ -22,12 +22,12 @@ public class TeleOp extends OpMode {
 
     final double HALFSPEED = .3;
 
-    public void start(){
+    public void init(){
 
     }
     public void loop() {
         if (gamepad1.left_trigger == 1) {
-            if (abs(gamepad1.right_stick_y) > .05) {
+            if (abs(gamepad1.right_stick_y) > .05) { //Half speed for drive
                 motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
                 motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
             }
@@ -36,7 +36,7 @@ public class TeleOp extends OpMode {
                 motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
             }
         }
-        else{
+        else{ //Regular tank controls
             if (abs(gamepad1.right_stick_y) > .05) {
                 motorFR.setPower(gamepad1.right_stick_y * -1);
                 motorBR.setPower(gamepad1.right_stick_y * -1);
@@ -46,6 +46,8 @@ public class TeleOp extends OpMode {
                 motorBL.setPower(gamepad1.left_stick_y);
             }
         }
+
+        
     }
 
 
