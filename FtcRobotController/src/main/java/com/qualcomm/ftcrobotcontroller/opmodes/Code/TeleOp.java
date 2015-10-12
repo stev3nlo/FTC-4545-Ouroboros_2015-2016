@@ -46,8 +46,16 @@ public class TeleOp extends OpMode {
                 motorBL.setPower(gamepad1.left_stick_y);
             }
         }
+        if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5)) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0)) {
+            motorSpinner.setPower(0);
+        }
+        else if (gamepad2.right_trigger > 0.5) {
+            motorSpinner.setPower(1); //Spinner motors
+        }
 
-        
+        else if (gamepad2.left_trigger > 0.5) {
+            motorSpinner.setPower(-1);
+        }
     }
 
 
