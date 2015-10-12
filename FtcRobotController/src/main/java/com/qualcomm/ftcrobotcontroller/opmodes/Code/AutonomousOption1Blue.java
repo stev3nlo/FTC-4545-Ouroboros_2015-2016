@@ -1,11 +1,11 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 
-import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Created by kunalgupta on 10/12/15.
  */
-public class AutonomousOption1 {
+public class AutonomousOption1Blue {
 
     public DcMotor motorFR;
     public DcMotor motorFL;
@@ -16,16 +16,6 @@ public class AutonomousOption1 {
     public DcMotor motorHangL;
 
     public DcMotor motorSpinner;
-
-    
-
-
-
-
-
-
-
-
 
 
 
@@ -41,3 +31,4 @@ public class AutonomousOption1 {
 
 
 }
+
