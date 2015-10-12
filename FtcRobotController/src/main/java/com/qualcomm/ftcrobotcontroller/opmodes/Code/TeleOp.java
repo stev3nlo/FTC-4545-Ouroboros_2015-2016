@@ -50,11 +50,11 @@ public class TeleOp extends OpMode {
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
         }
         else if (gamepad2.right_trigger > 0.5) {
-            motorSpinner.setPower(1); //Spinner motors
+            motorSpinner.setPower(1); //Spinner motor
         }
 
         else if (gamepad2.left_trigger > 0.5) {
-            motorSpinner.setPower(-1); //Reverse spinner motors
+            motorSpinner.setPower(-1); //Reverse spinner motor
         }
     }
 
