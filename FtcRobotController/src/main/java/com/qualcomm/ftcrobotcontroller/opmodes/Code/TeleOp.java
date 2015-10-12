@@ -85,9 +85,15 @@ public class TeleOp extends OpMode {
             }
         }
 
+        if (gamepad2.right_stick_y>.05 || gamepad2.left_stick_y<.05) { //sets the motors that movethe hang pulley
+            motorHangL.setPower(gamepad2.right_stick_y * -1);
+            motorHangR.setPower(gamepad2.right_stick_y * -1);
+        }
+        else {
+            motorHangL.setPower(0);
+            motorHangR.setPower(0);
+        }
     }
-
-
 
     public void stop(){
 
