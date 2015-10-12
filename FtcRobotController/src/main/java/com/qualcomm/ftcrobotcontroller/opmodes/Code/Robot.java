@@ -73,10 +73,10 @@ public class Robot {
         motorBL.setPower(1);
     }
 
-    void moveBackward(double i){ // Moves backwards at a different power besides 1
-        motorFR.setPower(-1*i);
-        motorFL.setPower(1*i);
-        motorBR.setPower(-1*i);
-        motorBL.setPower(1*i);
+    void moveBackward(double i) { // Moves backwards at a different power besides 1
+        motorFR.setPower(-1 * i);
+        motorFL.setPower(1 * i);
+        motorBR.setPower(-1 * i);
+        motorBL.setPower(1 * i);
     }
 }
