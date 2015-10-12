@@ -17,7 +17,7 @@ public class Robot {
 
     public DcMotor motorSpinner;
 
-    void moveForward(){
+    public void moveForward(){
         motorFR.setPower(1);
         motorFL.setPower(-1);
         motorBR.setPower(1);
