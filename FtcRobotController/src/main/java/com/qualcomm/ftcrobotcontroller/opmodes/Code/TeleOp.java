@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.robotcore.hardware.configuration.ServoConfiguration;
 
 import static java.lang.Math.abs;
 
@@ -18,12 +19,15 @@ public class TeleOp extends OpMode {
     public DcMotor motorHangR;
     public DcMotor motorHangL;
     public DcMotor motorSpinner;
+    public DcMotor motorLift;
     public Servo boxTilt;
+
+    double boxTiltPosition = 0.5;
 
     final double HALFSPEED = .3;
 
     public void init(){
-
+        boxTilt.setPosition(boxTiltPosition);
     }
     public void loop() {
         if (gamepad1.left_trigger == 1) {
@@ -46,6 +50,8 @@ public class TeleOp extends OpMode {
                 motorBL.setPower(gamepad1.left_stick_y);
             }
         }
+
+
         if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5)) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0)) {
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
         }
@@ -56,6 +62,29 @@ public class TeleOp extends OpMode {
         else if (gamepad2.left_trigger > 0.5) {
             motorSpinner.setPower(-1); //Reverse spinner motor
         }
+
+
+        if (gamepad2.left_stick_y < -.05) {
+            motorLift.setPower(gamepad2.left_stick_y * -1); //Lift the box
+        }
+        else {
+            motorLift.setPower(0);
+        }
+
+
+        if (gamepad2.left_bumper) { //Tilt the box
+            if (boxTiltPosition != 0) {
+                boxTiltPosition -= .05;
+                boxTilt.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
+            }
+        }
+        if (gamepad2.right_bumper) { //Tilt the box in the other direction
+            if (boxTiltPosition != 1) {
+                boxTiltPosition += .05;
+                boxTilt.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
+            }
+        }
+
     }
 
 
