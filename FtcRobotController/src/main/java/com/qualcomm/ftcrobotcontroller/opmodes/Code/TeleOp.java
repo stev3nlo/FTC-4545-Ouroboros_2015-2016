@@ -25,26 +25,34 @@ public class TeleOp extends OpMode {
 //============================================= Variables ==================================================
     double boxTiltPosition = 0.5;
     boolean reverse = false;
+    boolean halfspeed;
     final double HALFSPEED = .3;
 
     public void init(){
         boxTilt.setPosition(boxTiltPosition);
     }
     public void loop() {
-        if(gamepad1.a){
-            if(reverse){
+        if (gamepad1.a) {
+            if (reverse) {
                 reverse = false;
                 if (gamepad1.left_trigger == 1) {
-                    if (abs(gamepad1.right_stick_y) > .05) { //Half speed for drive
-                        motorFR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
-                        motorBR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
+                        if (halfspeed) {
+                            halfspeed = false;
+                        } else {
+                            halfspeed = true;
+                        }
+                        if (halfspeed) {
+                            if (abs(gamepad1.right_stick_y) > .05) {
+                                motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
+                                motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
+                            }
+                            if (abs(gamepad1.left_stick_y) > .05) {
+                                motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+                                motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+                            }
+                        }
                     }
-                    if (abs(gamepad1.left_stick_y) > .05) {
-                        motorFL.setPower(gamepad1.left_stick_y * HALFSPEED );
-                        motorBL.setPower(gamepad1.left_stick_y * HALFSPEED);
-                    }
-                }
-                else{ //Regular tank controls
+                else { //Regular tank controls
                     if (abs(gamepad1.right_stick_y) > .05) {
                         motorFR.setPower(gamepad1.right_stick_y * -1);
                         motorBR.setPower(gamepad1.right_stick_y * -1);
@@ -54,22 +62,28 @@ public class TeleOp extends OpMode {
                         motorBL.setPower(gamepad1.left_stick_y);
                     }
                 }
-            }
-            else{
+            } else {
                 reverse = true;
 //============================================= Half Speed for drive ======================================
                 if (gamepad1.left_trigger == 1) {
-                    if (abs(gamepad1.right_stick_y) > .05) {
-                        motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
-                        motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
+                    if (halfspeed) {
+                        halfspeed = false;
+                    } else {
+                        halfspeed = true;
                     }
-                    if (abs(gamepad1.left_stick_y) > .05) {
-                        motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
-                        motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+                    if (halfspeed) {
+                        if (abs(gamepad1.right_stick_y) > .05) {
+                            motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
+                            motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
+                        }
+                        if (abs(gamepad1.left_stick_y) > .05) {
+                            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+                            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+                        }
                     }
                 }
 //=========================================== Regular Tank Controls ========================================
-                else{
+                else {
                     if (abs(gamepad1.right_stick_y) > .05) {
                         motorFR.setPower(gamepad1.right_stick_y * -1);
                         motorBR.setPower(gamepad1.right_stick_y * -1);
@@ -85,20 +99,16 @@ public class TeleOp extends OpMode {
 //============================================== Manipulator =================================================
         if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5)) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0)) {
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
-        }
-        else if (gamepad2.right_trigger > 0.5) {
+        } else if (gamepad2.right_trigger > 0.5) {
             motorSpinner.setPower(1); //Spinner motor
-        }
-
-        else if (gamepad2.left_trigger > 0.5) {
+        } else if (gamepad2.left_trigger > 0.5) {
             motorSpinner.setPower(-1); //Reverse spinner motor
         }
 
 //=============================================== Box Lift ====================================================
         if (gamepad2.left_stick_y < -.05) {
             motorLift.setPower(gamepad2.left_stick_y * -1); //Lift the box
-        }
-        else {
+        } else {
             motorLift.setPower(0);
         }
 
@@ -119,79 +129,24 @@ public class TeleOp extends OpMode {
         if (gamepad2.right_stick_y > .05 || gamepad2.left_stick_y < .05) { //sets the motors that move the hang pulley
             motorHangL.setPower(gamepad2.right_stick_y * -1);
             motorHangR.setPower(gamepad2.right_stick_y * -1);
-        }
-        else {
+        } else {
             motorHangL.setPower(0);
             motorHangR.setPower(0);
         }
 //==================================================== Macros ==================================================
-        if (gamepad1.x){
+        if (gamepad1.x) {
             motorFR.setPower(1);
             motorFL.setPower(-1);
             motorBR.setPower(1);
             motorBL.setPower(-1);
         }
-        if(gamepad1.b){
+        if (gamepad1.b) {
             motorFR.setPower(-1);
             motorFL.setPower(1);
             motorBR.setPower(-1);
             motorBL.setPower(1);
         }
-        if(gamepad1.a){
-                if(reverse){
-                    reverse = false;
-                    if (gamepad1.left_trigger == 1) {
-                        if (abs(gamepad1.right_stick_y) > .05) { //Half speed for drive
-                            motorFR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
-                            motorBR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
-                        }
-                        if (abs(gamepad1.left_stick_y) > .05) {
-                            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED );
-                            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED);
-                        }
-                    }
-                    else{ //Regular tank controls
-                        if (abs(gamepad1.right_stick_y) > .05) {
-                            motorFR.setPower(gamepad1.right_stick_y * -1);
-                            motorBR.setPower(gamepad1.right_stick_y * -1);
-                        }
-                        if (abs(gamepad1.left_stick_y) > .05) {
-                            motorFL.setPower(gamepad1.left_stick_y);
-                            motorBL.setPower(gamepad1.left_stick_y);
-                        }
-                    }
-                }
-                else{
-                    reverse = true;
-
-
-                    //============================================= Half Speed for drive ======================================
-                    if (gamepad1.left_trigger == 1) {
-                        if (abs(gamepad1.right_stick_y) > .05) {
-                            motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
-                            motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
-                        }
-                        if (abs(gamepad1.left_stick_y) > .05) {
-                            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
-                            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
-                        }
-                    }
-//=========================================== Regular Tank Controls ========================================
-                    else{
-                        if (abs(gamepad1.right_stick_y) > .05) {
-                            motorFR.setPower(gamepad1.right_stick_y * -1);
-                            motorBR.setPower(gamepad1.right_stick_y * -1);
-                        }
-                        if (abs(gamepad1.left_stick_y) > .05) {
-                            motorFL.setPower(gamepad1.left_stick_y);
-                            motorBL.setPower(gamepad1.left_stick_y);
-                        }
-                    }
-
-                }
-            }
-        }
-
+    }
 
     public void stop(){
 
