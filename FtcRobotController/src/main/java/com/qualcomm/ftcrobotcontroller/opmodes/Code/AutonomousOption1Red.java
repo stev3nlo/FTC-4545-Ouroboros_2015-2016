@@ -17,16 +17,7 @@ public class AutonomousOption1Red {
 
     public DcMotor motorSpinner;
 
+    Robot robot = new Robot();
 
-
-
-
-
-
-
-
-
-
-
-
+    robot.moveForward();
 }
