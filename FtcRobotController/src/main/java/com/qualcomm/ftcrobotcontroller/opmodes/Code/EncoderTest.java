@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 
 //import com.qualcomm.robotcore.eventloop.EventLoopManager;
 //import com.qualcomm.robotcore.eventloop.*;
@@ -42,9 +42,9 @@ public class EncoderTest extends OpMode{
         changeFR = 0;
         changeBR = 0;
         changeBL = 0;
-        MotorFL = hardwareMap.dcMotor.get("MotorFL");
-        MotorFR = hardwareMap.dcMotor.get("MotorFR");
-        MotorBL = hardwareMap.dcMotor.get("MotorBL");
+        MotorFL = hardwareMap.dcMotor.get("motorFL");
+        MotorFR = hardwareMap.dcMotor.get("motorFR");
+        MotorBL = hardwareMap.dcMotor.get("motorBL");
         MotorBR = hardwareMap.dcMotor.get("MotorBR");
     }
 
