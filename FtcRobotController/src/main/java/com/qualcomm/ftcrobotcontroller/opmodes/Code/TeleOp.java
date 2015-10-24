@@ -61,6 +61,12 @@ public class TeleOp extends OpMode {
                         motorFL.setPower(gamepad1.left_stick_y * -1);
                         motorBL.setPower(gamepad1.left_stick_y * -1);
                     }
+                    else {
+                        motorFL.setPower(0);
+                        motorFR.setPower(0);
+                        motorBL.setPower(0);
+                        motorBR.setPower(0);
+                    }
                 }
             } else {
                 reverse = true;
