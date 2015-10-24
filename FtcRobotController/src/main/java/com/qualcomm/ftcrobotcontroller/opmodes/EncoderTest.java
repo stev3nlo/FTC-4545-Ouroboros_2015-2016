@@ -42,10 +42,10 @@ public class EncoderTest extends OpMode{
         changeFR = 0;
         changeBR = 0;
         changeBL = 0;
-        MotorFL = hardwareMap.dcMotor.get("MotorFL");
-        MotorFR = hardwareMap.dcMotor.get("MotorFR");
-        MotorBL = hardwareMap.dcMotor.get("MotorBL");
-        MotorBR = hardwareMap.dcMotor.get("MotorBR");
+        MotorFL = hardwareMap.dcMotor.get("motorFL");
+        MotorFR = hardwareMap.dcMotor.get("motorFR");
+        MotorBL = hardwareMap.dcMotor.get("motorBL");
+        MotorBR = hardwareMap.dcMotor.get("motorBR");
     }
 
     @Override
