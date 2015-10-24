@@ -43,23 +43,23 @@ public class TeleOp extends OpMode {
                         }
                         if (halfspeed) {
                             if (abs(gamepad1.right_stick_y) > .05) {
-                                motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
-                                motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
+                                motorFR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
+                                motorBR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
                             }
                             if (abs(gamepad1.left_stick_y) > .05) {
-                                motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
-                                motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+                                motorFL.setPower(gamepad1.left_stick_y * HALFSPEED);
+                                motorBL.setPower(gamepad1.left_stick_y * HALFSPEED);
                             }
                         }
                     }
                 else { //Regular tank controls
                     if (abs(gamepad1.right_stick_y) > .05) {
-                        motorFR.setPower(gamepad1.right_stick_y * -1);
-                        motorBR.setPower(gamepad1.right_stick_y * -1);
+                        motorFR.setPower(gamepad1.right_stick_y);
+                        motorBR.setPower(gamepad1.right_stick_y);
                     }
                     if (abs(gamepad1.left_stick_y) > .05) {
-                        motorFL.setPower(gamepad1.left_stick_y);
-                        motorBL.setPower(gamepad1.left_stick_y);
+                        motorFL.setPower(gamepad1.left_stick_y * -1);
+                        motorBL.setPower(gamepad1.left_stick_y * -1);
                     }
                 }
             } else {
@@ -73,24 +73,24 @@ public class TeleOp extends OpMode {
                     }
                     if (halfspeed) {
                         if (abs(gamepad1.right_stick_y) > .05) {
-                            motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
-                            motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
+                            motorFR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
+                            motorBR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
                         }
                         if (abs(gamepad1.left_stick_y) > .05) {
-                            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
-                            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+                            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED);
+                            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED);
                         }
                     }
                 }
 //=========================================== Regular Tank Controls ========================================
                 else {
                     if (abs(gamepad1.right_stick_y) > .05) {
-                        motorFR.setPower(gamepad1.right_stick_y * -1);
-                        motorBR.setPower(gamepad1.right_stick_y * -1);
+                        motorFR.setPower(gamepad1.right_stick_y);
+                        motorBR.setPower(gamepad1.right_stick_y);
                     }
                     if (abs(gamepad1.left_stick_y) > .05) {
-                        motorFL.setPower(gamepad1.left_stick_y);
-                        motorBL.setPower(gamepad1.left_stick_y);
+                        motorFL.setPower(gamepad1.left_stick_y * -1);
+                        motorBL.setPower(gamepad1.left_stick_y * -1);
                     }
                 }
 
@@ -135,16 +135,16 @@ public class TeleOp extends OpMode {
         }
 //==================================================== Macros ==================================================
         if (gamepad1.x) {
-            motorFR.setPower(1);
-            motorFL.setPower(-1);
-            motorBR.setPower(1);
-            motorBL.setPower(-1);
-        }
-        if (gamepad1.b) {
             motorFR.setPower(-1);
             motorFL.setPower(1);
             motorBR.setPower(-1);
             motorBL.setPower(1);
+        }
+        if (gamepad1.b) {
+            motorFR.setPower(1);
+            motorFL.setPower(-1);
+            motorBR.setPower(1);
+            motorBL.setPower(-1);
         }
     }
 
