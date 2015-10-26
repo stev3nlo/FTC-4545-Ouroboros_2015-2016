@@ -57,7 +57,7 @@ public class TeleOp extends OpMode {
                         motorFR.setPower(gamepad1.right_stick_y);
                         motorBR.setPower(gamepad1.right_stick_y);
                     }
-                    if (abs(gamepad1.left_stick_y) > .05) {
+                    else if (abs(gamepad1.left_stick_y) > .05) {
                         motorFL.setPower(gamepad1.left_stick_y * -1);
                         motorBL.setPower(gamepad1.left_stick_y * -1);
                     }
