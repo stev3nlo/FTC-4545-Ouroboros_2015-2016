@@ -12,7 +12,7 @@ public class TestRunnerWheels extends OpMode {
     public DcMotor motorBR;
     public DcMotor motorBL;
     boolean halfspeed;
-    final double HALFSPEED = .3;
+    final double HALFSPEED = .08;
     final double FULLSPEED = 1.0;
 
     long lastTime = 0;
