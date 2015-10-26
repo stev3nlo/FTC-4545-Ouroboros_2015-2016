@@ -19,10 +19,10 @@ import static java.lang.Math.abs;
  * Created by Vandegrift InvenTeam on 10/22/2015.
  */
 public class EncoderTest extends OpMode{
-    DcMotor MotorFL;
-    DcMotor MotorFR;
-    DcMotor MotorBL;
-    DcMotor MotorBR;
+    DcMotor motorFL;
+    DcMotor motorFR;
+    DcMotor motorBL;
+    DcMotor motorBR;
     double eFL;
     double eFR;
     double eBL;
@@ -31,6 +31,13 @@ public class EncoderTest extends OpMode{
     double changeFR;
     double changeBL;
     double changeBR;
+
+    boolean halfspeed;
+    final double HALFSPEED = .3;
+    final double FULLSPEED = 1.0;
+
+    long lastTime = 0;
+    final long DURATION = 1500;
 
     @Override
     public void init() {
@@ -42,35 +49,55 @@ public class EncoderTest extends OpMode{
         changeFR = 0;
         changeBR = 0;
         changeBL = 0;
-        MotorFL = hardwareMap.dcMotor.get("motorFL");
-        MotorFR = hardwareMap.dcMotor.get("motorFR");
-        MotorBL = hardwareMap.dcMotor.get("motorBL");
-        MotorBR = hardwareMap.dcMotor.get("motorBR");
+        motorFL = hardwareMap.dcMotor.get("motorFL");
+        motorFR = hardwareMap.dcMotor.get("motorFR");
+        motorBL = hardwareMap.dcMotor.get("motorBL");
+        motorBR = hardwareMap.dcMotor.get("motorBR");halfspeed = false;
+        lastTime = System.currentTimeMillis();
+
     }
 
     @Override
     public void loop() {
         if(gamepad1.a) //Resets encoders
         {
-            eFL = MotorFL.getCurrentPosition();
-            eBL = MotorBL.getCurrentPosition();
-            eBR = MotorBR.getCurrentPosition();
-            eFR = MotorFR.getCurrentPosition();
+            eFL = motorFL.getCurrentPosition();
+            eBL = motorBL.getCurrentPosition();
+            eBR = motorBR.getCurrentPosition();
+            eFR = motorFR.getCurrentPosition();
         }
         if (gamepad1.left_trigger == 1) {
-            if (abs(gamepad1.right_stick_y) > .05) {
-                MotorFR.setPower(gamepad1.right_stick_y * -1);
-                MotorBR.setPower(gamepad1.right_stick_y * -1);
-            }
-            if (abs(gamepad1.left_stick_y) > .05) {
-                MotorFL.setPower(gamepad1.left_stick_y);
-                MotorBL.setPower(gamepad1.left_stick_y);
+            long currentTime = System.currentTimeMillis();
+            // are we waiting?
+            if (currentTime > lastTime + DURATION) {
+                halfspeed = !halfspeed;
+                lastTime = currentTime;
             }
         }
-        changeFL = MotorFL.getCurrentPosition() - eFL;
-        changeFR = MotorFR.getCurrentPosition() - eFR;
-        changeBR = MotorBR.getCurrentPosition() - eBR;
-        changeBL = MotorBL.getCurrentPosition() - eBL;
+
+        double speed = (halfspeed) ? HALFSPEED : FULLSPEED;
+        boolean right_y = abs(gamepad1.right_stick_y) > .05;
+        boolean left_y = abs(gamepad1.left_stick_y) > .05;
+
+        if(right_y){
+            motorFR.setPower(gamepad1.right_stick_y * -1 * speed);
+            motorBR.setPower(gamepad1.right_stick_y * speed);
+        } else {
+            motorFR.setPower(0);
+            motorBR.setPower(0);
+        }
+
+        if(left_y) {
+            motorFL.setPower(gamepad1.left_stick_y * speed);
+            motorBL.setPower(gamepad1.left_stick_y * -1 * speed);
+        } else {
+            motorFL.setPower(0);
+            motorBL.setPower(0);
+        }
+        changeFL = motorFL.getCurrentPosition() - eFL;
+        changeFR = motorFR.getCurrentPosition() - eFR;
+        changeBR = motorBR.getCurrentPosition() - eBR;
+        changeBL = motorBL.getCurrentPosition() - eBL;
         telemetry.addData("FL Encoder", eFL);
         telemetry.addData("FR Encoder", eFR);
         telemetry.addData("BL Encoder", eBL);
