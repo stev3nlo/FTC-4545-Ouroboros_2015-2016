@@ -57,12 +57,6 @@ public class TestRunnerWheels extends OpMode {
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
-        if (!right_y && !left_y){
-            motorFL.setPower(0);
-            motorFR.setPower(0);
-            motorBL.setPower(0);
-            motorBR.setPower(0);
-        }
     }
 
 }
