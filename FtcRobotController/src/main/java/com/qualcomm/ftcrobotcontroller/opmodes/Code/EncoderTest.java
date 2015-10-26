@@ -45,11 +45,7 @@ public class EncoderTest extends OpMode{
         MotorFL = hardwareMap.dcMotor.get("motorFL");
         MotorFR = hardwareMap.dcMotor.get("motorFR");
         MotorBL = hardwareMap.dcMotor.get("motorBL");
-<<<<<<< HEAD:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/EncoderTest.java
         MotorBR = hardwareMap.dcMotor.get("motorBR");
-=======
-        MotorBR = hardwareMap.dcMotor.get("MotorBR");
->>>>>>> db3c23be78113165b73740abbfe3413083597b2c:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/EncoderTest.java
     }
 
     @Override
