@@ -44,7 +44,7 @@ public class TestRunnerWheels extends OpMode {
 
         if(right_y){
             motorFR.setPower(gamepad1.right_stick_y * -1 * speed);
-            motorBR.setPower(gamepad1.right_stick_y * speed);
+            motorBR.setPower(gamepad1.right_stick_y * speed);   
         } else {
             motorFR.setPower(0);
             motorBR.setPower(0);
