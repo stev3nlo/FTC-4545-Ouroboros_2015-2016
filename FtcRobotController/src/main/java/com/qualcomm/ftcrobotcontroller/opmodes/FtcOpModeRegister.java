@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheels;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
@@ -73,7 +74,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
     //manager.register("NullOp", NullOp.class);
     manager.register("EncoderTest", EncoderTest.class);
-
+    manager.register("TestRunnerWheels", TestRunnerWheels.class);
     /*
      * The following example op modes are designed to work with a K9-style robot.
      *  - K9TeleOp is a simple driver controlled program.
