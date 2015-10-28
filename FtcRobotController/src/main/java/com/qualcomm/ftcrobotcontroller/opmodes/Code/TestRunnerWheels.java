@@ -7,6 +7,8 @@ import static java.lang.Math.abs;
  * Created by Vandegrift InvenTeam on 10/22/2015.
  */
 public class TestRunnerWheels extends OpMode {
+    VariableSpeed mod = new VariableSpeed();
+
     public DcMotor motorFR;
     public DcMotor motorFL;
     public DcMotor motorBR;
@@ -43,16 +45,16 @@ public class TestRunnerWheels extends OpMode {
         boolean left_y = abs(gamepad1.left_stick_y) > .05;
 
         if(right_y){
-            motorFR.setPower(gamepad1.right_stick_y * -1 * speed);
-            motorBR.setPower(gamepad1.right_stick_y * speed);   
+            motorFR.setPower(mod.newValue(gamepad1.right_stick_y) * -1 * speed);
+            motorBR.setPower(mod.newValue(gamepad1.right_stick_y) * speed);
         } else {
             motorFR.setPower(0);
             motorBR.setPower(0);
         }
 
         if(left_y) {
-            motorFL.setPower(gamepad1.left_stick_y * speed);
-            motorBL.setPower(gamepad1.left_stick_y * -1 * speed);
+            motorFL.setPower(mod.newValue(gamepad1.left_stick_y) * speed);
+            motorBL.setPower(mod.newValue(gamepad1.left_stick_y) * -1 * speed);
         } else {
             motorFL.setPower(0);
             motorBL.setPower(0);

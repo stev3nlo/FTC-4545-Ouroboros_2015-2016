@@ -8,7 +8,7 @@ import static java.lang.Math.abs;
  * Created by User on 10/27/2015.
  */
 public class VariableSpeed {
-    public BigDecimal newValue(double num){
+    public double newValue(double num){
         BigDecimal a = new BigDecimal("0.000000000000000000000007626656");
         BigDecimal b = new BigDecimal("0.000000000000000000272080701657");
         BigDecimal c = new BigDecimal("0.000000000000003715117053405310");
@@ -29,7 +29,9 @@ public class VariableSpeed {
         ans = ans.subtract(f.multiply(m));
         ans = ans.add(g);
 
-        return ans;
+        double power = ans.doubleValue();
+
+        return power;
     }
 
 }
