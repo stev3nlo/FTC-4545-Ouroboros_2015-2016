@@ -10,7 +10,7 @@ public class TestRunnerWheels extends OpMode {
     VariableSpeed mod = new VariableSpeed();
 
     public DcMotor motorFR;
-    public DcMotor motorFL; 
+    public DcMotor motorFL;
     public DcMotor motorBR;
     public DcMotor motorBL;
     boolean halfspeed;
