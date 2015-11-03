@@ -22,10 +22,10 @@ public class TestRunnerWheels extends OpMode {
 
     @Override
     public void init() {
-        motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorFR = hardwareMap.dcMotor.get("motorFR");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorBR = hardwareMap.dcMotor.get("motorBR");
+        motorFL = hardwareMap.dcMotor.get("motorFR");
+        motorFR = hardwareMap.dcMotor.get("motorFL");
+        motorBL = hardwareMap.dcMotor.get("motorBR");
+        motorBR = hardwareMap.dcMotor.get("motorBL");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
     }
@@ -46,7 +46,7 @@ public class TestRunnerWheels extends OpMode {
 
         if(right_y){
             motorFR.setPower(mod.newValue(gamepad1.right_stick_y) * -1 * speed);
-            motorBR.setPower(mod.newValue(gamepad1.right_stick_y) * speed);
+            motorBR.setPower(mod.newValue(gamepad1.right_stick_y) * -1 * speed);
         } else {
             motorFR.setPower(0);
             motorBR.setPower(0);
@@ -54,7 +54,7 @@ public class TestRunnerWheels extends OpMode {
 
         if(left_y) {
             motorFL.setPower(mod.newValue(gamepad1.left_stick_y) * speed);
-            motorBL.setPower(mod.newValue(gamepad1.left_stick_y) * -1 * speed);
+            motorBL.setPower(mod.newValue(gamepad1.left_stick_y) * speed);
         } else {
             motorFL.setPower(0);
             motorBL.setPower(0);
