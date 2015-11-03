@@ -20,6 +20,6 @@ public class ScrimmageAutoBlue extends LinearOpMode {
 
         waitForStart();
 
-        
+
     }
 }
