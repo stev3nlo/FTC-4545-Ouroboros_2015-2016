@@ -8,50 +8,66 @@ import static java.lang.Math.abs;
  * Created by Vandegrift InvenTeam on 11/2/2015.
  */
 public class ScrimmageRedZone extends LinearOpMode{
-    double eFL = 0.0;
-    double eFR = 0;
-    double eBL = 0;
-    double eBR = 0;
-    double changeFL = 0;
-    double changeFR = 0;
-    double changeBR = 0;
-    double changeBL = 0;
-    boolean running = true;
     public DcMotor motorFR;
     public DcMotor motorFL;
     public DcMotor motorBR;
     public DcMotor motorBL;
+    double eFL;
+    double eFR;
+    double eBL;
+    double eBR;
+    double eAvg;
+    double changeFL;
+    double changeFR;
+    double changeBL;
+    double changeBR;
+    double avgChange;
     @Override
     public void runOpMode() throws InterruptedException {
-        motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorFR = hardwareMap.dcMotor.get("motorFR");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorBR = hardwareMap.dcMotor.get("motorBR");
+        motorFL = hardwareMap.dcMotor.get("motorFR");
+        motorFR = hardwareMap.dcMotor.get("motorFL");
+        motorBL = hardwareMap.dcMotor.get("motorBR");
+        motorBR = hardwareMap.dcMotor.get("motorBL");
+
         waitForStart();
-        // turns robot to the final direction
-        while(running){
 
-        }
-
-
+        moveForward(1, 1000);
+        reset();
     }
-    public double[] getChange(){
-        changeFL = motorFL.getCurrentPosition() - eFL;
-        changeFR = motorFR.getCurrentPosition() - eFR;
-        changeBR = motorBR.getCurrentPosition() - eBR;
-        changeBL = motorBL.getCurrentPosition() - eBL;
+
+    public void moveForward(double speed, double goal) {
+        reset();
+        while (avgChange < goal) {
+            motorFL.setPower(speed);
+            motorFR.setPower(speed);
+            motorBL.setPower(speed);
+            motorBR.setPower(speed);
+        }
+    }
+    
+
+    public void reset() {
         eFL = motorFL.getCurrentPosition();
         eFR = motorFR.getCurrentPosition();
         eBL = motorBL.getCurrentPosition();
         eBR = motorBR.getCurrentPosition();
-        double[] change = {changeFL,changeFR,changeBL,changeBR};
-        return change;
+        eAvg = (eFL + eFR + eBL + eBR) / 4;
+        changeFL = 0;
+        changeFR = 0;
+        changeBR = 0;
+        changeBL = 0;
+        avgChange = 0;
+        motorFL.setPower(0);
+        motorFR.setPower(0);
+        motorBL.setPower(0);
+        motorBR.setPower(0);
     }
 
-    public void turn(){
-        motorFL.setPower(1);
-        motorBL.setPower(1);
-
-
+    public void getChange() {
+        changeFL = motorFL.getCurrentPosition() - eFL;
+        changeFR = motorFR.getCurrentPosition() - eFR;
+        changeBL = motorBL.getCurrentPosition() - eBL;
+        changeBR = motorBR.getCurrentPosition() - eBR;
+        avgChange = (changeFL + changeFR + changeBL + changeBR) / 4;
     }
 }
