@@ -23,6 +23,8 @@ public class ScrimmageAutoBlue extends LinearOpMode {
     double avgChange;
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addData("Encoder Average init", eAvg);
+        telemetry.addData("Average Chanage init", avgChange);
         motorFL = hardwareMap.dcMotor.get("motorFR");
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
@@ -39,8 +41,14 @@ public class ScrimmageAutoBlue extends LinearOpMode {
             motorFR.setPower(speed);
             motorBL.setPower(-speed);
             motorBR.setPower(speed);
+            telemetry.addData("Encoder Average", eAvg);
+            telemetry.addData("Average Chanage", avgChange);
             getChange();
         }
+        motorFL.setPower(0);
+        motorFR.setPower(0);
+        motorBL.setPower(0);
+        motorBR.setPower(0);
     }
 
     public void reset() {
