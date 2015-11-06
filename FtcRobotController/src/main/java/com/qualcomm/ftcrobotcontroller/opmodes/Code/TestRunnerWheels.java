@@ -1,6 +1,8 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import static java.lang.Math.abs;
 
 /**
@@ -16,6 +18,8 @@ public class TestRunnerWheels extends OpMode {
     boolean halfspeed;
     final double HALFSPEED = .08;
     final double FULLSPEED = 1.0;
+    public Servo switchL;
+    public Servo switchR;
 
     long lastTime = 0;
     final long DURATION = 1500;
@@ -26,6 +30,8 @@ public class TestRunnerWheels extends OpMode {
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
+        switchL = hardwareMap.servo.get("switchL");
+        switchR = hardwareMap.servo.get("switchR");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
     }
@@ -58,6 +64,30 @@ public class TestRunnerWheels extends OpMode {
         } else {
             motorFL.setPower(0);
             motorBL.setPower(0);
+        }
+        switcher();
+    }
+
+    public void switcher() {
+        if (gamepad2.left_bumper) {
+            switchL.setDirection(Servo.Direction.FORWARD);
+        } else {
+            switchL.close();
+        }
+        if (gamepad2.left_trigger > .05) {
+            switchL.setDirection(Servo.Direction.REVERSE);
+        } else {
+            switchL.close();
+        }
+        if (gamepad2.right_bumper) {
+            switchR.setDirection(Servo.Direction.FORWARD);
+        } else {
+            switchR.close();
+        }
+        if (gamepad2.right_trigger > .05) {
+            switchR.setDirection(Servo.Direction.REVERSE);
+        } else {
+            switchR.close();
         }
     }
 
