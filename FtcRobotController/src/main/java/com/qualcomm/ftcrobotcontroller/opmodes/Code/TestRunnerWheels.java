@@ -65,30 +65,25 @@ public class TestRunnerWheels extends OpMode {
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
-        switcher();
-    }
-
-    public void switcher() {
         if (gamepad2.left_bumper) {
-            switchL.setDirection(Servo.Direction.FORWARD);
+            switchL.setPosition(1);
         } else {
-            switchL.close();
+            switchL.setPosition(.5);
         }
         if (gamepad2.left_trigger > .05) {
-            switchL.setDirection(Servo.Direction.REVERSE);
+            switchL.setPosition(0);
         } else {
-            switchL.close();
+            switchL.setPosition(.5);
         }
         if (gamepad2.right_bumper) {
-            switchR.setDirection(Servo.Direction.FORWARD);
+            switchR.setPosition(0);
         } else {
-            switchR.close();
+            switchR.setPosition(.5);
         }
         if (gamepad2.right_trigger > .05) {
-            switchR.setDirection(Servo.Direction.REVERSE);
+            switchR.setPosition(1);
         } else {
-            switchR.close();
+            switchR.setPosition(.5);
         }
     }
-
 }
