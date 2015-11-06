@@ -28,8 +28,6 @@ public class ScrimmageAutoBlue extends LinearOpMode {
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
 
-        waitForStart();
-
         moveForward(1, 1000);
         reset();
     }
@@ -41,6 +39,7 @@ public class ScrimmageAutoBlue extends LinearOpMode {
             motorFR.setPower(speed);
             motorBL.setPower(-speed);
             motorBR.setPower(speed);
+            getChange();
         }
     }
 
