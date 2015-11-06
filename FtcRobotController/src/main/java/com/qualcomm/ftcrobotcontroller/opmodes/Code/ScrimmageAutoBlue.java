@@ -37,9 +37,9 @@ public class ScrimmageAutoBlue extends LinearOpMode {
     public void moveForward(double speed, double goal) {
         reset();
         while (avgChange < goal) {
-            motorFL.setPower(speed);
+            motorFL.setPower(-speed);
             motorFR.setPower(speed);
-            motorBL.setPower(speed);
+            motorBL.setPower(-speed);
             motorBR.setPower(speed);
         }
     }
