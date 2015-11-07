@@ -37,14 +37,14 @@ public class TestRunnerWheels extends OpMode {
     }
 
     public void loop(){
-        if (gamepad1.left_trigger == 1) {
-            long currentTime = System.currentTimeMillis();
-            // are we waiting?
-            if (currentTime > lastTime + DURATION) {
-                halfspeed = !halfspeed;
-                lastTime = currentTime;
-            }
-        }
+//        if (gamepad1.left_trigger == 1) {
+//            long currentTime = System.currentTimeMillis();
+//            // are we waiting?
+//            if (currentTime > lastTime + DURATION) {
+//                halfspeed = !halfspeed;
+//                lastTime = currentTime;
+//            }
+//        }
 
         double speed = (halfspeed) ? HALFSPEED : FULLSPEED;
         boolean right_y = abs(gamepad1.right_stick_y) > .05;
@@ -65,25 +65,25 @@ public class TestRunnerWheels extends OpMode {
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
-        if (gamepad2.left_bumper) {
+        if (gamepad1.left_bumper) {
             switchL.setPosition(1);
         } else {
             switchL.setPosition(.5);
         }
-        if (gamepad2.left_trigger > .05) {
+        if (gamepad1.left_trigger > .05) {
             switchL.setPosition(0);
         } else {
             switchL.setPosition(.5);
         }
-        if (gamepad2.right_bumper) {
+        if (gamepad1.right_bumper) {
             switchR.setPosition(0);
         } else {
             switchR.setPosition(.5);
         }
-        if (gamepad2.right_trigger > .05) {
+        if (gamepad1.right_trigger > .05) {
             switchR.setPosition(1);
         } else {
-            switchR.setPosition(.5);
+            switchR.setPosition(0);
         }
     }
 }
