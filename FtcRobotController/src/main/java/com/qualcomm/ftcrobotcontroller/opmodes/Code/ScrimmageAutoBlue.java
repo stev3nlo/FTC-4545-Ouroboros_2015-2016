@@ -30,28 +30,39 @@ public class ScrimmageAutoBlue extends LinearOpMode {
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
 
-        moveForward(1, 1000);
-        reset();
-    }
-
-    public void moveForward(double speed, double goal) {
-        reset();
-        while (avgChange < goal) {
-            motorFL.setPower(-speed);
-            motorFR.setPower(speed);
-            motorBL.setPower(-speed);
-            motorBR.setPower(speed);
-            telemetry.addData("Encoder Average", eAvg);
-            telemetry.addData("Average Chanage", avgChange);
-            getChange();
-        }
+        //reset the variables
+        eFL = motorFL.getCurrentPosition();
+        eFR = motorFR.getCurrentPosition();
+        eBL = motorBL.getCurrentPosition();
+        eBR = motorBR.getCurrentPosition();
+        eAvg = (eFL + eFR + eBL + eBR) / 4;
+        changeFL = 0;
+        changeFR = 0;
+        changeBR = 0;
+        changeBL = 0;
+        avgChange = 0;
         motorFL.setPower(0);
         motorFR.setPower(0);
         motorBL.setPower(0);
         motorBR.setPower(0);
-    }
 
-    public void reset() {
+        //move forward
+        while (avgChange < 1000) {
+            motorFL.setPower(-1);
+            motorFR.setPower(1);
+            motorBL.setPower(-1);
+            motorBR.setPower(1);
+            telemetry.addData("Encoder Average", eAvg);
+            telemetry.addData("Average Chanage", avgChange);
+            //updates the change in encoder values
+            changeFL = motorFL.getCurrentPosition() - eFL;
+            changeFR = motorFR.getCurrentPosition() - eFR;
+            changeBL = motorBL.getCurrentPosition() - eBL;
+            changeBR = motorBR.getCurrentPosition() - eBR;
+            avgChange = (changeFL + changeFR + changeBL + changeBR) / 4;
+        }
+
+        //reset the variables
         eFL = motorFL.getCurrentPosition();
         eFR = motorFR.getCurrentPosition();
         eBL = motorBL.getCurrentPosition();
@@ -68,11 +79,45 @@ public class ScrimmageAutoBlue extends LinearOpMode {
         motorBR.setPower(0);
     }
 
-    public void getChange() {
-        changeFL = motorFL.getCurrentPosition() - eFL;
-        changeFR = motorFR.getCurrentPosition() - eFR;
-        changeBL = motorBL.getCurrentPosition() - eBL;
-        changeBR = motorBR.getCurrentPosition() - eBR;
-        avgChange = (changeFL + changeFR + changeBL + changeBR) / 4;
-    }
+//    public void moveForward(double speed, double goal) {
+//        reset();
+//        while (avgChange < goal) {
+//            motorFL.setPower(-speed);
+//            motorFR.setPower(speed);
+//            motorBL.setPower(-speed);
+//            motorBR.setPower(speed);
+//            telemetry.addData("Encoder Average", eAvg);
+//            telemetry.addData("Average Chanage", avgChange);
+//            getChange();
+//        }
+//        motorFL.setPower(0);
+//        motorFR.setPower(0);
+//        motorBL.setPower(0);
+//        motorBR.setPower(0);
+//    }
+//
+//    public void reset() {
+//        eFL = motorFL.getCurrentPosition();
+//        eFR = motorFR.getCurrentPosition();
+//        eBL = motorBL.getCurrentPosition();
+//        eBR = motorBR.getCurrentPosition();
+//        eAvg = (eFL + eFR + eBL + eBR) / 4;
+//        changeFL = 0;
+//        changeFR = 0;
+//        changeBR = 0;
+//        changeBL = 0;
+//        avgChange = 0;
+//        motorFL.setPower(0);
+//        motorFR.setPower(0);
+//        motorBL.setPower(0);
+//        motorBR.setPower(0);
+//    }
+//
+//    public void getChange() {
+//        changeFL = motorFL.getCurrentPosition() - eFL;
+//        changeFR = motorFR.getCurrentPosition() - eFR;
+//        changeBL = motorBL.getCurrentPosition() - eBL;
+//        changeBR = motorBR.getCurrentPosition() - eBR;
+//        avgChange = (changeFL + changeFR + changeBL + changeBR) / 4;
+//    }
 }
