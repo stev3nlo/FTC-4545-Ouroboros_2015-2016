@@ -32,6 +32,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheels;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -83,8 +85,8 @@ public class FtcOpModeRegister implements OpModeRegister {
      *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
      */
     manager.register("TeleOp", TeleOp.class);
-    manager.register("ScrimmageAutoBlue", LinearOpMode   .class);
-    manager.register("ScrimmageRedZone", LinearOpMode   .class);
+    manager.register("ScrimmageAutoBlue", ScrimmageAutoBlue.class);
+    manager.register("ScrimmageRedZone", ScrimmageRedZone.class);
 
 
 

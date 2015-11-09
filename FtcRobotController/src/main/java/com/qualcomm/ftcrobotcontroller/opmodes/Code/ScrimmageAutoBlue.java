@@ -29,9 +29,14 @@ public class ScrimmageAutoBlue extends LinearOpMode {
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
+        try {
+            waitForStart();
+        } catch (InterruptedException e) {
+
+        }
 
         //reset the variables
-        eFL = motorFL.getCurrentPosition();
+        eFL = motorFL  .getCurrentPosition();
         eFR = motorFR.getCurrentPosition();
         eBL = motorBL.getCurrentPosition();
         eBR = motorBR.getCurrentPosition();
