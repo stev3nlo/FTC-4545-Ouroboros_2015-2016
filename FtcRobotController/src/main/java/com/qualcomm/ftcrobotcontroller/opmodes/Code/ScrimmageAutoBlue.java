@@ -36,7 +36,7 @@ public class ScrimmageAutoBlue extends LinearOpMode {
         }
 
         //reset the variables
-        eFL = motorFL  .getCurrentPosition();
+        eFL = motorFL.getCurrentPosition();
         eFR = motorFR.getCurrentPosition();
         eBL = motorBL.getCurrentPosition();
         eBR = motorBR.getCurrentPosition();
