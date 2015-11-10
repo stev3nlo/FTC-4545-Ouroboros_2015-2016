@@ -22,20 +22,21 @@ public class AutoBlue extends LinearOpMode {
         try {
             waitForStart();
         } catch (InterruptedException e) {
-            start = (FL.getCurrentPosition() + FR.getCurrentPosition() + BL.getCurrentPosition() + BR.getCurrentPosition()) / 4;
-            change = 0;
-            while (change < 10) {
-                FL.setPower(-1);
-                FR.setPower(1);
-                BL.setPower(-1);
-                BR.setPower(1);
-                change = ((FL.getCurrentPosition() + FR.getCurrentPosition() + BL.getCurrentPosition() + BR.getCurrentPosition()) / 4) - start;
-                telemetry.addData("Total Change: ", change);
-            }
-            FL.setPower(0);
-            FR.setPower(0);
-            BL.setPower(0);
-            BR.setPower(0);
+
         }
+        start = (FL.getCurrentPosition() + FR.getCurrentPosition() + BL.getCurrentPosition() + BR.getCurrentPosition()) / 4;
+        change = 0;
+        while (change < 10) {
+            FL.setPower(-1);
+            FR.setPower(1);
+            BL.setPower(-1);
+            BR.setPower(1);
+            change = ((FL.getCurrentPosition() + FR.getCurrentPosition() + BL.getCurrentPosition() + BR.getCurrentPosition()) / 4) - start;
+            telemetry.addData("Total Change: ", change);
+        }
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
     }
 }
