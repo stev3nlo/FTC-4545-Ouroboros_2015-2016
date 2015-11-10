@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
  * Created by Steven on 11/2/2015.
@@ -16,55 +17,32 @@ public class ScrimmageAutoBlue extends LinearOpMode {
     double eBL;
     double eBR;
     double eAvg;
-    double changeFL;
-    double changeFR;
-    double changeBL;
-    double changeBR;
+    int changeFL;
+    int changeFR;
+    int changeBL;
+    int changeBR;
     double avgChange;
+    long time;
+    int totalChange = 0;
+    double speed = 0.2;
     @Override
     public void runOpMode() throws InterruptedException {
-        telemetry.addData("Encoder Average init", eAvg);
-        telemetry.addData("Average Chanage init", avgChange);
         motorFL = hardwareMap.dcMotor.get("motorFR");
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
+
+        motorFL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motorFR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
+        time = System.currentTimeMillis();
+        telemetry.addData("Start time: ", time);
         try {
             waitForStart();
         } catch (InterruptedException e) {
-
-        }
-
-        //reset the variables
-        eFL = motorFL  .getCurrentPosition();
-        eFR = motorFR.getCurrentPosition();
-        eBL = motorBL.getCurrentPosition();
-        eBR = motorBR.getCurrentPosition();
-        eAvg = (eFL + eFR + eBL + eBR) / 4;
-        changeFL = 0;
-        changeFR = 0;
-        changeBR = 0;
-        changeBL = 0;
-        avgChange = 0;
-        motorFL.setPower(0);
-        motorFR.setPower(0);
-        motorBL.setPower(0);
-        motorBR.setPower(0);
-
-        //move forward
-        while (avgChange < 1000) {
-            motorFL.setPower(-1);
-            motorFR.setPower(1);
-            motorBL.setPower(-1);
-            motorBR.setPower(1);
-            telemetry.addData("Encoder Average", eAvg);
-            telemetry.addData("Average Chanage", avgChange);
-            //updates the change in encoder values
-            changeFL = motorFL.getCurrentPosition() - eFL;
-            changeFR = motorFR.getCurrentPosition() - eFR;
-            changeBL = motorBL.getCurrentPosition() - eBL;
-            changeBR = motorBR.getCurrentPosition() - eBR;
-            avgChange = (changeFL + changeFR + changeBL + changeBR) / 4;
+            System.err.print(e.getMessage());
         }
 
         //reset the variables
@@ -82,6 +60,37 @@ public class ScrimmageAutoBlue extends LinearOpMode {
         motorFR.setPower(0);
         motorBL.setPower(0);
         motorBR.setPower(0);
+
+        //motorFL.setPower(-speed);
+        //motorBL.setPower(-speed);
+        motorFR.setPower(speed);
+        motorBR.setPower(speed);
+
+        //move forward
+        int numLoops = 0;
+        while (totalChange < 20) {
+            //updates the change in encoder values
+            changeFL = motorFL.getCurrentPosition();
+            changeFR = motorFR.getCurrentPosition();
+            changeBL = motorBL.getCurrentPosition();
+            changeBR = motorBR.getCurrentPosition();
+            avgChange = (changeFL + changeFR + changeBL + changeBR) / 4;
+            totalChange += changeFR;
+            numLoops++;
+            try {Thread.sleep(200);}catch(Exception e) {}
+        }
+
+        motorFL.setPower(0);
+        motorFR.setPower(0);
+        motorBL.setPower(0);
+        motorBR.setPower(0);
+
+        telemetry.addData("changeFL", changeFL);
+        telemetry.addData("changeFR", changeFR);
+        telemetry.addData("changeBL", changeBL);
+        telemetry.addData("changeBR", changeBR);
+        telemetry.addData("Total Change", totalChange);
+        telemetry.addData("Num loops", numLoops);
     }
 
 //    public void moveForward(double speed, double goal) {
