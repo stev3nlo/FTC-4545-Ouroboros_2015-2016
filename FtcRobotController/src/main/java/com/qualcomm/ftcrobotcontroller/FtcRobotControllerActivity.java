@@ -61,7 +61,12 @@ import com.qualcomm.ftccommon.LaunchActivityConstantsList;
 import com.qualcomm.ftccommon.Restarter;
 import com.qualcomm.ftccommon.UpdateUI;
 import com.qualcomm.ftcrobotcontroller.opmodes.FtcOpModeRegister;
+<<<<<<< HEAD
 import com.qualcomm.hardware.HardwareFactory;
+=======
+import com.qualcomm.hardware.ModernRoboticsHardwareFactory;
+import com.qualcomm.robotcore.hardware.HardwareFactory;
+>>>>>>> 7262ad78fd88de3ffabe8b4dda1dd9273b477ff5
 import com.qualcomm.robotcore.hardware.configuration.Utility;
 import com.qualcomm.robotcore.util.Dimmer;
 import com.qualcomm.robotcore.util.ImmersiveMode;
@@ -173,7 +178,11 @@ public class FtcRobotControllerActivity extends Activity {
 
     hittingMenuButtonBrightensScreen();
 
+<<<<<<< HEAD
     if (USE_DEVICE_EMULATION) { HardwareFactory.enableDeviceEmulation(); }
+=======
+    if (USE_DEVICE_EMULATION) { ModernRoboticsHardwareFactory.enableDeviceEmulation(); }
+>>>>>>> 7262ad78fd88de3ffabe8b4dda1dd9273b477ff5
   }
 
   @Override
@@ -297,6 +306,10 @@ public class FtcRobotControllerActivity extends Activity {
           utility.updateHeader(Utility.NO_FILE, R.string.pref_hardware_config_filename, R.id.active_filename, R.id.included_header);
         }
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7262ad78fd88de3ffabe8b4dda1dd9273b477ff5
     }
   }
 
@@ -320,7 +333,11 @@ public class FtcRobotControllerActivity extends Activity {
     HardwareFactory factory;
 
     // Modern Robotics Factory for use with Modern Robotics hardware
+<<<<<<< HEAD
     HardwareFactory modernRoboticsFactory = new HardwareFactory(context);
+=======
+    ModernRoboticsHardwareFactory modernRoboticsFactory = new ModernRoboticsHardwareFactory(context);
+>>>>>>> 7262ad78fd88de3ffabe8b4dda1dd9273b477ff5
     modernRoboticsFactory.setXmlInputStream(fis);
     factory = modernRoboticsFactory;
 
