@@ -93,6 +93,7 @@ public class AutoBlue extends LinearOpMode {
     }
 
     public void turn(String dir, double speed, double goal) {
+        reset();
         if (dir.equals("right")) {
             while (change < goal) {
                 telemetry.addData("Change", change);
@@ -130,6 +131,11 @@ public class AutoBlue extends LinearOpMode {
         else {
             telemetry.addData("Error: ", "Invalid Direction");
         }
-
+        reset();
+        try {
+            sleep(500);
+        } catch (InterruptedException e){
+            telemetry.addData("Error", e);
+        }
     }
 }
