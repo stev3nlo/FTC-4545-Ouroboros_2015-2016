@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 
 <!--
 Copyright (c) 2014, 2015 Qualcomm Technologies Inc
@@ -34,8 +33,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-=======
->>>>>>> 7262ad78fd88de3ffabe8b4dda1dd9273b477ff5
 <resources>
   <color name="light_red_background">#790E15</color>
   <color name="dark_red_background">#3F0206</color>

@@ -18,7 +18,6 @@ For technical questions regarding the SDK, please visit the FTC Technology forum
 
   http://ftcforum.usfirst.org/forumdisplay.php?156-FTC-Technology
 
-<<<<<<< HEAD
 **************************************************************************************
 
 Release 15.11.04.001
@@ -75,8 +74,6 @@ October 6, 2015
 
 **************************************************************************************
 
-=======
->>>>>>> 7262ad78fd88de3ffabe8b4dda1dd9273b477ff5
 In this latest version of the FTC SDK (20150803_001) the following changes should be noted:
 
  * New user interfaces for FTC Driver Station and FTC Robot Controller apps.
@@ -95,7 +92,3 @@ In this latest version of the FTC SDK (20150803_001) the following changes shoul
 
 T. Eng
 August 3, 2015
-<<<<<<< HEAD
-=======
-
->>>>>>> 7262ad78fd88de3ffabe8b4dda1dd9273b477ff5
