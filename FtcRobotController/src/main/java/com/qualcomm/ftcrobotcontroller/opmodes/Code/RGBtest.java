@@ -1,5 +1,6 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 
+import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import android.app.Activity;
@@ -7,6 +8,9 @@ import android.graphics.Color;
 import android.view.View;
 import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.DigitalChannelController;
+import com.qualcomm.robotcore.hardware.LED;
 //import com.qualcomm.ftcRobotcontroller.R;
 //import com.qualcomm.Robotcore.eventloop.opmode.LinearOpMode;
 //import com.qualcomm.Robotcore.hardware.ColorSensor;
@@ -20,15 +24,67 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 public class RGBtest extends OpMode{
 
     ColorSensor colorSensor;
+    DeviceInterfaceModule cdim;
+    static final int LED_CHANNEL = 5;
 
+    boolean bEnabled = false;
+    boolean bPrevState = false;
+    boolean bCurrState = false;
+
+    float hsvValues[] = {0F,0F,0F};
+    final float values[] = hsvValues;
+
+    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(R.id.RelativeLayout);
 
     @Override
     public void init() {
+        cdim = hardwareMap.deviceInterfaceModule.get("dim");
 
+        cdim.setDigitalChannelMode(LED_CHANNEL, DigitalChannelController.Mode.OUTPUT);
+
+        colorSensor = hardwareMap.colorSensor.get("lady");
+
+        cdim.setDigitalChannelState(LED_CHANNEL,bEnabled);
     }
 
     @Override
     public void loop() {
 
+        bCurrState = gamepad1.x || gamepad2.x;
+
+        if (bCurrState == true && bCurrState != bPrevState) {
+
+            DbgLog.msg("MY_DEBUG - x button was pressed! ");
+
+            bPrevState = bCurrState;
+
+            bEnabled = false;
+
+            cdim.setDigitalChannelState(LED_CHANNEL, bEnabled);
+        }
+        else if (bCurrState == false && bCurrState != bPrevState) {
+
+            DbgLog.msg("MY_DEBUG - x button was released! ");
+
+            bPrevState = bCurrState;
+
+            bEnabled = false;
+
+            cdim.setDigitalChannelState(LED_CHANNEL,bEnabled);
+        }
+
+        Color.RGBToHSV((colorSensor.red() * 255) / 800, (colorSensor.green() * 255) / 800, (colorSensor.blue() * 255) / 800, hsvValues);
+
+        telemetry.addData("Clear", sensorRGB.alpha());
+        telemetry.addData("Red  ", sensorRGB.red());
+        telemetry.addData("Green", sensorRGB.green());
+        telemetry.addData("Blue ", sensorRGB.blue());
+        telemetry.addData("Hue", hsvValues[0]);
+
+        relativeLayout.post(new Runnable() {
+            public void run() {
+                relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+            }
+        });
     }
 }
