@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
@@ -88,7 +89,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("ScrimmageAutoBlue", ScrimmageAutoBlue.class);
     manager.register("ScrimmageRedZone", ScrimmageRedZone.class);
 
-
+    manager.register("AutoBlue", AutoBlue.class);
 
   }
 }

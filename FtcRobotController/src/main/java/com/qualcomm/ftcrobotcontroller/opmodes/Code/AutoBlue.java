@@ -30,9 +30,10 @@ public class AutoBlue extends LinearOpMode {
         } catch (InterruptedException e){
             telemetry.addData("Error", e);
         }
-        moveForward(1, 4500);
-        turn("right", .5, 3000);
-        moveBackwards(1, 4500);
+        moveForward(1, 1000);
+        turn("right", .5, 500);
+        moveBackwards(1, 1000);
+        turn("left", .5, 500);
     }
 
     public void reset() {
@@ -45,24 +46,23 @@ public class AutoBlue extends LinearOpMode {
         change = 0;
     }
 
-    public void updateChange() {
-        start = (Math.abs(motorFL.getCurrentPosition()) + Math.abs(motorFR.getCurrentPosition()) + Math.abs(motorBL.getCurrentPosition()) + Math.abs(motorBR.getCurrentPosition())) / 4;
-        change = curr - start;
-    }
-
     public void updateCurr() {
         curr = (Math.abs(motorFL.getCurrentPosition()) + Math.abs(motorFR.getCurrentPosition()) + Math.abs(motorBL.getCurrentPosition()) + Math.abs(motorBR.getCurrentPosition())) / 4;
+    }
+
+    public void updateChange() {
+        updateCurr();
+        change = curr - start;
     }
 
     public void moveForward(double speed, double goal) {
         reset();
         while (change < goal) {
             telemetry.addData("Change", change);
-            motorFL.setPower(speed);
-            motorFR.setPower(-speed);
-            motorBL.setPower(speed);
-            motorBR.setPower(-speed);
-            updateCurr();
+            motorFL.setPower(-speed);
+            motorFR.setPower(speed);
+            motorBL.setPower(-speed);
+            motorBR.setPower(speed);
             updateChange();
         }
         reset();
@@ -77,11 +77,10 @@ public class AutoBlue extends LinearOpMode {
         reset();
         while (change < goal) {
             telemetry.addData("Change", change);
-            motorFL.setPower(-speed);
-            motorFR.setPower(speed);
-            motorBL.setPower(-speed);
-            motorBR.setPower(speed);
-            updateCurr();
+            motorFL.setPower(speed);
+            motorFR.setPower(-speed);
+            motorBL.setPower(speed);
+            motorBR.setPower(-speed);
             updateChange();
         }
         reset();
@@ -97,11 +96,10 @@ public class AutoBlue extends LinearOpMode {
         if (dir.equals("right")) {
             while (change < goal) {
                 telemetry.addData("Change", change);
-                motorFL.setPower(speed);
-                motorFR.setPower(speed);
-                motorBL.setPower(speed);
-                motorBR.setPower(speed);
-                updateCurr();
+                motorFL.setPower(-speed);
+                motorFR.setPower(-speed);
+                motorBL.setPower(-speed);
+                motorBR.setPower(-speed);
                 updateChange();
             }
             reset();
@@ -114,11 +112,10 @@ public class AutoBlue extends LinearOpMode {
         if (dir.equals("left")) {
             while (change < goal) {
                 telemetry.addData("Change", change);
-                motorFL.setPower(-speed);
-                motorFR.setPower(-speed);
-                motorBL.setPower(-speed);
-                motorBR.setPower(-speed);
-                updateCurr();
+                motorFL.setPower(speed);
+                motorFR.setPower(speed);
+                motorBL.setPower(speed);
+                motorBR.setPower(speed);
                 updateChange();
             }
             reset();
