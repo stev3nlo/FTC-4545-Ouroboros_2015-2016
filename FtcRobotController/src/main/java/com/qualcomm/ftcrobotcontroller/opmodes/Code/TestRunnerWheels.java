@@ -15,6 +15,8 @@ public class TestRunnerWheels extends OpMode {
     public DcMotor motorFL;
     public DcMotor motorBR;
     public DcMotor motorBL;
+    public DcMotor motorHangL;
+    public DcMotor motorHangR;
     boolean halfspeed;
     final double HALFSPEED = .08;
     final double FULLSPEED = 1.0;
@@ -32,6 +34,8 @@ public class TestRunnerWheels extends OpMode {
         motorBR = hardwareMap.dcMotor.get("motorBL");
         switchL = hardwareMap.servo.get("switchL");
         switchR = hardwareMap.servo.get("switchR");
+        motorHangL = hardwareMap.dcMotor.get("motorHangl");
+        motorHangR = hardwareMap.dcMotor.get("motorHangR");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
     }
@@ -65,6 +69,16 @@ public class TestRunnerWheels extends OpMode {
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
+
+        if (gamepad2.right_stick_y > .05 || gamepad2.left_stick_y < .05) { //sets the motors that move the hang pulley
+            motorHangL.setPower(gamepad2.right_stick_y);
+            motorHangR.setPower(gamepad2.left_stick_y * -1);
+        }
+        else {
+            motorHangL.setPower(0);
+            motorHangR.setPower(0);
+        }
+        /*
         if (gamepad1.left_bumper) {
             switchL.setPosition(1);
         } else {
@@ -85,5 +99,7 @@ public class TestRunnerWheels extends OpMode {
         } else {
             switchR.setPosition(0);
         }
+        */
+
     }
 }
