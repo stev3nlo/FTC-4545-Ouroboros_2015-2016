@@ -27,6 +27,7 @@ public class TeleOp extends OpMode {
     boolean reverse = false;
     boolean halfspeed;
     final double HALFSPEED = .3;
+    public int time = 0;
 
     public void init(){
         boxTilt.setPosition(boxTiltPosition);
@@ -54,12 +55,12 @@ public class TeleOp extends OpMode {
                     }
                 else { //Regular tank controls
                     if (abs(gamepad1.right_stick_y) > .05) {
-                        motorFR.setPower(gamepad1.right_stick_y);
-                        motorBR.setPower(gamepad1.right_stick_y);
+                        motorFR.setPower(gamepad1.right_stick_y * -1);
+                        motorBR.setPower(gamepad1.right_stick_y * -1);
                     }
                     else if (abs(gamepad1.left_stick_y) > .05) {
-                        motorFL.setPower(gamepad1.left_stick_y * -1);
-                        motorBL.setPower(gamepad1.left_stick_y * -1);
+                        motorFL.setPower(gamepad1.left_stick_y);
+                        motorBL.setPower(gamepad1.left_stick_y);
                     }
                     else {
                         motorFL.setPower(0);
@@ -70,7 +71,7 @@ public class TeleOp extends OpMode {
                 }
             } else {
                 reverse = true;
-//============================================= Half Speed for drive ======================================
+//======================================================== Half Speed for drive ======================================
                 if (gamepad1.left_trigger == 1) {
                     if (halfspeed) {
                         halfspeed = false;
@@ -91,18 +92,18 @@ public class TeleOp extends OpMode {
 //=========================================== Regular Tank Controls ========================================
                 else {
                     if (abs(gamepad1.right_stick_y) > .05) {
-                        motorFR.setPower(gamepad1.right_stick_y);
-                        motorBR.setPower(gamepad1.right_stick_y);
+                        motorFR.setPower(gamepad1.right_stick_y * -1);
+                        motorBR.setPower(gamepad1.right_stick_y * -1);
                     }
                     if (abs(gamepad1.left_stick_y) > .05) {
-                        motorFL.setPower(gamepad1.left_stick_y * -1);
-                        motorBL.setPower(gamepad1.left_stick_y * -1);
+                        motorFL.setPower(gamepad1.left_stick_y);
+                        motorBL.setPower(gamepad1.left_stick_y);
                     }
                 }
 
             }
         }
-//============================================== Manipulator =================================================
+//============================================= Manipulator =================================================
         if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5)) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0)) {
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
         } else if (gamepad2.right_trigger > 0.5) {
@@ -135,17 +136,20 @@ public class TeleOp extends OpMode {
         if (gamepad2.right_stick_y > .05 || gamepad2.left_stick_y < .05) { //sets the motors that move the hang pulley
             motorHangL.setPower(gamepad2.right_stick_y * -1);
             motorHangR.setPower(gamepad2.right_stick_y * -1);
-        } else {
+        }
+        else {
             motorHangL.setPower(0);
             motorHangR.setPower(0);
         }
 //==================================================== Macros ==================================================
+        // full speed forward
         if (gamepad1.x) {
             motorFR.setPower(-1);
             motorFL.setPower(1);
             motorBR.setPower(-1);
             motorBL.setPower(1);
         }
+        // full speed backward
         if (gamepad1.b) {
             motorFR.setPower(1);
             motorFL.setPower(-1);
