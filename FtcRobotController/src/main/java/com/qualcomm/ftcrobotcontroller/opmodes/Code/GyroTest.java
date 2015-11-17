@@ -247,24 +247,255 @@ public class GyroTest implements HardwareDevice, I2cController.I2cPortReadyCallb
 
         }
 
-        
+        if (okSoFar) {
 
+            outboundBytes[0] = (byte) operationalMode;
+            Log.i("FtcRobotController", String.format("Setting operational mode = 0X%02X........"
+                    ,outboundBytes[0] ));
+            okSoFar &= i2cWriteImmediately(outboundBytes, 1, BNO055_OPR_MODE_ADDR);
+            if (!okSoFar) {
+                throw new RobotCoreException("Operational mode setting interrupted or I2C bus" +
+                        " \"stuck busy\".");
+            }
+        }
+
+        if (okSoFar) {
+            Log.i("FtcRobotController", "Now waiting for autocalibration............");
+            calibrationStartTime = System.nanoTime();
+            okSoFar &= autoCalibrationOK(10);
+
+            if (!okSoFar) {
+                throw new RobotCoreException("Auto calibration interrupted or I2C bus \"stuck busy\", "
+                        + "OR it timed out after "
+                        + String.format("%3.3f", (double) ((System.nanoTime() - calibrationStartTime) / 1000000000L))
+                        + " sec.");
+            }
+        }
+
+        if (okSoFar) {
+            Log.i("FtcRobotController", "Auto calibration completed OK after "
+                    + String.format("%3.3f", (double) ((System.nanoTime() - calibrationStartTime) / 1000000000L))
+                    + " sec.");
+            Log.i("FtcRobotController", "IMU fully operational!");
+        }
+    }
+
+    private boolean i2cWriteImmediately(byte[]outboundBytes, int byteCount, int registerAddress){
+        long rightNow = System.nanoTime(), startTime = System.nanoTime(), timeOut = 3000000000L;
+        int indx;
+
+        try {
+            while ((!i2cIMU.isI2cPortReady())
+                    && (((rightNow = System.nanoTime()) - startTime) < timeOut)){
+                Thread.sleep(250);
+
+            }
+        } catch (InterruptedException e) {
+            Log.i("FtcRobotController", "Unexpected interrupt while \"sleeping\" in i2cWriteImmediately.");
+            return false;
+        }
+        if ((rightNow - startTime) >= timeOut) return false;
+
+        try {
+            i2cWriteCacheLock.lock();
+            for (indx =0; indx < byteCount; indx++) {
+                i2cWriteCache[I2cController.I2C_BUFFER_START_ADDRESS + indx] = outboundBytes[indx];
+            }
+        } finally {
+            i2cWriteCacheLock.unlock();
+        }
+        i2cIMU.enableI2cWriteMode(baseI2Caddress, registerAddress, byteCount);
+        i2cIMU.setI2cPortActionFlag();
+        i2cIMU.writeI2cCacheToController();
+        snooze(250);
+        return true;
+    }
+
+    private boolean autoCalibrationOK(int timeOutSeconds){
+        boolean readingEnabled = false, calibrationDone = false;
+        long calibrationStart = System.nanoTime(), rightNow = System.nanoTime(),
+                loopStart = System.nanoTime();;
+
+        while ((System.nanoTime() - calibrationStart) <= 60000000000L) {
+
+            try {
+                loopStart = System.nanoTime();
+                while ((!i2cIMU.isI2cPortReady())
+                        && (((rightNow = System.nanoTime()) - loopStart) < (timeOutSeconds * 1000000000L))) {
+                    Thread.sleep(250);
+
+                }
+            } catch (InterruptedException e) {
+                Log.i("FtcRobotController", "Unexpected interrupt while \"sleeping\" in autoCalibrationOK.");
+                return false;
+            }
+
+            if ((rightNow - loopStart) >= (timeOutSeconds * 1000000000L)) {
+                Log.i("FtcRobotController", "IMU I2C port \"stuck busy\" for "
+                        + (rightNow - loopStart) + " ns.");
+                return false;
+            }
+
+            if (!readingEnabled) {
+
+                i2cIMU.enableI2cReadMode(baseI2Caddress, BNO055_CALIB_STAT_ADDR, 2);
+                i2cIMU.setI2cPortActionFlag();
+                i2cIMU.writeI2cCacheToController();
+                snooze(250);
+                readingEnabled = true;
+            }
+
+            else {
+                i2cIMU.readI2cCacheFromController();
+                snooze(500);
+                try {
+                    i2cReadCacheLock.lock();
+                    if ((i2cReadCache[I2cController.I2C_BUFFER_START_ADDRESS + 1] == (byte)0X0F) &&
+                            (i2cReadCache[I2cController.I2C_BUFFER_START_ADDRESS] >= (byte)0X30)
+                            ) {
+                        calibrationDone = true;//Auto calibration finished successfully
+                    }
+                }
+                finally {
+                    i2cReadCacheLock.unlock();
+                }
+                if(calibrationDone) {
+                    Log.i("FtcRobotController", "Autocalibration OK! Cal status byte = "
+                            + String.format("0X%02X", i2cReadCache[I2cController.I2C_BUFFER_START_ADDRESS])
+                            + ". Self Test byte = "
+                            + String.format("0X%02X", i2cReadCache[I2cController.I2C_BUFFER_START_ADDRESS + 1])
+                            + ".");
+                    return true;
+                }
+                i2cIMU.setI2cPortActionFlag();
+                i2cIMU.writeI2cPortFlagOnlyToController();
+                snooze(250);
+            }
+        }
+
+        Log.i("FtcRobotController", "Autocalibration timed out! Cal status byte = "
+                + String.format("0X%02X",i2cReadCache[I2cController.I2C_BUFFER_START_ADDRESS])
+                + ". Self Test byte = "
+                + String.format("0X%02X",i2cReadCache[I2cController.I2C_BUFFER_START_ADDRESS + 1])
+                + ".");
+        return false;
+    }
+
+    public void startIMU(){
+        i2cIMU.registerForI2cPortReadyCallback(this);
+        offsetsInitialized = false;
+        i2cIMU.enableI2cReadMode(baseI2Caddress, registerStartAddress, numberOfRegisters);
+        maxReadInterval = 0.0;
+        avgReadInterval = 0.0;
+        totalI2Creads = 0L;
+        i2cIMU.setI2cPortActionFlag();//Set this flag to do the next read
+        i2cIMU.writeI2cCacheToController();
+        readStartTime = System.nanoTime();
+    }
+
+    public void getIMUGyroAngles(double[] roll, double[] pitch, double[] yaw) {
+        short tempR = 0, tempP = 0, tempY = 0;
+        double tempRoll = 0.0, tempPitch = 0.0, tempYaw = 0.0;
+        double tempQuatRoll = 0.0, tempQuatPitch = 0.0, tempQuatYaw = 0.0;
+
+        if (totalI2Creads > 2) {
+            try {
+                i2cReadCacheLock.lock();
+                quaternionVector[0] =
+                        (double) ((short)
+                                ((i2cReadCache[BNO055_QUATERNION_DATA_W_MSB_ADDR - readCacheOffset] & 0XFF) << 8)
+                                | (i2cReadCache[BNO055_QUATERNION_DATA_W_LSB_ADDR - readCacheOffset] & 0XFF)) / 16384.0;
+                quaternionVector[1] =  //Quaternion component "X"
+                        (double) ((short)
+                                ((i2cReadCache[BNO055_QUATERNION_DATA_X_MSB_ADDR - readCacheOffset] & 0XFF) << 8)
+                                | (i2cReadCache[BNO055_QUATERNION_DATA_X_LSB_ADDR - readCacheOffset] & 0XFF)) / 16384.0;
+                quaternionVector[2] =  //Quaternion component "Y"
+                        (double) ((short)
+                                ((i2cReadCache[BNO055_QUATERNION_DATA_Y_MSB_ADDR - readCacheOffset] & 0XFF) << 8)
+                                | (i2cReadCache[BNO055_QUATERNION_DATA_Y_LSB_ADDR - readCacheOffset] & 0XFF)) / 16384.0;
+                quaternionVector[3] =  //Quaternion component "Z"
+                        (double) ((short)
+                                ((i2cReadCache[BNO055_QUATERNION_DATA_Z_MSB_ADDR - readCacheOffset] & 0XFF) << 8)
+                                | (i2cReadCache[BNO055_QUATERNION_DATA_Z_LSB_ADDR - readCacheOffset] & 0XFF)) / 16384.0;
+                tempR = (short) (((i2cReadCache[BNO055_EULER_P_MSB_ADDR - readCacheOffset] & 0XFF) << 8)
+                        | (i2cReadCache[BNO055_EULER_P_LSB_ADDR - readCacheOffset] & 0XFF));
+                tempP = (short) (((i2cReadCache[BNO055_EULER_R_MSB_ADDR - readCacheOffset] & 0XFF) << 8)
+                        | (i2cReadCache[BNO055_EULER_R_LSB_ADDR - readCacheOffset] & 0XFF));
+                tempY = (short) (((i2cReadCache[BNO055_EULER_H_MSB_ADDR - readCacheOffset] & 0XFF) << 8)
+                        | (i2cReadCache[BNO055_EULER_H_LSB_ADDR - readCacheOffset] & 0XFF));
+            } finally {
+                i2cReadCacheLock.unlock();
+            }
+
+            quaternionVector[4] = Math.pow(quaternionVector[0], 2.0) + Math.pow(quaternionVector[1], 2.0)
+                    + Math.pow(quaternionVector[2], 2.0)
+                    + Math.pow(quaternionVector[3], 2.0);
+            tempQuatRoll = 0.0;
+            tempRoll = 0.0;
+
+            tempQuatPitch = (quaternionVector[0] * quaternionVector[2] - quaternionVector[1]
+                    * quaternionVector[3]) * 2.0;
+            tempQuatPitch = Math.asin((tempQuatPitch > 1.0) ? 1.0
+                    : ((tempQuatPitch < -1.0) ? -1.0 : tempQuatPitch)) * 180.0 /Math.PI;
+            tempPitch = -((double) tempP) / 16.0;
+
+            tempQuatYaw = Math.atan2((quaternionVector[0] * quaternionVector[3] + quaternionVector[1]
+                            * quaternionVector[2]) * 2.0,
+                    1.0 - (Math.pow(quaternionVector[2], 2.0) + Math.pow(quaternionVector[3], 2.0)) * 2.0)
+                    * 180.0 / Math.PI;
+            tempYaw = ((double) tempY) / 16.0;
+            tempYaw = -(tempYaw < 180.0 ? tempYaw : (tempYaw - 360.0));
+
+            if (!offsetsInitialized) {
+                rollOffset[0] = tempRoll;
+                rollOffset[1] = tempQuatRoll;
+                pitchOffset[0] = tempPitch;
+                pitchOffset[1] = tempQuatPitch;
+                yawOffset[0] = tempYaw;
+                yawOffset[1] = tempQuatYaw;
+                offsetsInitialized = true;
+                Log.i("FtcRobotController", String.format("Number of \"reads\" to initialize offsets: %d"
+                        , totalI2Creads));
+            }
+            roll[0] = 0.0;
+            roll[1] = 0.0;
+
+            pitch[0] = tempPitch - pitchOffset[0];
+            pitch[0] = (pitch[0] > 90.0) ? 90.0 : ((pitch[0] < -90.0) ? -90.0 : pitch[0]);
+            pitch[1] = tempQuatPitch - pitchOffset[1];
+            pitch[1] = (pitch[1] > 90.0) ? 90.0 : ((pitch[1] < -90.0) ? -90.0 : pitch[1]);
+
+            yaw[0] = tempYaw - yawOffset[0];
+            yaw[0] = (yaw[0] >= 180.0) ? (yaw[0] - 360.0) : ((yaw[0] < -180.0) ? (yaw[0] + 360.0) : yaw[0]);
+            yaw[1] = tempQuatYaw - yawOffset[1];
+            yaw[1] = (yaw[1] >= 180.0) ? (yaw[1] - 360.0) : ((yaw[1] < -180.0) ? (yaw[1] + 360.0) : yaw[1]);
+        } else {
+            roll[0] = 0.0;
+            roll[1] = 0.0;
+            pitch[0] = 0.0;
+            pitch[1] = 0.0;
+            yaw[0] = 0.0;
+            yaw[1] = 0.0;
+        }
     }
 
 
-                       @Override
+
+
+
+                @Override
     public String getDeviceName() {
-        return null;
+                    return "Bosch 9-DOF IMU BNO055";
     }
 
     @Override
     public String getConnectionInfo() {
-        return null;
+        return ("IMU connection info??");
     }
 
     @Override
     public int getVersion() {
-        return 0;
+        return BNO055_ID;
     }
 
     @Override
@@ -273,7 +504,17 @@ public class GyroTest implements HardwareDevice, I2cController.I2cPortReadyCallb
     }
 
     @Override
-    public void portIsReady(int i) {
-
+    public void portIsReady(int port) { //Implementation of I2cController.I2cPortReadyCallback
+        double latestInterval;
+        if ((latestInterval = ((System.nanoTime() - readStartTime) / 1000000.0)) > maxReadInterval)
+            maxReadInterval = latestInterval;
+        avgReadInterval = ((avgReadInterval * 511.0) + latestInterval)/512.0;
+        i2cIMU.readI2cCacheFromController(); //Read in the most recent data from the device
+        totalI2Creads++;
+        i2cIMU.setI2cPortActionFlag();   //Set this flag to do the next read
+        i2cIMU.writeI2cPortFlagOnlyToController();
+        readStartTime = System.nanoTime();
+        totalI2Creads++;
+        //At this point, the port becomes busy (not ready) doing the next read
     }
 }
