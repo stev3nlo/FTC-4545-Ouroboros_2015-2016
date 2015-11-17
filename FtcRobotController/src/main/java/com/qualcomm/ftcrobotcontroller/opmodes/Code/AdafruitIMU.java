@@ -15,7 +15,7 @@ import java.util.concurrent.locks.Lock;
  */
 
 
-public class GyroTest implements HardwareDevice, I2cController.I2cPortReadyCallback {
+public class AdafruitIMU implements HardwareDevice, I2cController.I2cPortReadyCallback {
 
     public static final int BNO055_ADDRESS_A = 0x28;
     public static final int BNO055_ADDRESS_B = 0x29;
