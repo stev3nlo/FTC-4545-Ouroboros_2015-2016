@@ -12,28 +12,34 @@ public class AutoBlue extends LinearOpMode {
     DcMotor motorFR;
     DcMotor motorBL;
     DcMotor motorBR;
-    double start;
-    double curr;
-    double change;
+    int FL;
+    int FR;
+    int BL;
+    int BR;
+    int start;
+    int curr;
+    int change;
     @Override
     public void runOpMode() throws InterruptedException {
         motorFL = hardwareMap.dcMotor.get("motorFR");
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
-        motorFL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        motorFR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
+//        motorFL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+//        motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+//        motorFR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+//        motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        telemetry.addData("motorBL", motorBL.getCurrentPosition());
         try {
             waitForStart();
         } catch (InterruptedException e){
             telemetry.addData("Error", e);
         }
-        moveForward(1, 1000);
-        turn("right", .5, 500);
-        moveBackwards(1, 1000);
-        turn("left", .5, 500);
+        moveForward(1, 4500);
+//        turn("right", .5, 500);
+//        moveBackwards(1, 500);
+//        turn("left", .5, 500);
     }
 
     public void reset() {
@@ -41,28 +47,57 @@ public class AutoBlue extends LinearOpMode {
         motorFR.setPower(0);
         motorBL.setPower(0);
         motorBR.setPower(0);
-        start = 0;
+        updateCurr();
+        start = curr;
         curr = 0;
         change = 0;
     }
 
     public void updateCurr() {
-        curr = (Math.abs(motorFL.getCurrentPosition()) + Math.abs(motorFR.getCurrentPosition()) + Math.abs(motorBL.getCurrentPosition()) + Math.abs(motorBR.getCurrentPosition())) / 4;
+        curr = (FL + FR + BL + BR) / 4;
+        telemetry.addData("curr", curr);
     }
 
     public void updateChange() {
         updateCurr();
         change = curr - start;
+        telemetry.addData("change", change);
     }
 
-    public void moveForward(double speed, double goal) {
+    public void moveForward(double speed, int goal) {
         reset();
+        motorFL.setPower(-speed);
+        motorFR.setPower(speed);
+        motorBL.setPower(-speed);
+        motorBR.setPower(speed);
+        while (change < goal) {
+            FL = Math.abs(motorFL.getCurrentPosition());
+            FR = Math.abs(motorFR.getCurrentPosition());
+            BL = Math.abs(motorBL.getCurrentPosition());
+            BR = Math.abs(motorBR.getCurrentPosition());
+            telemetry.addData("Encoder FR", FL);
+            telemetry.addData("Encoder FL", FR);
+            telemetry.addData("Encoder BR", BL);
+            telemetry.addData("Encoder BL", BR);
+            telemetry.addData("Change", change);
+            updateChange();
+        }
+        reset();
+        try {
+            sleep(100);
+        } catch (InterruptedException e){
+            telemetry.addData("Error", e);
+        }
+    }
+
+    public void moveBackwards(double speed, int goal) {
+        reset();
+        motorFL.setPower(speed);
+        motorFR.setPower(-speed);
+        motorBL.setPower(speed);
+        motorBR.setPower(-speed);
         while (change < goal) {
             telemetry.addData("Change", change);
-            motorFL.setPower(-speed);
-            motorFR.setPower(speed);
-            motorBL.setPower(-speed);
-            motorBR.setPower(speed);
             updateChange();
         }
         reset();
@@ -73,33 +108,15 @@ public class AutoBlue extends LinearOpMode {
         }
     }
 
-    public void moveBackwards(double speed, double goal) {
+    public void turn(String dir, double speed, int goal) {
         reset();
-        while (change < goal) {
-            telemetry.addData("Change", change);
-            motorFL.setPower(speed);
-            motorFR.setPower(-speed);
-            motorBL.setPower(speed);
-            motorBR.setPower(-speed);
-            updateChange();
-        }
-        reset();
-        try {
-            sleep(500);
-        } catch (InterruptedException e){
-            telemetry.addData("Error", e);
-        }
-    }
-
-    public void turn(String dir, double speed, double goal) {
-        reset();
+        motorFL.setPower(-speed);
+        motorFR.setPower(-speed);
+        motorBL.setPower(-speed);
+        motorBR.setPower(-speed);
         if (dir.equals("right")) {
             while (change < goal) {
                 telemetry.addData("Change", change);
-                motorFL.setPower(-speed);
-                motorFR.setPower(-speed);
-                motorBL.setPower(-speed);
-                motorBR.setPower(-speed);
                 updateChange();
             }
             reset();
@@ -109,13 +126,13 @@ public class AutoBlue extends LinearOpMode {
                 telemetry.addData("Error", e);
             }
         }
+        motorFL.setPower(speed);
+        motorFR.setPower(speed);
+        motorBL.setPower(speed);
+        motorBR.setPower(speed);
         if (dir.equals("left")) {
             while (change < goal) {
                 telemetry.addData("Change", change);
-                motorFL.setPower(speed);
-                motorFR.setPower(speed);
-                motorBL.setPower(speed);
-                motorBR.setPower(speed);
                 updateChange();
             }
             reset();
