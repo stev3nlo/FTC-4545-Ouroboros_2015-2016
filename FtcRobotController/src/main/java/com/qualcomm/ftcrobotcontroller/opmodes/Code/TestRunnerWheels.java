@@ -71,8 +71,8 @@ public class TestRunnerWheels extends OpMode {
         }
 
         if (gamepad2.right_stick_y > .05 || gamepad2.left_stick_y < .05) { //sets the motors that move the hang pulley
-            motorHangL.setPower(gamepad2.right_stick_y);
-            motorHangR.setPower(gamepad2.left_stick_y * -1);
+            motorHangL.setPower(gamepad2.left_stick_y);
+            motorHangR.setPower(gamepad2.right_stick_y * -1);
         }
         else {
             motorHangL.setPower(0);

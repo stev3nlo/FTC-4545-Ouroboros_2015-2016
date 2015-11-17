@@ -98,8 +98,8 @@ public class RevisedTeleOp extends OpMode{
 
         // halfspeed lift
         if (gamepad2.right_stick_y > .05 || gamepad2.left_stick_y < .05) { //sets the motors that move the hang pulley
-            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
-            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED *  -1);
+            motorHangL.setPower(gamepad2.left_stick_y * HALFSPEED);
+            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
         }
         else {
             motorHangL.setPower(0);
