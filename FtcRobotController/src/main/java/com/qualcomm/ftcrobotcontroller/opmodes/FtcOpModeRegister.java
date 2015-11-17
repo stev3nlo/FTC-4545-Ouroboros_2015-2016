@@ -36,6 +36,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestLift;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheels;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
@@ -90,6 +91,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("ScrimmageRedZone", ScrimmageRedZone.class);
 
     manager.register("AutoBlue", AutoBlue.class);
+    manager.register("LiftTest", TestLift.class);
 
   }
 }
