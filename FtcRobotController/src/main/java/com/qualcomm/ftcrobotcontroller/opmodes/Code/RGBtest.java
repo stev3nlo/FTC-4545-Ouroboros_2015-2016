@@ -64,7 +64,7 @@ public class RGBtest extends OpMode{
         }
         else if (bCurrState == false && bCurrState != bPrevState) {
 
-            DbgLog.msg("MY_DEBUG - x button was released! ");
+            DbgLog.msg("MY_DEBUG - x button was released! Kunal is gay");
 
             bPrevState = bCurrState;
 
@@ -75,10 +75,10 @@ public class RGBtest extends OpMode{
 
         Color.RGBToHSV((colorSensor.red() * 255) / 800, (colorSensor.green() * 255) / 800, (colorSensor.blue() * 255) / 800, hsvValues);
 
-        telemetry.addData("Clear", sensorRGB.alpha());
-        telemetry.addData("Red  ", sensorRGB.red());
-        telemetry.addData("Green", sensorRGB.green());
-        telemetry.addData("Blue ", sensorRGB.blue());
+        telemetry.addData("Clear", colorSensor.alpha());
+        telemetry.addData("Red  ", colorSensor.red());
+        telemetry.addData("Green", colorSensor.green());
+        telemetry.addData("Blue ", colorSensor.blue());
         telemetry.addData("Hue", hsvValues[0]);
 
         relativeLayout.post(new Runnable() {
