@@ -19,7 +19,7 @@ public class TestLift extends OpMode {
     @Override
     public void loop() {
         if (Math.abs(gamepad1.left_stick_y) > .05){
-            motorHangL.setPower(gamepad1.left_stick_y * halfSpeed);
+            motorHangL.setPower(gamepad1.left_stick_y);
         }
         else{
             motorHangL.setPower(0);
