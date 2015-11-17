@@ -7,22 +7,22 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by sopa on 11/16/15.
  */
 public class TestLift extends OpMode {
-    DcMotor motorHangR;
+    DcMotor motorHangL;
     final double halfSpeed = .3;
 
     @Override
     public void init() {
-        motorHangR = hardwareMap.dcMotor.get("motorHangR");
+        motorHangL = hardwareMap.dcMotor.get("motorHangL");
 
     }
 
     @Override
     public void loop() {
-        if (gamepad1.right_stick_y > .05){
-            motorHangR.setPower(gamepad1.right_stick_y * halfSpeed * -1);
+        if (gamepad1.left_stick_y > .05){
+            motorHangL.setPower(gamepad1.left_stick_y * halfSpeed);
         }
         else{
-            motorHangR.setPower(0);
+            motorHangL.setPower(0);
         }
 
     }
