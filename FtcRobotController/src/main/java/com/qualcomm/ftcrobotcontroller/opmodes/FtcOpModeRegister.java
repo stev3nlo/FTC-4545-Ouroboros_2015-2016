@@ -31,11 +31,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestLift;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheels;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
@@ -79,6 +82,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("NullOp", NullOp.class);
     manager.register("EncoderTest", EncoderTest.class);
     manager.register("TestRunnerWheels", TestRunnerWheels.class);
+    manager.register("RGBTest", RGBtest.class);
     /*
      * The following example op modes are designed to work with a K9-style robot.
      *  - K9TeleOp is a simple driver controlled program.
@@ -90,6 +94,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("ScrimmageRedZone", ScrimmageRedZone.class);
 
     manager.register("AutoBlue", AutoBlue.class);
+    manager.register("LiftTest", TestLift.class);
 
   }
 }
