@@ -24,7 +24,7 @@ public class RevisedTeleOp extends OpMode{
 //variables
     double boxTiltPosition = 0.5;
     boolean reverse = false;
-    boolean halfspeed;
+    boolean halfspeed = false;
     final double HALFSPEED = .2;
     int curMode = 1;
     long lastTime = 0;
@@ -318,18 +318,18 @@ public class RevisedTeleOp extends OpMode{
     }
 
     public void reverseHalfspeed(){
-        //wheels
+        //reverse wheels in halfspeed
         if(abs(gamepad1.right_stick_y) > .05) {
-            motorFR.setPower(gamepad1.right_stick_y);
-            motorBR.setPower(gamepad1.right_stick_y);
+            motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
+            motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
         }
         else{
             motorFR.setPower(0);
             motorFR.setPower(0);
         }
         if((abs(gamepad1.left_stick_y) > .05)) {
-            motorFL.setPower(gamepad1.left_stick_y * -1);
-            motorBL.setPower(gamepad1.left_stick_y * -1);
+            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
+            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
         }
         else{
             motorFL.setPower(0);
@@ -361,10 +361,10 @@ public class RevisedTeleOp extends OpMode{
             switchR.setPosition(0);
         }
 
-        // reverse lift
+        // reverse lift in halfspeed
         if (abs(gamepad2.right_stick_y) > .05) { //sets the motors that move the hang pulley
-            motorHangL.setPower(gamepad2.right_stick_y * -1);
-            motorHangR.setPower(gamepad2.right_stick_y);
+            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
+            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED);
         }
         else {
             motorHangL.setPower(0);
@@ -376,21 +376,21 @@ public class RevisedTeleOp extends OpMode{
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
         }
         else if (gamepad2.right_trigger > 0.5) {
-            motorSpinner.setPower(-1); //Reverse Spinner motor
+            motorSpinner.setPower(-1 * HALFSPEED); //Reverse Spinner motor
         }
         else if (gamepad2.left_trigger > 0.5) {
-            motorSpinner.setPower(1); //Spinner motor
+            motorSpinner.setPower(HALFSPEED); //Spinner motor
         }
 
         //reverse box lift
         if (abs(gamepad2.left_stick_y) > .05) {
-            motorLift.setPower(gamepad2.left_stick_y * -1); //Lift the box
+            motorLift.setPower(gamepad2.left_stick_y * HALFSPEED * -1); //Lift the box
         }
         else {
             motorLift.setPower(0);
         }
 
-        //box tilt(not affected by reverse becuase it would futher confuse driver)
+        //box tilt(not affected by reverse or halfspeed becuase it would futher confuse driver)
         if (gamepad2.left_bumper) { //Tilt the box
             if (boxTiltPosition != 0) {
                 boxTiltPosition -= .05;
@@ -408,7 +408,64 @@ public class RevisedTeleOp extends OpMode{
 
 
     public void loop() {
+        // halfspeed macro
+        if(gamepad1.a){
+            if (halfspeed && !reverse){
+                halfspeed = false;
+                regular();
+            }
+            else if(halfspeed && reverse){
+                halfspeed = false;
+                reverse();
+            }
+            else if (!halfspeed && !reverse){
+                halfspeed = true;
+                halfspeed();
+            }
+            else if (!halfspeed && !reverse){
+                reverseHalfspeed();
+            }
+        }
+        // reverse macro
+        if (gamepad1.b){
+            if (reverse && !halfspeed){
+                reverse = false;
+                regular();
+            }
+            else if(reverse && halfspeed){
+                reverse = false;
+                halfspeed();
+            }
+            else if (!reverse && !halfspeed){
+                reverse = true;
+                reverse();
+            }
+            else if (!reverse && halfspeed){
+                reverse = true;
+                reverseHalfspeed();
+            }
+        }
+        //reset box
+        if(gamepad2.a) {
+            while (boxTiltPosition != 0) {
+                boxTiltPosition -= .05;
+                boxTilt.setPosition(boxTiltPosition);
 
+            }
+        }
+        // if nothing pressed
+        if (reverse && halfspeed){
+            reverseHalfspeed();
+        }
+        else if(reverse && !halfspeed){
+            reverse();
+        }
+        else if (!reverse && halfspeed){
+            reverse();
+        }
+        else if (!reverse && !halfspeed){
+            reverse();
+        }
     }
 }
 
