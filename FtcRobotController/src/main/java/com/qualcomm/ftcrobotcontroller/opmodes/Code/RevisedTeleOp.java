@@ -3,7 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.configuration.ServoConfiguration;
-import java.util.math;
+
 
 import static java.lang.Math.abs;
 
@@ -98,15 +98,13 @@ public class RevisedTeleOp extends OpMode{
         }
 
         // halfspeed lift
-<<<<<<< HEAD
-        if (math.abs(gamepad2.right_stick_y) > .05 || gamepad2.left_stick_y > .05) { //sets the motors that move the hang pulley
+        if (abs(gamepad2.right_stick_y) > .05 || abs(gamepad2.left_stick_y) > .05) { //sets the motors that move the hang pulley
             motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
             motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED *  -1);
-=======
-        if (gamepad2.right_stick_y > .05 || gamepad2.left_stick_y < .05) { //sets the motors that move the hang pulley
+
+        if (abs(gamepad2.right_stick_y) > .05 || abs(gamepad2.left_stick_y) > .05) { //sets the motors that move the hang pulley
             motorHangL.setPower(gamepad2.left_stick_y * HALFSPEED);
             motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
->>>>>>> origin/master
         }
         else {
             motorHangL.setPower(0);
