@@ -38,6 +38,7 @@ public class TestRunnerWheels extends OpMode {
         switchR = hardwareMap.servo.get("switchR");
         motorHangL = hardwareMap.dcMotor.get("motorHangl");
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
+        motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         climber = hardwareMap.servo.get("climber");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
