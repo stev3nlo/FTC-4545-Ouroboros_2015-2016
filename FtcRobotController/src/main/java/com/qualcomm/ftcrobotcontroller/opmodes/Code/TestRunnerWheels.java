@@ -40,9 +40,9 @@ public class TestRunnerWheels extends OpMode {
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         climber = hardwareMap.servo.get("climber");
-        switchR.setPosition(0);
         halfspeed = false;
         lastTime = System.currentTimeMillis();
+        switchR.setPosition(.5);
     }
 
     public void loop(){
@@ -107,7 +107,7 @@ public class TestRunnerWheels extends OpMode {
         if (gamepad2.right_trigger > .05) {
             switchR.setPosition(1);
         } else {
-            switchR.setPosition(0);
+            switchR.setPosition(.5);
         }
         
 
