@@ -45,15 +45,14 @@ public class TestRunnerWheels extends OpMode {
         switchR.setPosition(.5);
     }
 
-    public void loop(){
+    public void loop() {
         if (gamepad1.a) {
             long currentTime = System.currentTimeMillis();
             // are we waiting?
             if (currentTime > lastTime + DURATION) {
-                if(halfspeed){
+                if (halfspeed) {
                     halfspeed = false;
-                }
-                else{
+                } else {
                     halfspeed = true;
                 }
                 lastTime = currentTime;
@@ -64,7 +63,7 @@ public class TestRunnerWheels extends OpMode {
         boolean right_y = abs(gamepad1.right_stick_y) > .05;
         boolean left_y = abs(gamepad1.left_stick_y) > .05;
 
-        if(right_y){
+        if (right_y) {
             motorFR.setPower(mod.newValue(gamepad1.right_stick_y) * -1 * speed);
             motorBR.setPower(mod.newValue(gamepad1.right_stick_y) * -1 * speed);
         } else {
@@ -72,7 +71,7 @@ public class TestRunnerWheels extends OpMode {
             motorBR.setPower(0);
         }
 
-        if(left_y) {
+        if (left_y) {
             motorFL.setPower(mod.newValue(gamepad1.left_stick_y) * speed);
             motorBL.setPower(mod.newValue(gamepad1.left_stick_y) * speed);
         } else {
@@ -83,8 +82,7 @@ public class TestRunnerWheels extends OpMode {
         if (gamepad2.right_stick_y > .05 || gamepad2.left_stick_y > .05) { //sets the motors that move the hang pulley
             motorHangL.setPower(gamepad2.left_stick_y);
             motorHangR.setPower(gamepad2.right_stick_y * -1);
-        }
-        else {
+        } else {
             motorHangL.setPower(0);
             motorHangR.setPower(0);
         }
@@ -93,50 +91,46 @@ public class TestRunnerWheels extends OpMode {
             switchL.setPosition(1);
         } else {
             switchL.setPosition(.5);
-        }
-        if (gamepad1.left_trigger > .05) {
-            switchL.setPosition(0);
-        } else {
-            switchL.setPosition(.5);
-        }
-        if (gamepad1.right_bumper) {
-            switchR.setPosition(0);
-        } else {
-            switchR.setPosition(.5);
-        }
-        if (gamepad1.right_trigger > .05) {
-            switchR.setPosition(1);
-        } else {
-            switchR.setPosition(.5);
-        }
-        
+            if (gamepad1.left_trigger > .05) {
+                switchL.setPosition(0);
+            } else {
+                switchL.setPosition(.5);
+            }
 
-        if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))){
-            motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
-        }
-        else if (gamepad2.right_trigger > 0.5) {
-            motorSpinner.setPower(1); //Spinner motor
-        }
-        else if (gamepad2.left_trigger > 0.5) {
-            motorSpinner.setPower(-1); //Reverse spinner motor
-        }
+            if (gamepad1.right_bumper) {
+                switchR.setPosition(1);
+            } else {
+                switchR.setPosition(.5);
+                if (gamepad1.right_trigger > .05) {
+                    switchR.setPosition(0);
+                } else {
+                    switchR.setPosition(.5);
+                }
+            }
+
+            if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
+                motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
+            } else if (gamepad2.right_trigger > 0.5) {
+                motorSpinner.setPower(1); //Spinner motor
+            } else if (gamepad2.left_trigger > 0.5) {
+                motorSpinner.setPower(-1); //Reverse spinner motor
+            }
 
 
-        if (gamepad2.a){
-            climber.setPosition(1);
-        }
-        else {
-            climber.setPosition(0);
-        }
+            if (gamepad2.a) {
+                climber.setPosition(1);
+            } else {
+                climber.setPosition(0);
+            }
 
-        if (Math.abs(gamepad2.left_stick_y) > .05){
-            motorHangL.setPower(gamepad1.left_stick_y);
-            motorHangR.setPower(gamepad1.left_stick_y * -1);
-        }
-        else{
-            motorHangL.setPower(0);
-            motorHangR.setPower(0);
-        }
+            if (Math.abs(gamepad2.left_stick_y) > .05) {
+                motorHangL.setPower(gamepad2.left_stick_y);
+                motorHangR.setPower(gamepad2.left_stick_y * -1);
+            } else {
+                motorHangL.setPower(0);
+                motorHangR.setPower(0);
+            }
 
+        }
     }
 }
