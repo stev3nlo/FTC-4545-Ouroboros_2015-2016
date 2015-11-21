@@ -90,11 +90,11 @@ public class TestRunnerWheels extends OpMode {
         if (gamepad1.left_bumper) {
             switchL.setPosition(1);
         } else {
-            switchL.setPosition(.5);
+            switchL.setPosition(.7);
             if (gamepad1.left_trigger > .05) {
                 switchL.setPosition(0);
             } else {
-                switchL.setPosition(.5);
+                switchL.setPosition(.7);
             }
 
             if (gamepad1.right_bumper) {
