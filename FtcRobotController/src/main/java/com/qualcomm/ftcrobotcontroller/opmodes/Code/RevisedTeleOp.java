@@ -53,77 +53,69 @@ public class RevisedTeleOp extends OpMode{
         return 0;
     }
 
-    public void halfspeed(){
+    public void halfspeed() {
         // halfspeed wheels
-        if(abs(gamepad1.right_stick_y) > .05) {
+        if (abs(gamepad1.right_stick_y) > .05) {
             motorFR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
             motorBR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
-        }
-        else{
+        } else {
             motorFR.setPower(0);
             motorFR.setPower(0);
         }
-        if((abs(gamepad1.left_stick_y) > .05)) {
+        if ((abs(gamepad1.left_stick_y) > .05)) {
             motorFL.setPower(gamepad1.left_stick_y * HALFSPEED);
             motorBL.setPower(gamepad1.left_stick_y * HALFSPEED);
-        }
-        else{
+        } else {
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
         // halfspeed sevro: will run at full speed at all times
         if (gamepad1.left_bumper) {
             switchL.setPosition(1);
-        }
-        else {
+        } else {
             switchL.setPosition(.5);
         }
         if (gamepad1.left_trigger > .05) {
             switchL.setPosition(0);
-        }
-        else {
+        } else {
             switchL.setPosition(.5);
         }
         if (gamepad1.right_bumper) {
             switchR.setPosition(0);
-        }
-        else {
+        } else {
             switchR.setPosition(.5);
         }
         if (gamepad1.right_trigger > .05) {
             switchR.setPosition(1);
-        }
-        else {
+        } else {
             switchR.setPosition(0);
         }
 
         // halfspeed lift
         if (abs(gamepad2.right_stick_y) > .05 || abs(gamepad2.left_stick_y) > .05) { //sets the motors that move the hang pulley
             motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
-            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED *  -1);
-
-        if (abs(gamepad2.right_stick_y) > .05 || abs(gamepad2.left_stick_y) > .05) { //sets the motors that move the hang pulley
-            motorHangL.setPower(gamepad2.left_stick_y * HALFSPEED);
             motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
-        }
-        else {
-            motorHangL.setPower(0);
-            motorHangR.setPower(0);
-        }
-        //halfspeed maniuplator
-        if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))){
-            motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
-        }
-        else if (gamepad2.right_trigger > 0.5) {
-            motorSpinner.setPower(HALFSPEED); //Spinner motor
-        }
-        else if (gamepad2.left_trigger > 0.5) {
-            motorSpinner.setPower(HALFSPEED * -1); //Reverse spinner motor
-        }
 
-        //
+            if (abs(gamepad2.right_stick_y) > .05 || abs(gamepad2.left_stick_y) > .05) { //sets the motors that move the hang pulley
+                motorHangL.setPower(gamepad2.left_stick_y * HALFSPEED);
+                motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
+            } else {
+                motorHangL.setPower(0);
+                motorHangR.setPower(0);
+            }
+            //halfspeed maniuplator
+            if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
+                motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
+            } else if (gamepad2.right_trigger > 0.5) {
+                motorSpinner.setPower(HALFSPEED); //Spinner motor
+            } else if (gamepad2.left_trigger > 0.5) {
+                motorSpinner.setPower(HALFSPEED * -1); //Reverse spinner motor
+            }
+
+            //
 
 
+        }
     }
 
     public void regular() {
