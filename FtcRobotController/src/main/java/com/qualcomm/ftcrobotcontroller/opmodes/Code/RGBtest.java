@@ -65,7 +65,7 @@ public class RGBtest extends LinearOpMode{
                 DbgLog.msg("MY_DEBUG - x button was released! ");
 
 
-            DbgLog.msg("MY_DEBUG - x button was released! Kunal is gay");
+            DbgLog.msg("MY_DEBUG - x button was released!");
 
                 bPrevState = bCurrState;
 
