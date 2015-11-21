@@ -36,7 +36,7 @@ public class TestRunnerWheels extends OpMode {
         motorBR = hardwareMap.dcMotor.get("motorBR");
         switchL = hardwareMap.servo.get("switchL");
         switchR = hardwareMap.servo.get("switchR");
-        motorHangL = hardwareMap.dcMotor.get("motorHangl");
+        motorHangL = hardwareMap.dcMotor.get("motorHangL");
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         climber = hardwareMap.servo.get("climber");
