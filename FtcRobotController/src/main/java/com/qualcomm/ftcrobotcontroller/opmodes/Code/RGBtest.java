@@ -64,11 +64,11 @@ public class RGBtest extends LinearOpMode{
 
                 DbgLog.msg("MY_DEBUG - x button was released! ");
 
-<<<<<<< HEAD
-            DbgLog.msg("MY_DEBUG - x button was released! Kunal is gay");
-=======
+
+            DbgLog.msg("MY_DEBUG - x button was released!");
+
                 bPrevState = bCurrState;
->>>>>>> origin/master
+
 
                 bEnabled = false;
 
@@ -83,19 +83,19 @@ public class RGBtest extends LinearOpMode{
             telemetry.addData("Blue ", colorSensor.blue());
             telemetry.addData("Hue", hsvValues[0]);
 
-<<<<<<< HEAD
+
         telemetry.addData("Clear", colorSensor.alpha());
         telemetry.addData("Red  ", colorSensor.red());
         telemetry.addData("Green", colorSensor.green());
         telemetry.addData("Blue ", colorSensor.blue());
         telemetry.addData("Hue", hsvValues[0]);
-=======
+
             relativeLayout.post(new Runnable() {
                     public void run() {
                         relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
                     }
             });
->>>>>>> origin/master
+
 
             waitOneFullHardwareCycle();
         }
