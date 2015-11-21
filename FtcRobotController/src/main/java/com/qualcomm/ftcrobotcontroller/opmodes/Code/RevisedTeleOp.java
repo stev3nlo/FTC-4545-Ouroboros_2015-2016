@@ -37,7 +37,7 @@ public class RevisedTeleOp extends OpMode{
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
-        motorHangL = hardwareMap.dcMotor.get("motorHangl");
+        motorHangL = hardwareMap.dcMotor.get("motorHangL");
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         motorLift = hardwareMap.dcMotor.get("motorLift");

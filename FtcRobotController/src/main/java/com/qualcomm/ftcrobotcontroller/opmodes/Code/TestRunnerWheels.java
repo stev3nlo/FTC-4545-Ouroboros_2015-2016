@@ -115,10 +115,10 @@ public class TestRunnerWheels extends OpMode {
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
         }
         else if (gamepad2.right_trigger > 0.5) {
-            motorSpinner.setPower(HALFSPEED); //Spinner motor
+            motorSpinner.setPower(1); //Spinner motor
         }
         else if (gamepad2.left_trigger > 0.5) {
-            motorSpinner.setPower(HALFSPEED * -1); //Reverse spinner motor
+            motorSpinner.setPower(-1); //Reverse spinner motor
         }
 
 
@@ -129,9 +129,9 @@ public class TestRunnerWheels extends OpMode {
             climber.setPosition(0);
         }
 
-        if (Math.abs(gamepad1.left_stick_y) > .05){
-            motorHangL.setPower(gamepad1.left_stick_y * -1);
-            motorHangR.setPower(gamepad1.left_stick_y);
+        if (Math.abs(gamepad2.left_stick_y) > .05){
+            motorHangL.setPower(gamepad1.left_stick_y);
+            motorHangR.setPower(gamepad1.left_stick_y * -1);
         }
         else{
             motorHangL.setPower(0);
