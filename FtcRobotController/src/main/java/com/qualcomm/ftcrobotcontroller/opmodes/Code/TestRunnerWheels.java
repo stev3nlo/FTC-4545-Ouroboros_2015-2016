@@ -43,6 +43,7 @@ public class TestRunnerWheels extends OpMode {
         halfspeed = false;
         lastTime = System.currentTimeMillis();
         switchR.setPosition(.5);
+        climber.setPosition(0);
     }
 
     public void loop() {
