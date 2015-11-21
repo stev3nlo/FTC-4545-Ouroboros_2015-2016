@@ -29,10 +29,10 @@ public class TestRunnerWheels extends OpMode {
 
     @Override
     public void init() {
-        motorFL = hardwareMap.dcMotor.get("motorFR");
-        motorFR = hardwareMap.dcMotor.get("motorFL");
-        motorBL = hardwareMap.dcMotor.get("motorBR");
-        motorBR = hardwareMap.dcMotor.get("motorBL");
+        motorFL = hardwareMap.dcMotor.get("motorFL");
+        motorFR = hardwareMap.dcMotor.get("motorFR");
+        motorBL = hardwareMap.dcMotor.get("motorBL");
+        motorBR = hardwareMap.dcMotor.get("motorBR");
         switchL = hardwareMap.servo.get("switchL");
         switchR = hardwareMap.servo.get("switchR");
         motorHangL = hardwareMap.dcMotor.get("motorHangl");

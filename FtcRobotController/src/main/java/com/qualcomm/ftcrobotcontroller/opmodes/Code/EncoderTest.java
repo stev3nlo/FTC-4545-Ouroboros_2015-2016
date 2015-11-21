@@ -52,7 +52,8 @@ public class EncoderTest extends OpMode{
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorBR = hardwareMap.dcMotor.get("motorBR");halfspeed = false;
+        motorBR = hardwareMap.dcMotor.get("motorBR");
+        halfspeed = false;
         lastTime = System.currentTimeMillis();
 
     }

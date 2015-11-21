@@ -405,6 +405,13 @@ public class RevisedTeleOp extends OpMode{
         }
     }
 
+    //macro for pulling the robot up
+    public void pull(){
+        motorHangR.setPower(1);
+        mo
+
+    }
+
 
 
     public void loop() {
