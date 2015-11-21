@@ -23,6 +23,7 @@ public class TestRunnerWheels extends OpMode {
     final double FULLSPEED = 1.0;
     public Servo switchL;
     public Servo switchR;
+    public Servo climber;
 
     long lastTime = 0;
     final long DURATION = 1500;
@@ -37,6 +38,7 @@ public class TestRunnerWheels extends OpMode {
         switchR = hardwareMap.servo.get("switchR");
         motorHangL = hardwareMap.dcMotor.get("motorHangl");
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
+        climber = hardwareMap.servo.get("climber");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
     }
@@ -84,28 +86,28 @@ public class TestRunnerWheels extends OpMode {
             motorHangL.setPower(0);
             motorHangR.setPower(0);
         }
-        /*
-        if (gamepad1.left_bumper) {
+
+        if (gamepad2.left_bumper) {
             switchL.setPosition(1);
         } else {
             switchL.setPosition(.5);
         }
-        if (gamepad1.left_trigger > .05) {
+        if (gamepad2.left_trigger > .05) {
             switchL.setPosition(0);
         } else {
             switchL.setPosition(.5);
         }
-        if (gamepad1.right_bumper) {
+        if (gamepad2.right_bumper) {
             switchR.setPosition(0);
         } else {
             switchR.setPosition(.5);
         }
-        if (gamepad1.right_trigger > .05) {
+        if (gamepad2.right_trigger > .05) {
             switchR.setPosition(1);
         } else {
             switchR.setPosition(0);
         }
-        */
+
 
         if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))){
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
@@ -117,5 +119,11 @@ public class TestRunnerWheels extends OpMode {
             motorSpinner.setPower(HALFSPEED * -1); //Reverse spinner motor
         }
 
+        if (gamepad2.a){
+            climber.setPosition(1);
+        }
+        else {
+            climber.setPosition(0);
+        }
     }
 }
