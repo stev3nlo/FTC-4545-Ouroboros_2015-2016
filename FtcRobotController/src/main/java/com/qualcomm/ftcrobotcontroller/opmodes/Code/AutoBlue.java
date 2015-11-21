@@ -3,7 +3,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Steven on 11/9/2015.
@@ -13,7 +12,6 @@ public class AutoBlue extends LinearOpMode {
     DcMotor motorFR;
     DcMotor motorBL;
     DcMotor motorBR;
-    Servo climbers;
     int FL;
     int FR;
     int BL;
@@ -27,7 +25,6 @@ public class AutoBlue extends LinearOpMode {
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
-        climbers = hardwareMap.servo.get("climbers");
 
 //        motorFL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 //        motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
@@ -40,7 +37,9 @@ public class AutoBlue extends LinearOpMode {
             telemetry.addData("Error", e);
         }
         moveForward(1, 4500);
-        climbers();
+//        turn("right", .5, 500);
+//        moveBackwards(1, 500);
+//        turn("left", .5, 500);
     }
 
     public void reset() {
@@ -152,16 +151,5 @@ public class AutoBlue extends LinearOpMode {
         } catch (InterruptedException e){
             telemetry.addData("Error", e);
         }
-    }
-
-    public void climbers() {
-        climbers.setPosition(0);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        climbers.setPosition(1);
-
     }
 }

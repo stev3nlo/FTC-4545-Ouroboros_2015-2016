@@ -14,7 +14,7 @@ public class TestClimber extends OpMode{
 
     @Override
     public void init() {
-        servoClimber = hardwareMap.servo.get("servoClimber");
+        servoClimber = hardwareMap.servo.get(servoClimber);
     }
 
     @Override

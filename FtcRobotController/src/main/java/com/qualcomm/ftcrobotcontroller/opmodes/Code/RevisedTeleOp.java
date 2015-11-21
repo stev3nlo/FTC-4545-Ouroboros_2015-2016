@@ -24,7 +24,7 @@ public class RevisedTeleOp extends OpMode{
 //variables
     double boxTiltPosition = 0.5;
     boolean reverse = false;
-    boolean halfspeed;
+    boolean halfspeed = false;
     final double HALFSPEED = .2;
     int curMode = 1;
     long lastTime = 0;
@@ -53,72 +53,96 @@ public class RevisedTeleOp extends OpMode{
         return 0;
     }
 
-    public void halfspeed() {
+    public void halfspeed(){
         // halfspeed wheels
-        if (abs(gamepad1.right_stick_y) > .05) {
+        if(abs(gamepad1.right_stick_y) > .05) {
             motorFR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
             motorBR.setPower(gamepad1.right_stick_y * HALFSPEED * -1);
-        } else {
+        }
+        else{
             motorFR.setPower(0);
             motorFR.setPower(0);
         }
-        if ((abs(gamepad1.left_stick_y) > .05)) {
+        if((abs(gamepad1.left_stick_y) > .05)) {
             motorFL.setPower(gamepad1.left_stick_y * HALFSPEED);
             motorBL.setPower(gamepad1.left_stick_y * HALFSPEED);
-        } else {
+        }
+        else{
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
-        // halfspeed sevro: will run at full speed at all times
+        // halfspeed servo: will run at full speed at all times
         if (gamepad1.left_bumper) {
             switchL.setPosition(1);
-        } else {
+        }
+        else {
             switchL.setPosition(.5);
         }
         if (gamepad1.left_trigger > .05) {
             switchL.setPosition(0);
-        } else {
+        }
+        else {
             switchL.setPosition(.5);
         }
         if (gamepad1.right_bumper) {
             switchR.setPosition(0);
-        } else {
+        }
+        else {
             switchR.setPosition(.5);
         }
         if (gamepad1.right_trigger > .05) {
             switchR.setPosition(1);
-        } else {
+        }
+        else {
             switchR.setPosition(0);
         }
 
         // halfspeed lift
-        if (abs(gamepad2.right_stick_y) > .05 || abs(gamepad2.left_stick_y) > .05) { //sets the motors that move the hang pulley
-            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
+        if (abs(gamepad2.right_stick_y) > .05) { //sets the motors that move the hang pulley
+            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED);
             motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
+        }
+        else {
+            motorHangL.setPower(0);
+            motorHangR.setPower(0);
+        }
 
-            if (abs(gamepad2.right_stick_y) > .05 || abs(gamepad2.left_stick_y) > .05) { //sets the motors that move the hang pulley
-                motorHangL.setPower(gamepad2.left_stick_y * HALFSPEED);
-                motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
-            } else {
-                motorHangL.setPower(0);
-                motorHangR.setPower(0);
+        //halfspeed maniuplator
+        if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
+            motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
+        }
+        else if (gamepad2.right_trigger > 0.5) {
+            motorSpinner.setPower(HALFSPEED); //Spinner motor
+        }
+        else if (gamepad2.left_trigger > 0.5) {
+            motorSpinner.setPower(-1 * HALFSPEED); //Reverse spinner motor
+        }
+
+        //box lift
+        if (abs(gamepad2.left_stick_y) > .05) {
+            motorLift.setPower(gamepad2.left_stick_y * HALFSPEED); //Lift the box
+        }
+        else {
+            motorLift.setPower(0);
+        }
+
+        // box tilt(not affected by halfspeed)
+        if (gamepad2.left_bumper) { //Tilt the box
+            if (boxTiltPosition != 0) {
+                boxTiltPosition -= .05;
+                boxTilt.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
             }
-            //halfspeed maniuplator
-            if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
-                motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
-            } else if (gamepad2.right_trigger > 0.5) {
-                motorSpinner.setPower(HALFSPEED); //Spinner motor
-            } else if (gamepad2.left_trigger > 0.5) {
-                motorSpinner.setPower(HALFSPEED * -1); //Reverse spinner motor
+        }
+        if (gamepad2.right_bumper) { //Tilt the box in the other direction
+            if (boxTiltPosition != 1) {
+                boxTiltPosition += .05;
+                boxTilt.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
             }
-
-            //
-
-
         }
     }
 
     public void regular() {
+        //wheels
         if(abs(gamepad1.right_stick_y) > .05) {
             motorFR.setPower(gamepad1.right_stick_y * -1);
             motorBR.setPower(gamepad1.right_stick_y * -1);
@@ -135,9 +159,76 @@ public class RevisedTeleOp extends OpMode{
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
+        // halfspeed servo: will run at full speed at all times
+        if (gamepad1.left_bumper) {
+            switchL.setPosition(1);
+        }
+        else {
+            switchL.setPosition(.5);
+        }
+        if (gamepad1.left_trigger > .05) {
+            switchL.setPosition(0);
+        }
+        else {
+            switchL.setPosition(.5);
+        }
+        if (gamepad1.right_bumper) {
+            switchR.setPosition(0);
+        }
+        else {
+            switchR.setPosition(.5);
+        }
+        if (gamepad1.right_trigger > .05) {
+            switchR.setPosition(1);
+        }
+        else {
+            switchR.setPosition(0);
+        }
+
+        // lift
+        if (abs(gamepad2.right_stick_y) > .05) { //sets the motors that move the hang pulley
+            motorHangL.setPower(gamepad2.right_stick_y);
+            motorHangR.setPower(gamepad2.right_stick_y * -1);
+        }
+        else {
+            motorHangL.setPower(0);
+            motorHangR.setPower(0);
+        }
+
+        //halfspeed maniuplator
+        if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
+            motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
+        }
+        else if (gamepad2.right_trigger > 0.5) {
+            motorSpinner.setPower(1); //Spinner motor
+        }
+        else if (gamepad2.left_trigger > 0.5) {
+            motorSpinner.setPower(-1); //Reverse spinner motor
+        }
+
+        //box lift
+        if (abs(gamepad2.left_stick_y) > .05) {
+            motorLift.setPower(gamepad2.left_stick_y); //Lift the box
+        }
+        else {
+            motorLift.setPower(0);
+        }
+
+        // box tilt
+        if (gamepad2.left_bumper) { //Tilt the box
+            if (boxTiltPosition != 0) {
+                boxTiltPosition -= .05;
+                boxTilt.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
+            }
+        }
+        if (gamepad2.right_bumper) { //Tilt the box in the other direction
+            if (boxTiltPosition != 1) {
+                boxTiltPosition += .05;
+                boxTilt.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
+            }
+        }
     }
 
-<<<<<<< HEAD
     public void reverse(){
         //wheels
         if(abs(gamepad1.right_stick_y) > .05) {
@@ -317,16 +408,70 @@ public class RevisedTeleOp extends OpMode{
     //macro for pulling the robot up
     public void pull(){
         motorHangR.setPower(1);
-        mo
 
     }
 
 
-=======
->>>>>>> origin/master
 
     public void loop() {
+        // halfspeed macro
+        if(gamepad1.a){
+            if (halfspeed && !reverse){
+                halfspeed = false;
+                regular();
+            }
+            else if(halfspeed && reverse){
+                halfspeed = false;
+                reverse();
+            }
+            else if (!halfspeed && !reverse){
+                halfspeed = true;
+                halfspeed();
+            }
+            else if (!halfspeed && !reverse){
+                reverseHalfspeed();
+            }
+        }
+        // reverse macro
+        if (gamepad1.b){
+            if (reverse && !halfspeed){
+                reverse = false;
+                regular();
+            }
+            else if(reverse && halfspeed){
+                reverse = false;
+                halfspeed();
+            }
+            else if (!reverse && !halfspeed){
+                reverse = true;
+                reverse();
+            }
+            else if (!reverse && halfspeed){
+                reverse = true;
+                reverseHalfspeed();
+            }
+        }
+        //reset box
+        if(gamepad2.a) {
+            while (boxTiltPosition != 0) {
+                boxTiltPosition -= .05;
+                boxTilt.setPosition(boxTiltPosition);
 
+            }
+        }
+        // if nothing pressed
+        if (reverse && halfspeed){
+            reverseHalfspeed();
+        }
+        else if(reverse && !halfspeed){
+            reverse();
+        }
+        else if (!reverse && halfspeed){
+            reverse();
+        }
+        else if (!reverse && !halfspeed){
+            reverse();
+        }
     }
 }
 

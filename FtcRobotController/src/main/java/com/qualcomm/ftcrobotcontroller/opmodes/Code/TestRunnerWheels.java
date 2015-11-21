@@ -40,6 +40,7 @@ public class TestRunnerWheels extends OpMode {
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         climber = hardwareMap.servo.get("climber");
+
         halfspeed = false;
         lastTime = System.currentTimeMillis();
     }
@@ -108,7 +109,7 @@ public class TestRunnerWheels extends OpMode {
         } else {
             switchR.setPosition(0);
         }
-
+        
 
         if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))){
             motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
@@ -120,11 +121,22 @@ public class TestRunnerWheels extends OpMode {
             motorSpinner.setPower(HALFSPEED * -1); //Reverse spinner motor
         }
 
+
         if (gamepad2.a){
             climber.setPosition(1);
         }
         else {
             climber.setPosition(0);
         }
+
+        if (Math.abs(gamepad1.left_stick_y) > .05){
+            motorHangL.setPower(gamepad1.left_stick_y * -1);
+            motorHangR.setPower(gamepad1.left_stick_y);
+        }
+        else{
+            motorHangL.setPower(0);
+            motorHangR.setPower(0);
+        }
+
     }
 }

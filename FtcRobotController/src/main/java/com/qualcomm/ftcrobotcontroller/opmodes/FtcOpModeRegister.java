@@ -35,7 +35,6 @@ import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.RevisedTeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
@@ -91,7 +90,6 @@ public class FtcOpModeRegister implements OpModeRegister {
      *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
      */
     manager.register("TeleOp", TeleOp.class);
-    manager.register("RevisedTeleOp", RevisedTeleOp.class);
     manager.register("ScrimmageAutoBlue", ScrimmageAutoBlue.class);
     manager.register("ScrimmageRedZone", ScrimmageRedZone.class);
 
