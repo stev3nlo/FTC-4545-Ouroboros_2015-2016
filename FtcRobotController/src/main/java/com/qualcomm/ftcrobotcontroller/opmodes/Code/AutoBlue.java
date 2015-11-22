@@ -14,6 +14,8 @@ public class AutoBlue extends LinearOpMode {
     DcMotor motorBL;
     DcMotor motorBR;
     Servo climbers;
+    Servo switchL;
+    Servo switchR;
     int FL;
     int FR;
     int BL;
@@ -27,13 +29,18 @@ public class AutoBlue extends LinearOpMode {
         motorFR = hardwareMap.dcMotor.get("motorFL");
         motorBL = hardwareMap.dcMotor.get("motorBR");
         motorBR = hardwareMap.dcMotor.get("motorBL");
+        climbers = hardwareMap.servo.get("climber");
+        switchL = hardwareMap.servo.get("switchL");
+        switchR = hardwareMap.servo.get("switchR");
         climbers.setPosition(0);
+        switchL.setPosition(.7);
+        switchR.setPosition(.5);
+
 
 //        motorFL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 //        motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 //        motorFR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 //        motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        telemetry.addData("motorBL", motorBL.getCurrentPosition());
         try {
             waitForStart();
         } catch (InterruptedException e){
