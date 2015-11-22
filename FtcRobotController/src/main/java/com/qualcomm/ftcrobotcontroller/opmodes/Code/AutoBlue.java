@@ -32,7 +32,7 @@ public class AutoBlue extends LinearOpMode {
         climbers = hardwareMap.servo.get("climber");
         switchL = hardwareMap.servo.get("switchL");
         switchR = hardwareMap.servo.get("switchR");
-        climbers.setPosition(0);
+        climbers.setPosition(1);
         switchL.setPosition(.7);
         switchR.setPosition(.5);
 
