@@ -3,6 +3,8 @@ package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by sopa on 11/16/15.
  */
@@ -18,7 +20,7 @@ public class TestLift extends OpMode {
 
     @Override
     public void loop() {
-        if (Math.abs(gamepad1.left_stick_y) > .05){
+        if (abs(gamepad1.left_stick_y) > .05){
             motorHangL.setPower(gamepad1.left_stick_y);
         }
         else{
