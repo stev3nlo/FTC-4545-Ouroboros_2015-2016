@@ -146,21 +146,21 @@ public class TeleOp extends OpMode {
             motorHangR.setPower(0);
         }
 //==================================================== Macros ==================================================
-        // full speed forward
+        // Full speed forward
         if (gamepad1.x) {
             motorFR.setPower(-1);
             motorFL.setPower(1);
             motorBR.setPower(-1);
             motorBL.setPower(1);
         }
-        // full speed backward
+        // Full speed backward
         if (gamepad1.b) {
             motorFR.setPower(1);
             motorFL.setPower(-1);
             motorBR.setPower(1);
             motorBL.setPower(-1);
         }
-        // low, medium, high basket scoring
+        // Low, medium, and high basket scoring
         // LOW
         /*
         if (gamepad2.##) {
