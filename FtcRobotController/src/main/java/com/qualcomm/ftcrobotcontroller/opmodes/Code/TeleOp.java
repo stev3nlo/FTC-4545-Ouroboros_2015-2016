@@ -28,6 +28,10 @@ public class TeleOp extends OpMode {
     boolean halfspeed;
     final double HALFSPEED = .3;
     public int time = 0;
+//    final double liftSetLow = ##;
+//    final double liftSetMed = ##;
+//    final double liftSetHigh = ##;
+
 
     public void init(){
         boxTilt.setPosition(boxTiltPosition);
@@ -156,6 +160,21 @@ public class TeleOp extends OpMode {
             motorBR.setPower(1);
             motorBL.setPower(-1);
         }
+        // low, medium, high basket scoring
+        // LOW
+        /*
+        if (gamepad2.##) {
+
+        }
+        // MEDIUM
+        if (gamepad2.##) {
+
+        }
+        // HIGH
+        if (gamepad2.##) {
+
+        }
+        */
     }
 
     public void stop(){
