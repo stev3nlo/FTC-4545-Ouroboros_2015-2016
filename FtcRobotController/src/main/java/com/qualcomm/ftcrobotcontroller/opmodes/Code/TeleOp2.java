@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.configuration.ServoConfiguration;
 import static java.lang.Math.abs;
 
 
-public class RevisedTeleOp extends OpMode{
+public class TeleOp2 extends OpMode{
 //declares hardware
     public DcMotor motorFR;
     public DcMotor motorFL;
