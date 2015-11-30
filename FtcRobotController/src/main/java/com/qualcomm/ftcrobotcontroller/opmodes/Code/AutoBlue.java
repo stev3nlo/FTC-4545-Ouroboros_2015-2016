@@ -59,9 +59,15 @@ public class AutoBlue extends LinearOpMode {
         start = curr;
         curr = 0;
         change = 0;
+        telemetry.clearData();
+        telemetry.addData("Data Reset; Change: ", change);
     }
 
     public void updateCurr() {
+        FL = Math.abs(motorFL.getCurrentPosition());
+        FR = Math.abs(motorFR.getCurrentPosition());
+        BL = Math.abs(motorBL.getCurrentPosition());
+        BR = Math.abs(motorBR.getCurrentPosition());
         curr = (FL + FR + BL + BR) / 4;
         telemetry.addData("curr", curr);
     }
@@ -79,10 +85,6 @@ public class AutoBlue extends LinearOpMode {
         motorBL.setPower(-speed);
         motorBR.setPower(speed);
         while (change < goal) {
-            FL = Math.abs(motorFL.getCurrentPosition());
-            FR = Math.abs(motorFR.getCurrentPosition());
-            BL = Math.abs(motorBL.getCurrentPosition());
-            BR = Math.abs(motorBR.getCurrentPosition());
             telemetry.addData("Encoder FR", FL);
             telemetry.addData("Encoder FL", FR);
             telemetry.addData("Encoder BR", BL);
