@@ -120,7 +120,8 @@ public class TestRunnerWheels extends OpMode {
 
             if (gamepad2.a) {
                 climber.setPosition(1);
-            } else {
+            }
+            else {
                 climber.setPosition(0);
             }
 
