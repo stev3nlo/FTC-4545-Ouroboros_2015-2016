@@ -44,6 +44,10 @@ public class TestRunnerWheels extends OpMode {
         lastTime = System.currentTimeMillis();
         switchR.setPosition(.5);
         climber.setPosition(1);
+        motorFR.setPower(0);
+        motorBR.setPower(0);
+        motorFL.setPower(0);
+        motorBL.setPower(0);
     }
 
     public void loop() {
@@ -63,7 +67,15 @@ public class TestRunnerWheels extends OpMode {
         double speed = (halfspeed) ? HALFSPEED : FULLSPEED;
         boolean right_y = abs(gamepad1.right_stick_y) > .05;
         boolean left_y = abs(gamepad1.left_stick_y) > .05;
-
+        if (gamepad1.right_stick_y > .05 && gamepad1.left_stick_y < -.05) {
+            speed = .3;
+        } else {
+            if (gamepad1.right_stick_y < -.05 && gamepad1.left_stick_y > .05) {
+                speed = .3;
+            } else {
+                speed = FULLSPEED;
+            }
+        }
         if (right_y) {
             motorFR.setPower(mod.newValue(gamepad1.right_stick_y) * -1 * speed);
             motorBR.setPower(mod.newValue(gamepad1.right_stick_y) * -1 * speed);
@@ -109,20 +121,24 @@ public class TestRunnerWheels extends OpMode {
                 }
             }
 
-            if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
-                motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
-            } else if (gamepad2.right_trigger > 0.5) {
-                motorSpinner.setPower(1); //Spinner motor
-            } else if (gamepad2.left_trigger > 0.5) {
-                motorSpinner.setPower(-1); //Reverse spinner motor
-            }
+//            if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
+//                motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
+//            } else if (gamepad2.right_trigger > 0.5) {
+//                motorSpinner.setPower(1); //Spinner motor
+//            } else if (gamepad2.left_trigger > 0.5) {
+//                motorSpinner.setPower(-1); //Reverse spinner motor
+//            }
 
+            if (Math.abs(gamepad2.right_stick_y) > .05) {
+                motorSpinner.setPower(gamepad2.right_stick_y);
+            } else {
+                motorSpinner.setPower(0);
+            }
 
             if (gamepad2.a) {
-                climber.setPosition(1);
-            }
-            else {
                 climber.setPosition(0);
+            } else {
+                climber.setPosition(1);
             }
 
             if (Math.abs(gamepad2.left_stick_y) > .05) {
