@@ -18,7 +18,10 @@ public class TeleOp2 extends OpMode{
     public DcMotor motorHangL;
     public DcMotor motorSpinner;
     public DcMotor motorLift;
-    public Servo boxTilt;
+    public Servo boxTiltFR;
+    public Servo boxTiltFL;
+    public Servo boxTiltBR;
+    public Servo boxTiltBL;
     public Servo switchL;
     public Servo switchR;
 //variables
@@ -41,12 +44,15 @@ public class TeleOp2 extends OpMode{
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         motorLift = hardwareMap.dcMotor.get("motorLift");
-        boxTilt = hardwareMap.servo.get("boxTilt");
+        boxTiltBR = hardwareMap.servo.get("boxTiltBR");
+        boxTiltBL = hardwareMap.servo.get("boxTiltBL");
+        boxTiltFR = hardwareMap.servo.get("boxTiltFR");
+        boxTiltFL = hardwareMap.servo.get("boxTiltFL");
         switchL = hardwareMap.servo.get("switchL");
         switchR = hardwareMap.servo.get("switchR");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
-        boxTilt.setPosition(boxTiltPosition);
+        boolean tilt;
     }
     public int gamePadScale(){
 
@@ -118,25 +124,23 @@ public class TeleOp2 extends OpMode{
             motorSpinner.setPower(-1 * HALFSPEED); //Reverse spinner motor
         }
 
-        //box lift
-        if (abs(gamepad2.left_stick_y) > .05) {
-            motorLift.setPower(gamepad2.left_stick_y * HALFSPEED); //Lift the box
+        //box lift is now the regular lift
+        if (abs(gamepad2.right_stick_y) > .05) {
+            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED); //Lift the box
+            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
         }
         else {
             motorLift.setPower(0);
         }
 
         // box tilt(not affected by halfspeed)
-        if (gamepad2.left_bumper) { //Tilt the box
-            if (boxTiltPosition != 0) {
-                boxTiltPosition -= .05;
-                boxTilt.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
+        if (gamepad2.b) { //sets the box to two postions
+                boxTiltFR.setPosition(.45); //When left bumper is pushed, set servos to 90 degrees
+                boxTiltBR.setPosition(.45);
             }
         }
-        if (gamepad2.right_bumper) { //Tilt the box in the other direction
-            if (boxTiltPosition != 1) {
-                boxTiltPosition += .05;
-                boxTilt.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
+        else (gamepad2.b) { //Tilt the box in the other directiom
+                boxTiltFR.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
             }
         }
     }

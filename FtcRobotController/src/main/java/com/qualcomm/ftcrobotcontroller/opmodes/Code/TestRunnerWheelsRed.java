@@ -8,7 +8,7 @@ import static java.lang.Math.abs;
 /**
  * Created by Vandegrift InvenTeam on 10/22/2015.
  */
-public class TestRunnerWheels extends OpMode {
+public class TestRunnerWheelsRed extends OpMode {
     VariableSpeed mod = new VariableSpeed();
 
     public DcMotor motorFR;
@@ -24,6 +24,10 @@ public class TestRunnerWheels extends OpMode {
     public Servo switchL;
     public Servo switchR;
     public Servo climber;
+    public Servo boxTiltFR;
+    public Servo boxTiltFL;
+    public Servo boxTiltBR;
+    public Servo boxTiltBL;
 
     long lastTime = 0;
     final long DURATION = 1500;
@@ -40,6 +44,10 @@ public class TestRunnerWheels extends OpMode {
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         climber = hardwareMap.servo.get("climber");
+        boxTiltBR = hardwareMap.servo.get("boxTiltBR");
+        boxTiltBL = hardwareMap.servo.get("boxTiltBL");
+        boxTiltFR = hardwareMap.servo.get("boxTiltFR");
+        boxTiltFL = hardwareMap.servo.get("boxTiltFL");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
         switchR.setPosition(.5);
@@ -149,6 +157,15 @@ public class TestRunnerWheels extends OpMode {
                 motorHangR.setPower(0);
             }
 
+            //box tilt 
+            if (gamepad2.left_bumper) { //sets the box to two postions
+                boxTiltFL.setPosition(.4); //When left bumper is pushed, set servos to 90 degrees
+                boxTiltBL.setPosition(.6);
+            }
+            else if(gamepad2.left_bumper){ //while right bumber is pushed, resst box
+                boxTiltFL.setPosition(0);
+                boxTiltBL.setPosition(1);
+            }
         }
     }
 }
