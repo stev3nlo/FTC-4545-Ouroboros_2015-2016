@@ -24,17 +24,14 @@ public class TestRunnerWheelsRed extends OpMode {
     public Servo switchL;
     public Servo switchR;
     public Servo climber;
-<<<<<<< HEAD:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/TestRunnerWheelsRed.java
     public Servo boxTiltFR;
     public Servo boxTiltFL;
     public Servo boxTiltBR;
     public Servo boxTiltBL;
-=======
-    public Servo boxFL;
-    public Servo boxFR;
-    public Servo boxBL;
-    public Servo boxBR;
->>>>>>> added box tilt:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/TestRunnerWheels.java
+//    public Servo boxFL;
+//    public Servo boxFR;
+//    public Servo boxBL;
+//    public Servo boxBR;
 
     long lastTime = 0;
     final long DURATION = 1500;
@@ -51,17 +48,14 @@ public class TestRunnerWheelsRed extends OpMode {
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         climber = hardwareMap.servo.get("climber");
-<<<<<<< HEAD:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/TestRunnerWheelsRed.java
         boxTiltBR = hardwareMap.servo.get("boxTiltBR");
         boxTiltBL = hardwareMap.servo.get("boxTiltBL");
         boxTiltFR = hardwareMap.servo.get("boxTiltFR");
         boxTiltFL = hardwareMap.servo.get("boxTiltFL");
-=======
-        boxFL = hardwareMap.servo.get("boxFL");
-//        boxFR = hardwareMap.servo.get("boxFR");
-        boxBL = hardwareMap.servo.get("boxBL");
-//        boxBR = hardwareMap.servo.get("boxBR");
->>>>>>> added box tilt:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/TestRunnerWheels.java
+//        boxFL = hardwareMap.servo.get("boxFL");
+////        boxFR = hardwareMap.servo.get("boxFR");
+//        boxBL = hardwareMap.servo.get("boxBL");
+////        boxBR = hardwareMap.servo.get("boxBR");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
         switchR.setPosition(.5);
@@ -70,10 +64,10 @@ public class TestRunnerWheelsRed extends OpMode {
         motorBR.setPower(0);
         motorFL.setPower(0);
         motorBL.setPower(0);
-        boxFL.setPosition(1);
-        boxBL.setPosition(0);
-        boxFR.setPosition(0);
-        boxBR.setPosition(1);
+//        boxFL.setPosition(1);
+//        boxBL.setPosition(0);
+//        boxFR.setPosition(0);
+//        boxBR.setPosition(1);
     }
 
     public void loop() {
@@ -176,7 +170,6 @@ public class TestRunnerWheelsRed extends OpMode {
             }
         }
 
-<<<<<<< HEAD:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/TestRunnerWheelsRed.java
             //box tilt 
             if (gamepad2.left_bumper) { //sets the box to two postions
                 boxTiltFL.setPosition(.4); //When left bumper is pushed, set servos to 90 degrees
@@ -185,22 +178,21 @@ public class TestRunnerWheelsRed extends OpMode {
             else if(gamepad2.left_bumper){ //while right bumber is pushed, resst box
                 boxTiltFL.setPosition(0);
                 boxTiltBL.setPosition(1);
-            }
-=======
-        if (gamepad2.left_bumper) {
-            boxFL.setPosition(.6);
-            boxBL.setPosition(.4);
-        } else {
-            boxFL.setPosition(1);
-            boxBL.setPosition(0);
-        }
-        if (gamepad2.right_bumper) {
-            boxFR.setPosition(.4);
-            boxBR.setPosition(.6);
-        } else {
-            boxFR.setPosition(0);
-            boxBR.setPosition(1);
->>>>>>> added box tilt:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/TestRunnerWheels.java
+//            }
+//        if (gamepad2.left_bumper) {
+//            boxFL.setPosition(.6);
+//            boxBL.setPosition(.4);
+//        } else {
+//            boxFL.setPosition(1);
+//            boxBL.setPosition(0);
+//        }
+//        if (gamepad2.right_bumper) {
+//            boxFR.setPosition(.4);
+//            boxBR.setPosition(.6);
+//        } else {
+//            boxFR.setPosition(0);
+//            boxBR.setPosition(1);
+//>>>>>>> added box tilt:FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Code/TestRunnerWheels.java
         }
     }
 }
