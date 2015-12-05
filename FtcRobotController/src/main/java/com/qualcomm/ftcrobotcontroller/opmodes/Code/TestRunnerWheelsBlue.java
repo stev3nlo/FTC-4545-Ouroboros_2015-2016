@@ -110,11 +110,14 @@ public class TestRunnerWheelsBlue extends OpMode {
 
         if (gamepad1.left_bumper) {
             switchL.setPosition(1);
-        } else {
+        }
+        else {
             switchL.setPosition(.7);
-            if (gamepad1.left_trigger > .05) {
+            if (gamepad1.left_trigger > .05)
+            {
                 switchL.setPosition(0);
-            } else {
+            } else
+            {
                 switchL.setPosition(.7);
             }
 
@@ -129,17 +132,20 @@ public class TestRunnerWheelsBlue extends OpMode {
                 }
             }
 
-//            if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
-//                motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
-//            } else if (gamepad2.right_trigger > 0.5) {
-//                motorSpinner.setPower(1); //Spinner motor
-//            } else if (gamepad2.left_trigger > 0.5) {
-//                motorSpinner.setPower(-1); //Reverse spinner motor
-//            }
+           if (((gamepad2.left_trigger > 0.5) && (gamepad2.right_trigger > 0.5) || (gamepad2.left_trigger == 0) && (gamepad2.right_trigger == 0))) {
+                motorSpinner.setPower(0); //If both triggers are pushed, set motor power to 0
+            }
+           else if (gamepad2.right_trigger > 0.5) {
+                 motorSpinner.setPower(1); //Spinner motor
+            }
+           else if (gamepad2.left_trigger > 0.5) {
+                 motorSpinner.setPower(-1); //Reverse spinner motor
+            }
 
             if (Math.abs(gamepad2.right_stick_y) > .05) {
                 motorSpinner.setPower(gamepad2.right_stick_y);
-            } else {
+            }
+            else {
                 motorSpinner.setPower(0);
             }
 
