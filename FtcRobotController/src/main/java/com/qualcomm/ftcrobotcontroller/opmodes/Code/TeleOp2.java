@@ -9,6 +9,16 @@ import static java.lang.Math.abs;
 
 
 public class TeleOp2 extends OpMode{
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+
+    }
+    /*
 //declares hardware
     public DcMotor motorFR;
     public DcMotor motorFL;
@@ -134,12 +144,12 @@ public class TeleOp2 extends OpMode{
         }
 
         // box tilt(not affected by halfspeed)
-        if (gamepad2.b) { //sets the box to two postions
+        if (gamepad2.left_bumper) { //sets the box to two postions
                 boxTiltFR.setPosition(.45); //When left bumper is pushed, set servos to 90 degrees
                 boxTiltBR.setPosition(.45);
             }
         }
-        else (gamepad2.b) { //Tilt the box in the other directiom
+        else { //Tilt the box in the other directiom
                 boxTiltFR.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
             }
         }
@@ -477,6 +487,7 @@ public class TeleOp2 extends OpMode{
             reverse();
         }
     }
+    */
 }
 
 
