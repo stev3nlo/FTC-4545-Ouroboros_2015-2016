@@ -39,7 +39,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestLift;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheels;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheelsRed;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.newDriveTrainTeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
@@ -82,7 +82,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
     //manager.register("NullOp", NullOp.class);
     manager.register("EncoderTest", EncoderTest.class);
-    manager.register("TestRunnerWheels", TestRunnerWheels.class);
+    manager.register("TestRunnerWheels", TestRunnerWheelsRed.class);
     manager.register("RGBTest", RGBtest.class);
     /*
      * The following example op modes are designed to work with a K9-style robot.

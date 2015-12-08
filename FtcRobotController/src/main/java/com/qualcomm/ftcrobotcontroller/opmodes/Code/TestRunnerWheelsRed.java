@@ -44,9 +44,7 @@ public class TestRunnerWheelsRed extends OpMode {
         motorHangR = hardwareMap.dcMotor.get("motorHangR");
         motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
         climber = hardwareMap.servo.get("climber");
-        boxTiltBR = hardwareMap.servo.get("boxTiltBR");
         boxTiltBL = hardwareMap.servo.get("boxTiltBL");
-        boxTiltFR = hardwareMap.servo.get("boxTiltFR");
         boxTiltFL = hardwareMap.servo.get("boxTiltFL");
         halfspeed = false;
         lastTime = System.currentTimeMillis();
@@ -159,12 +157,12 @@ public class TestRunnerWheelsRed extends OpMode {
 
             //box tilt 
             if (gamepad2.left_bumper) { //sets the box to two postions
-                boxTiltFL.setPosition(.4); //When left bumper is pushed, set servos to 90 degrees
-                boxTiltBL.setPosition(.6);
+                boxTiltFL.setPosition(.6); //When left bumper is pushed, set servos to 90 degrees
+                boxTiltBL.setPosition(.4);
             }
-            else if(gamepad2.left_bumper){ //while right bumber is pushed, resst box
-                boxTiltFL.setPosition(0);
-                boxTiltBL.setPosition(1);
+            else if(gamepad2.right_bumper){ //while right bumber is pushed, resst box
+                boxTiltFL.setPosition(1);
+                boxTiltBL.setPosition(0);
             }
         }
     }

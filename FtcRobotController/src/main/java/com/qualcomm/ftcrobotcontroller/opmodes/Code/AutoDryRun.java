@@ -16,8 +16,7 @@ public class AutoDryRun extends LinearOpMode {
     public DcMotor motorHangL;
     public DcMotor motorHangR;
     public DcMotor motorSpinner;
-    public Se
-    rvo switchL;
+    public Servo switchL;
     public Servo switchR;
     public Servo climber;
     @Override

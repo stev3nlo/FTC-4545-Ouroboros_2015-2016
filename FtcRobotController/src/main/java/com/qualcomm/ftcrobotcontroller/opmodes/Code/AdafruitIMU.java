@@ -250,7 +250,7 @@ public class AdafruitIMU implements HardwareDevice, I2cController.I2cPortReadyCa
         if (okSoFar) {
 
             outboundBytes[0] = (byte) operationalMode;
-            Log.i("FtcRobotController", String.format("Setting operational mode = 0X%02X........"
+            Log.i("FtcRobotCon troller", String.format("Setting operational mode = 0X%02X........"
                     ,outboundBytes[0] ));
             okSoFar &= i2cWriteImmediately(outboundBytes, 1, BNO055_OPR_MODE_ADDR);
             if (!okSoFar) {
