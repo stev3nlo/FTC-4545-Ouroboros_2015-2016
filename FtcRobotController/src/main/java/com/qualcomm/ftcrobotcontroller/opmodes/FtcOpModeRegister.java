@@ -39,7 +39,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestLift;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheels;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestRunnerWheelsRed;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.newDriveTrainTeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
