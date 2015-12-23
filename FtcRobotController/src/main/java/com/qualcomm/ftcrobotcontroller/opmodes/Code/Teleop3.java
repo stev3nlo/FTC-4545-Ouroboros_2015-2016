@@ -243,6 +243,8 @@ public class Teleop3 extends OpMode{
                 lastTime = currentTime;
             }
         }
+        else{
+            Normal();
         }
     }
 
