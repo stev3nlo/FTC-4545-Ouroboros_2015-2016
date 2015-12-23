@@ -17,6 +17,7 @@ public class Teleop3 extends OpMode{
     public DcMotor motorHangR;
     public DcMotor motorSpinner;
     boolean halfspeed;
+    boolean reverse;
     final double HALFSPEED = .3;
     public Servo switchL;
     public Servo switchR;
@@ -219,12 +220,29 @@ public class Teleop3 extends OpMode{
                 if (halfspeed) {
                     halfspeed = false;
                     Normal();
-                } else {
+                }
+                else {
                     halfspeed = true;
                     Halfspeed();
                 }
                 lastTime = currentTime;
             }
+        }
+        else if(gamepad1.b){
+            long currentTime = System.currentTimeMillis();
+            // are we waiting?
+            if (currentTime > lastTime + DURATION) {
+                if (reverse) {
+                    reverse = false;
+                    Normal();
+                }
+                else {
+                    reverse = true;
+                    Reverse();
+                }
+                lastTime = currentTime;
+            }
+        }
         }
     }
 
