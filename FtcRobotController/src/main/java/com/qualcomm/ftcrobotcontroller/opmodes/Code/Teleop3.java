@@ -211,7 +211,7 @@ public class Teleop3 extends OpMode{
     }
     @Override
     public void loop() {
-        //loop that checks for halfspeed 
+        //loop that checks for halfspeed
         if (gamepad1.a) {
             long currentTime = System.currentTimeMillis();
             // are we waiting?
@@ -219,8 +219,7 @@ public class Teleop3 extends OpMode{
                 if (halfspeed) {
                     halfspeed = false;
                     Normal();
-                }
-                else {
+                } else {
                     halfspeed = true;
                     Halfspeed();
                 }
