@@ -48,6 +48,9 @@ public class AutoBlue extends LinearOpMode {
         }
         moveForward(1, 4500);
         climbers();
+        turn("left", .75, 10);
+        moveBackwards(.75, 10);
+        turn("left", .75, 30);
     }
 
     public void reset() {

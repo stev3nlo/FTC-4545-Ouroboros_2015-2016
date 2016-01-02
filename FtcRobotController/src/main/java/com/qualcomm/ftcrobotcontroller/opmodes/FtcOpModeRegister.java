@@ -45,6 +45,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Code.IMUGyroOnlyTest;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.Test;
 
 /**
  * Register Op Modes
@@ -84,6 +85,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("NullOp", NullOp.class);
     manager.register("EncoderTest", EncoderTest.class);
     manager.register("RGBTest", RGBtest.class);
+    manager.register("Test", Test.class);
     /*
      * The following example op modes are designed to work with a K9-style robot.
      *  - K9TeleOp is a simple driver controlled program.

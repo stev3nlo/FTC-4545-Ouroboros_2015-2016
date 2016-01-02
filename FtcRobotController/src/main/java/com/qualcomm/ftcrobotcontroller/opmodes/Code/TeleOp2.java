@@ -9,16 +9,7 @@ import static java.lang.Math.abs;
 
 
 public class TeleOp2 extends OpMode{
-    @Override
-    public void init() {
 
-    }
-
-    @Override
-    public void loop() {
-
-    }
-    /*
 //declares hardware
     public DcMotor motorFR;
     public DcMotor motorFL;
@@ -148,12 +139,11 @@ public class TeleOp2 extends OpMode{
                 boxTiltFR.setPosition(.45); //When left bumper is pushed, set servos to 90 degrees
                 boxTiltBR.setPosition(.45);
             }
-        }
+
         else { //Tilt the box in the other directiom
                 boxTiltFR.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
             }
         }
-    }
 
     public void regular() {
         //wheels
@@ -232,13 +222,13 @@ public class TeleOp2 extends OpMode{
         if (gamepad2.left_bumper) { //Tilt the box
             if (boxTiltPosition != 0) {
                 boxTiltPosition -= .05;
-                boxTilt.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
+                boxTiltBR.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
             }
         }
         if (gamepad2.right_bumper) { //Tilt the box in the other direction
             if (boxTiltPosition != 1) {
                 boxTiltPosition += .05;
-                boxTilt.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
+                boxTiltBR.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
             }
         }
     }
@@ -314,20 +304,6 @@ public class TeleOp2 extends OpMode{
         }
         else {
             motorLift.setPower(0);
-        }
-
-        //box tilt(not affected by reverse becuase it would futher confuse driver)
-        if (gamepad2.left_bumper) { //Tilt the box
-            if (boxTiltPosition != 0) {
-                boxTiltPosition -= .05;
-                boxTilt.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
-            }
-        }
-        if (gamepad2.right_bumper) { //Tilt the box in the other direction
-            if (boxTiltPosition != 1) {
-                boxTiltPosition += .05;
-                boxTilt.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
-            }
         }
     }
 
@@ -408,13 +384,13 @@ public class TeleOp2 extends OpMode{
         if (gamepad2.left_bumper) { //Tilt the box
             if (boxTiltPosition != 0) {
                 boxTiltPosition -= .05;
-                boxTilt.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
+                boxTiltBR.setPosition(boxTiltPosition); //While left bumper is pushed, subtract .05 from the position of the servo
             }
         }
         if (gamepad2.right_bumper) { //Tilt the box in the other direction
             if (boxTiltPosition != 1) {
                 boxTiltPosition += .05;
-                boxTilt.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
+                boxTiltBR.setPosition(boxTiltPosition); //While right bumper is pushed, add .05 from the position of the servo
             }
         }
     }
@@ -469,7 +445,7 @@ public class TeleOp2 extends OpMode{
         if(gamepad2.a) {
             while (boxTiltPosition != 0) {
                 boxTiltPosition -= .05;
-                boxTilt.setPosition(boxTiltPosition);
+                boxTiltBR.setPosition(boxTiltPosition);
 
             }
         }
@@ -487,7 +463,6 @@ public class TeleOp2 extends OpMode{
             reverse();
         }
     }
-    */
 }
 
 
