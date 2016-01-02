@@ -21,6 +21,7 @@ public class Test extends OpMode{
 
     @Override
     public void loop() {
+        //tests wheels
         if(Math.abs(gamepad1.right_stick_y) > .05){
             motorFR.setPower(gamepad1.right_stick_y * -1);
             motorBR.setPower(gamepad1.right_stick_y * -1);
@@ -37,5 +38,7 @@ public class Test extends OpMode{
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
+
     }
+
 }
