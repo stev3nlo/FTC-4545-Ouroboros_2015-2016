@@ -14,6 +14,10 @@ public class Test extends OpMode{
     public DcMotor manipulator;
     public DcMotor liftR;
     public DcMotor liftL;
+    public Servo switchL;
+    public Servo switchR;
+    public Servo hookL;
+    public Servo hookR;
 
     @Override
     public void init() {
@@ -24,6 +28,10 @@ public class Test extends OpMode{
         manipulator = hardwareMap.dcMotor.get("manipulator");
         liftR = hardwareMap.dcMotor.get("liftR");
         liftL = hardwareMap.dcMotor.get("liftL");
+        switchL = hardwareMap.servo.get("switchL");
+        switchR = hardwareMap.servo.get("switchR");
+        hookL = hardwareMap.servo.get("hookL");
+        hookR = hardwareMap.servo.get("hookR");
     }
 
     @Override
@@ -66,6 +74,29 @@ public class Test extends OpMode{
                 liftR.setPower(gamepad1.left_trigger);
                 liftL.setPower(gamepad1.left_trigger);
             }
+        }
+
+        //switches
+        if (gamepad1.left_bumper) {
+            switchL.setPosition(1);
+        }
+        else {
+            switchL.setPosition(.5);
+        }
+        if (gamepad1.right_bumper) {
+            switchR.setPosition(0);
+        }
+        else {
+            switchR.setPosition(.5);
+        }
+
+        //hooks
+        if (gamepad1.x) {
+            hookL.setPosition(.5);
+            hookR.setPosition(.5);
+        } else {
+            hookL.setPosition(0);
+            hookR.setPosition(1);
         }
     }
 }
