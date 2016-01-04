@@ -64,6 +64,9 @@ public class Test extends OpMode{
                 manipulator.setPower(gamepad1.right_trigger);
             }
         }
+        else{
+            manipulator.setPower(0);
+        }
         //test lift
         if(Math.abs(gamepad1.left_trigger) > .1){
             if(gamepad1.b){
@@ -74,6 +77,10 @@ public class Test extends OpMode{
                 liftR.setPower(gamepad1.left_trigger);
                 liftL.setPower(gamepad1.left_trigger);
             }
+        }
+        else{
+            liftR.setPower(0);
+            liftL.setPower(0);
         }
 
         //switches
