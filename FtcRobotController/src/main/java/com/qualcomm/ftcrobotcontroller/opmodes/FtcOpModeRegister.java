@@ -101,6 +101,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("LiftTest", TestLift.class);
     manager.register("newDriveTrainTeleOp", newDriveTrainTeleOp.class);
     manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
- 
+
   }
 }
