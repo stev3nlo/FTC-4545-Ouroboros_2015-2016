@@ -18,15 +18,9 @@ public class LiftTest extends OpMode {
     @Override
     public void loop() {
         //test lift
-        if(Math.abs(gamepad1.left_trigger) > .1){
-            if(gamepad1.b){
-                liftR.setPower(gamepad1.left_trigger * -1);
-                liftL.setPower(gamepad1.left_trigger * -1);
-            }
-            else{
-                liftR.setPower(gamepad1.left_trigger);
-                liftL.setPower(gamepad1.left_trigger);
-            }
+        if(Math.abs(gamepad1.left_stick_y) > .1){
+                liftR.setPower(gamepad1.left_stick_y);
+                liftL.setPower(gamepad1.left_stick_y*-1);
         }
         else{
             liftR.setPower(0);
