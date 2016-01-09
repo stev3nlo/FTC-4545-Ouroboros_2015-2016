@@ -35,6 +35,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.LiftTest;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.QualifierAutoRed;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
@@ -102,6 +103,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("LiftTest", LiftTest.class);
     manager.register("newDriveTrainTeleOp", newDriveTrainTeleOp.class);
     manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
-
+    manager.register("autoTestRed (Qualifier)", QualifierAutoRed.class);
   }
 }
