@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutoBlue;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.Autonomous;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.LiftTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.QualifierAutoRed;
@@ -85,7 +86,6 @@ public class FtcOpModeRegister implements OpModeRegister {
      * The NullOp op mode
      */
     //manager.register("NullOp", NullOp.class);
-    manager.register("EncoderTest", EncoderTest.class);
     manager.register("RGBTest", RGBtest.class);
     manager.register("Test", Test.class);
     /*
@@ -95,14 +95,11 @@ public class FtcOpModeRegister implements OpModeRegister {
      *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
      */
     manager.register("TeleOp", TeleOp.class);
-    manager.register("ScrimmageAutoBlue", ScrimmageAutoBlue.class);
-    manager.register("ScrimmageRedZone", ScrimmageRedZone.class);
     manager.register("GyroTest", GyroTest.class);
 
-    manager.register("AutoBlue", AutoBlue.class);
     manager.register("LiftTest", LiftTest.class);
     manager.register("newDriveTrainTeleOp", newDriveTrainTeleOp.class);
     manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
-    manager.register("autoTestRed (Qualifier)", QualifierAutoRed.class);
+    manager.register("Autonomous", Autonomous.class);
   }
 }
