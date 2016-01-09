@@ -55,11 +55,35 @@ public class Test extends OpMode{
         }
         //REMEMBER TO FLIP!!!!
         //test manipulator
+<<<<<<< Updated upstream
         if(Math.abs(gamepad2.right_stick_y) > .1) {
             manipulator.setPower(gamepad2.right_stick_y * -1);
         }
         else{
                 manipulator.setPower(0);
+=======
+        if(Math.abs(gamepad1.right_trigger) > .1)
+        {
+            if(gamepad1.a){
+                manipulator.setPower(gamepad1.right_trigger);
+            }
+            else{
+                manipulator.setPower(gamepad1.right_trigger * -1);
+            }
+        }
+        else{
+            manipulator.setPower(0);
+        }
+        //test lift
+        if(Math.abs(gamepad1.left_trigger) > .1){
+            if(gamepad1.b){
+                liftR.setPower(gamepad1.left_trigger * -1);
+                liftL.setPower(gamepad1.left_trigger);
+            }
+            else{
+                liftR.setPower(gamepad1.left_trigger);
+                liftL.setPower(gamepad1.left_trigger);
+>>>>>>> Stashed changes
             }
         //test lift
         if(Math.abs(gamepad2.left_stick_y) > .1){
