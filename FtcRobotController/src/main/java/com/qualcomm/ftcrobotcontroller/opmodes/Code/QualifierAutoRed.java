@@ -25,7 +25,8 @@ public class QualifierAutoRed extends LinearOpMode {
     public void runOpMode() {
         try {
             waitOneFullHardwareCycle();
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             RobotLog.e(e.getMessage());
         }
 
