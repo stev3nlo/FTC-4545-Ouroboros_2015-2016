@@ -24,6 +24,9 @@ public class Teleop3 extends OpMode{
     public Servo climber;
     long lastTime = 0;
     final long DURATION = 1500;
+    public Servo boxR;
+    public Servo boxL;
+    public Servo boxBelt;
     @Override
     public void init() {
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -36,6 +39,9 @@ public class Teleop3 extends OpMode{
         motorHangR = hardwareMap.dcMotor.get("liftR");
         motorSpinner = hardwareMap.dcMotor.get("manipulator");
         climber = hardwareMap.servo.get("climber");
+        boxR = hardwareMap.servo.get("boxR");
+        boxL = hardwareMap.servo.get("boxL");
+        boxBelt = hardwareMap.servo.get("boxBelt");
         halfspeed = false;
     }
     public void Normal(){
@@ -93,7 +99,25 @@ public class Teleop3 extends OpMode{
         {
             climber.setPosition(0);
         }
-        //box: UNKNOWN FOR NOW
+        //box
+        //opens to the left
+        if(gamepad2.x){
+            boxL.setPosition(1);
+            boxBelt.setPosition(1);
+        }
+        else{
+            boxL.setPosition(.25);
+            boxBelt.setPosition(.5);
+        }
+        //opens the box to the right
+        if(gamepad2.b){
+            boxR.setPosition(1);
+            boxBelt.setPosition(0);
+        }
+        else{
+            boxBelt.setPosition(.5);
+            boxR.setPosition(.25);
+        }
     }
     //we might remove this macro if our wheels and lift aren't able to move very fast
     public void Halfspeed(){
@@ -136,8 +160,8 @@ public class Teleop3 extends OpMode{
         }
         //halspeed lift
         if(Math.abs(gamepad2.right_stick_y) > .1){
-            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED* -1);
-            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED);
+            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED);
+            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
         }
         else {
             motorHangL.setPower(0);
@@ -151,7 +175,25 @@ public class Teleop3 extends OpMode{
         {
             climber.setPosition(0);
         }
-        //box: UNKNOWN FOR NOW
+        //box is not affected by halfspeed
+        //opens to the left
+        if(gamepad2.x){
+            boxL.setPosition(1);
+            boxBelt.setPosition(1);
+        }
+        else{
+            boxL.setPosition(.25);
+            boxBelt.setPosition(.5);
+        }
+        //opens the box to the right
+        if(gamepad2.b){
+            boxR.setPosition(1);
+            boxBelt.setPosition(0);
+        }
+        else{
+            boxBelt.setPosition(.5);
+            boxR.setPosition(.25);
+        }
     }
     public void Reverse(){
         //reverse base
@@ -193,23 +235,42 @@ public class Teleop3 extends OpMode{
         }
         //lift not affected by reverse
         if(Math.abs(gamepad2.right_stick_y) > .1){
-            motorHangL.setPower(gamepad2.right_stick_y * -1);
-            motorHangR.setPower(gamepad2.right_stick_y);
+            motorHangL.setPower(gamepad2.right_stick_y);
+            motorHangR.setPower(gamepad2.right_stick_y * -1);
         }
         else {
             motorHangL.setPower(0);
             motorHangR.setPower(0);
         }
         //servo climber switch is not affected by reverse
-        if(gamepad2.x){
+        if(gamepad2.a){
             climber.setPosition(.5);
         }
         else
         {
             climber.setPosition(0);
         }
-        //box: UNKNOWN FOR NOW
+        //box is not affected by reverse 
+        //opens to the left
+        if(gamepad2.x){
+            boxL.setPosition(1);
+            boxBelt.setPosition(1);
+        }
+        else{
+            boxL.setPosition(.25);
+            boxBelt.setPosition(.5);
+        }
+        //opens the box to the right
+        if(gamepad2.b){
+            boxR.setPosition(1);
+            boxBelt.setPosition(0);
+        }
+        else{
+            boxBelt.setPosition(.5);
+            boxR.setPosition(.25);
+        }
     }
+
     @Override
     public void loop() {
         //loop that checks for halfspeed
