@@ -32,25 +32,25 @@ public class Teleop3 extends OpMode{
         motorBR = hardwareMap.dcMotor.get("motorBR");
         switchL = hardwareMap.servo.get("switchL");
         switchR = hardwareMap.servo.get("switchR");
-        motorHangL = hardwareMap.dcMotor.get("motorHangl");
-        motorHangR = hardwareMap.dcMotor.get("motorHangR");
-        motorSpinner = hardwareMap.dcMotor.get("motorSpinner");
+        motorHangL = hardwareMap.dcMotor.get("liftL");
+        motorHangR = hardwareMap.dcMotor.get("liftR");
+        motorSpinner = hardwareMap.dcMotor.get("manipulator");
         climber = hardwareMap.servo.get("climber");
         halfspeed = false;
     }
     public void Normal(){
         //base
         if(Math.abs(gamepad1.right_stick_y) > .1){
-            motorFR.setPower(gamepad1.right_stick_y * -1);
-            motorBR.setPower(gamepad1.right_stick_y * -1);
+            motorFR.setPower(gamepad1.right_stick_y);
+            motorBR.setPower(gamepad1.right_stick_y);
         }
         else {
             motorFR.setPower(0);
             motorBR.setPower(0);
         }
         if(Math.abs(gamepad1.left_stick_y) > .1){
-            motorFL.setPower(gamepad1.left_stick_y);
-            motorBL.setPower(gamepad1.left_stick_y);
+            motorFL.setPower(gamepad1.left_stick_y * -1);
+            motorBL.setPower(gamepad1.left_stick_y * -1);
         }
         else {
             motorFL.setPower(0);
@@ -87,7 +87,7 @@ public class Teleop3 extends OpMode{
         }
         //servo climber switch
         if(gamepad2.x){
-            climber.setPosition(1);
+            climber.setPosition(.5);
         }
         else
         {
@@ -99,16 +99,16 @@ public class Teleop3 extends OpMode{
     public void Halfspeed(){
         //halfspeed base
         if(Math.abs(gamepad1.right_stick_y) > .1){
-            motorFR.setPower(gamepad1.right_stick_y * -1 * HALFSPEED);
-            motorBR.setPower(gamepad1.right_stick_y * -1 * HALFSPEED);
+            motorFR.setPower(gamepad1.right_stick_y * HALFSPEED);
+            motorBR.setPower(gamepad1.right_stick_y * HALFSPEED);
         }
         else {
             motorFR.setPower(0);
             motorBR.setPower(0);
         }
         if(Math.abs(gamepad1.left_stick_y) > .1){
-            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED);
-            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED);
+            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED* -1);
+            motorBL.setPower(gamepad1.left_stick_y * HALFSPEED *- 1);
         }
         else {
             motorFL.setPower(0);
@@ -136,8 +136,8 @@ public class Teleop3 extends OpMode{
         }
         //halspeed lift
         if(Math.abs(gamepad2.right_stick_y) > .1){
-            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED);
-            motorHangR.setPower(gamepad2.right_stick_y * -1 * HALFSPEED);
+            motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED* -1);
+            motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED);
         }
         else {
             motorHangL.setPower(0);
@@ -145,7 +145,7 @@ public class Teleop3 extends OpMode{
         }
         //servo climber switch is not affected by halfspeed
         if(gamepad2.x){
-            climber.setPosition(1);
+            climber.setPosition(.5);
         }
         else
         {
@@ -156,16 +156,16 @@ public class Teleop3 extends OpMode{
     public void Reverse(){
         //reverse base
         if(Math.abs(gamepad1.right_stick_y) > .1){
-            motorFR.setPower(gamepad1.right_stick_y);
-            motorBR.setPower(gamepad1.right_stick_y);
+            motorFR.setPower(gamepad1.right_stick_y * -1);
+            motorBR.setPower(gamepad1.right_stick_y * -1);
         }
         else {
             motorFR.setPower(0);
             motorBR.setPower(0);
         }
         if(Math.abs(gamepad1.left_stick_y) > .1){
-            motorFL.setPower(gamepad1.left_stick_y * -1);
-            motorBL.setPower(gamepad1.left_stick_y * -1);
+            motorFL.setPower(gamepad1.left_stick_y);
+            motorBL.setPower(gamepad1.left_stick_y);
         }
         else {
             motorFL.setPower(0);
@@ -193,8 +193,8 @@ public class Teleop3 extends OpMode{
         }
         //lift not affected by reverse
         if(Math.abs(gamepad2.right_stick_y) > .1){
-            motorHangL.setPower(gamepad2.right_stick_y);
-            motorHangR.setPower(gamepad2.right_stick_y * -1);
+            motorHangL.setPower(gamepad2.right_stick_y * -1);
+            motorHangR.setPower(gamepad2.right_stick_y);
         }
         else {
             motorHangL.setPower(0);
@@ -202,7 +202,7 @@ public class Teleop3 extends OpMode{
         }
         //servo climber switch is not affected by reverse
         if(gamepad2.x){
-            climber.setPosition(1);
+            climber.setPosition(.5);
         }
         else
         {
@@ -243,10 +243,9 @@ public class Teleop3 extends OpMode{
                 lastTime = currentTime;
             }
         }
-        else{
+         else{
             Normal();
         }
     }
-
 }
 
