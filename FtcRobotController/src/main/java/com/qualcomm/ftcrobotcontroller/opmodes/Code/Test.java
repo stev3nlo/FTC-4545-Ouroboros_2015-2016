@@ -37,84 +37,73 @@ public class Test extends OpMode{
     @Override
     public void loop() {
         //tests wheels
-        if(Math.abs(gamepad1.right_stick_y) > .05){
+        if (Math.abs(gamepad1.right_stick_y) > .05) {
             motorFR.setPower(gamepad1.right_stick_y);
             motorBR.setPower(gamepad1.right_stick_y);
-        }
-        else{
+        } else {
             motorFR.setPower(0);
             motorBR.setPower(0);
         }
-        if(Math.abs(gamepad1.left_stick_y) > .05){
+        if (Math.abs(gamepad1.left_stick_y) > .05) {
             motorFL.setPower(gamepad1.left_stick_y * -1);
             motorBL.setPower(gamepad1.left_stick_y * -1);
-        }
-        else{
+        } else {
             motorFL.setPower(0);
             motorBL.setPower(0);
         }
         //REMEMBER TO FLIP!!!!
         //test manipulator
-<<<<<<< Updated upstream
-        if(Math.abs(gamepad2.right_stick_y) > .1) {
+        if (Math.abs(gamepad2.right_stick_y) > .1) {
             manipulator.setPower(gamepad2.right_stick_y * -1);
-        }
-        else{
-                manipulator.setPower(0);
-=======
-        if(Math.abs(gamepad1.right_trigger) > .1)
-        {
-            if(gamepad1.a){
-                manipulator.setPower(gamepad1.right_trigger);
-            }
-            else{
-                manipulator.setPower(gamepad1.right_trigger * -1);
-            }
-        }
-        else{
+        } else {
             manipulator.setPower(0);
+            if (Math.abs(gamepad1.right_trigger) > .1) {
+                if (gamepad1.a) {
+                    manipulator.setPower(gamepad1.right_trigger);
+                } else {
+                    manipulator.setPower(gamepad1.right_trigger * -1);
+                }
+            } else {
+                manipulator.setPower(0);
+            }
         }
         //test lift
-        if(Math.abs(gamepad1.left_trigger) > .1){
-            if(gamepad1.b){
+        if (Math.abs(gamepad1.left_trigger) > .1) {
+            if (gamepad1.b) {
                 liftR.setPower(gamepad1.left_trigger * -1);
                 liftL.setPower(gamepad1.left_trigger);
-            }
-            else{
+            } else {
                 liftR.setPower(gamepad1.left_trigger);
                 liftL.setPower(gamepad1.left_trigger);
->>>>>>> Stashed changes
             }
-        //test lift
-        if(Math.abs(gamepad2.left_stick_y) > .1){
-            liftR.setPower(gamepad2.left_stick_y);
-            liftL.setPower(gamepad2.left_stick_y * -1);
-        }
-        else{
-            liftR.setPower(0);
-            liftL.setPower(0);
-        }
-        //switches
-        if (gamepad1.left_bumper) {
-            switchL.setPosition(1);
-        }
-        else {
-            switchL.setPosition(.5);
-        }
-        if (gamepad1.right_bumper) {
-            switchR.setPosition(0);
-        }
-        else {
-            switchR.setPosition(.5);
-        }
+            //test lift
+            if (Math.abs(gamepad2.left_stick_y) > .1) {
+                liftR.setPower(gamepad2.left_stick_y);
+                liftL.setPower(gamepad2.left_stick_y * -1);
+            } else {
+                liftR.setPower(0);
+                liftL.setPower(0);
+            }
+            //switches
+            if (gamepad1.left_bumper) {
+                switchL.setPosition(1);
+            } else {
+                switchL.setPosition(.5);
+            }
+            if (gamepad1.right_bumper) {
+                switchR.setPosition(0);
+            } else {
+                switchR.setPosition(.5);
+            }
 
-        //hooks
-        if (gamepad1.x) {
-            hookL.setPosition(.5);
-            hookR.setPosition(.5);
-        } else {
-            hookL.setPosition(0);
-            hookR.setPosition(1);
+            //hooks
+            if (gamepad1.x) {
+                hookL.setPosition(.5);
+                hookR.setPosition(.5);
+            } else {
+                hookL.setPosition(0);
+                hookR.setPosition(1);
+            }
         }
     }
 }
