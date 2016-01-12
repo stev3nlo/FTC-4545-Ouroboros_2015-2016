@@ -27,6 +27,8 @@ public class Teleop3 extends OpMode{
     public Servo boxR;
     public Servo boxL;
     public Servo boxBelt;
+    public Servo attachR;
+    public Servo attachL;
     @Override
     public void init() {
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -42,6 +44,8 @@ public class Teleop3 extends OpMode{
         boxR = hardwareMap.servo.get("boxR");
         boxL = hardwareMap.servo.get("boxL");
         boxBelt = hardwareMap.servo.get("boxBelt");
+        attachR = hardwareMap.servo.get("attachR");
+        attachL = hardwareMap.servo.get("attachL");
         halfspeed = false;
     }
     public void Normal(){
@@ -117,6 +121,18 @@ public class Teleop3 extends OpMode{
         else{
             boxBelt.setPosition(.5);
             boxR.setPosition(.25);
+        }
+        //lock on servos
+        //x is lock on
+        if(gamepad2.x)
+        {
+            attachR.setPosition(.5);
+            attachL.setPosition(.5);
+        }
+        //y is lock off
+        else{
+            attachR.setPosition(0);
+            attachL.setPosition(0);
         }
     }
     //we might remove this macro if our wheels and lift aren't able to move very fast
@@ -194,6 +210,18 @@ public class Teleop3 extends OpMode{
             boxBelt.setPosition(.5);
             boxR.setPosition(.25);
         }
+        //lock on servos(not affected by halfspeed)
+        //x is lock on
+        if(gamepad2.x)
+        {
+            attachR.setPosition(.5);
+            attachL.setPosition(.5);
+        }
+        //y is lock off
+        else{
+            attachR.setPosition(0);
+            attachL.setPosition(0);
+        }
     }
     public void Reverse(){
         //reverse base
@@ -250,7 +278,7 @@ public class Teleop3 extends OpMode{
         {
             climber.setPosition(0);
         }
-        //box is not affected by reverse 
+        //box is not affected by reverse
         //opens to the left
         if(gamepad2.x){
             boxL.setPosition(1);
@@ -268,6 +296,18 @@ public class Teleop3 extends OpMode{
         else{
             boxBelt.setPosition(.5);
             boxR.setPosition(.25);
+        }
+        //lock on servos(not affected by reverse)
+        //x is lock on
+        if(gamepad2.x)
+        {
+            attachR.setPosition(.5);
+            attachL.setPosition(.5);
+        }
+        //y is lock off
+        else{
+            attachR.setPosition(0);
+            attachL.setPosition(0);
         }
     }
 
