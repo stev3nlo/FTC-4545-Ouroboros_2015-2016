@@ -51,7 +51,7 @@ public class ServoTest extends OpMode {
     public void loop() {
         //box
         //opens to the left
-        if(gamepad2.x){
+        if(gamepad1.x){
             boxL.setPosition(1);
             boxBelt.setPosition(1);
         }
@@ -60,7 +60,7 @@ public class ServoTest extends OpMode {
             boxBelt.setPosition(.5);
         }
         //opens the box to the right
-        if(gamepad2.b){
+        if(gamepad1.b){
             boxR.setPosition(1);
             boxBelt.setPosition(0);
         }
@@ -70,7 +70,7 @@ public class ServoTest extends OpMode {
         }
         //lock on servos
         //x is lock on
-        if(gamepad2.x)
+        if(gamepad1.x)
         {
             attachR.setPosition(.5);
             attachL.setPosition(.5);
@@ -80,6 +80,5 @@ public class ServoTest extends OpMode {
             attachR.setPosition(0);
             attachL.setPosition(0);
         }
-
     }
 }
