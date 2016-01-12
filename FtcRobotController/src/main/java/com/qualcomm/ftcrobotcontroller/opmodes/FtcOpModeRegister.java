@@ -1,3 +1,4 @@
+
 /* Copyright (c) 2014, 2015 Qualcomm Technologies Inc
 
 All rights reserved.
@@ -49,6 +50,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.Test;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.ServoTest;
 
 /**
  * Register Op Modes
@@ -101,5 +103,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("newDriveTrainTeleOp", newDriveTrainTeleOp.class);
     manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
     manager.register("Autonomous", Autonomous.class);
+    manager.register("ServoTest", ServoTest.class);
   }
 }
