@@ -159,7 +159,7 @@ public class Teleop3 extends OpMode{
             motorBR.setPower(0);
         }
         if(Math.abs(gamepad1.left_stick_y) > .1){
-            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED* -1);
+            motorFL.setPower(gamepad1.left_stick_y * HALFSPEED * -1);
             motorBL.setPower(gamepad1.left_stick_y * HALFSPEED *- 1);
         }
         else {
