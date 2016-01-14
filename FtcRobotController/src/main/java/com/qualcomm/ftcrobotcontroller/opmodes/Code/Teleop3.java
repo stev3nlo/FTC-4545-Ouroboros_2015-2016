@@ -96,7 +96,7 @@ public class Teleop3 extends OpMode{
             motorHangR.setPower(0);
         }
         //servo climber switch
-        if(gamepad2.x){
+        if(gamepad1.x){
             climber.setPosition(.5);
         }
         else
@@ -105,34 +105,41 @@ public class Teleop3 extends OpMode{
         }
         //box
         //opens to the left
-        if(gamepad2.x){
-            boxL.setPosition(1);
-            boxBelt.setPosition(1);
+        if(gamepad2.a){
+            boxL.setPosition(0);
         }
         else{
-            boxL.setPosition(.25);
-            boxBelt.setPosition(.5);
+            boxL.setPosition(.75);
         }
         //opens the box to the right
         if(gamepad2.b){
-            boxR.setPosition(1);
+            boxR.setPosition(.75);
+        }
+        else{
+
+            boxR.setPosition(0);
+        }
+        //triggers control boxBelt
+        if(gamepad2.right_trigger > .25){
             boxBelt.setPosition(0);
+        }
+        else if (gamepad2.left_trigger > .25){
+            boxBelt.setPosition(1);
         }
         else{
             boxBelt.setPosition(.5);
-            boxR.setPosition(.25);
         }
         //lock on servos
         //x is lock on
         if(gamepad2.x)
         {
-            attachR.setPosition(.5);
-            attachL.setPosition(.5);
+            attachR.setPosition(.25);
+            attachL.setPosition(.95);
         }
         //y is lock off
-        else{
-            attachR.setPosition(0);
-            attachL.setPosition(0);
+        else if(gamepad2.y){
+            attachR.setPosition(.85);
+            attachL.setPosition(.35);
         }
     }
     //we might remove this macro if our wheels and lift aren't able to move very fast
@@ -184,7 +191,7 @@ public class Teleop3 extends OpMode{
             motorHangR.setPower(0);
         }
         //servo climber switch is not affected by halfspeed
-        if(gamepad2.x){
+        if(gamepad1.x){
             climber.setPosition(.5);
         }
         else

@@ -51,6 +51,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.Test;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.ServoTest;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.Teleop3;
 
 /**
  * Register Op Modes
@@ -104,5 +105,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
     manager.register("Autonomous", Autonomous.class);
     manager.register("ServoTest", ServoTest.class);
+    manager.register("TeleOp3", Teleop3.class);
   }
 }
