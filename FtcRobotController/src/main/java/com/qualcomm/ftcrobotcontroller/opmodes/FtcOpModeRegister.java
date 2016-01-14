@@ -32,21 +32,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutoBlue;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.Autonomous;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.EncoderTest;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.LiftTest;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.QualifierAutoRed;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageAutoBlue;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.ScrimmageRedZone;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.TestLift;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.Teleop3;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.newDriveTrainTeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.GyroTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.IMUGyroOnlyTest;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.Test;
@@ -103,7 +97,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("LiftTest", LiftTest.class);
     manager.register("newDriveTrainTeleOp", newDriveTrainTeleOp.class);
     manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
-    manager.register("Autonomous", Autonomous.class);
+    manager.register("AutonomousBlue", AutonomousBlue.class);
+    manager.register("AutonomousRed", AutonomousRed.class);
     manager.register("ServoTest", ServoTest.class);
     manager.register("TeleOp3", Teleop3.class);
   }

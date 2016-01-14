@@ -29,6 +29,7 @@ public class Teleop3 extends OpMode{
     public Servo boxBelt;
     public Servo attachR;
     public Servo attachL;
+    long currentTime = 0;
     @Override
     public void init() {
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -47,6 +48,9 @@ public class Teleop3 extends OpMode{
         attachR = hardwareMap.servo.get("attachR");
         attachL = hardwareMap.servo.get("attachL");
         halfspeed = false;
+        boxBelt.setPosition(.5);
+        boxL.setPosition(0);
+        boxR.setPosition(0);
     }
     public void Normal(){
         //base
@@ -181,7 +185,7 @@ public class Teleop3 extends OpMode{
         else {
             motorSpinner.setPower(0);
         }
-        //halspeed lift
+        //halfspeed lift
         if(Math.abs(gamepad2.right_stick_y) > .1){
             motorHangL.setPower(gamepad2.right_stick_y * HALFSPEED);
             motorHangR.setPower(gamepad2.right_stick_y * HALFSPEED * -1);
@@ -322,7 +326,7 @@ public class Teleop3 extends OpMode{
     public void loop() {
         //loop that checks for halfspeed
         if (gamepad1.a) {
-            long currentTime = System.currentTimeMillis();
+            currentTime = System.currentTimeMillis();
             // are we waiting?
             if (currentTime > lastTime + DURATION) {
                 if (halfspeed) {
@@ -337,7 +341,7 @@ public class Teleop3 extends OpMode{
             }
         }
         else if(gamepad1.b){
-            long currentTime = System.currentTimeMillis();
+            currentTime = System.currentTimeMillis();
             // are we waiting?
             if (currentTime > lastTime + DURATION) {
                 if (reverse) {

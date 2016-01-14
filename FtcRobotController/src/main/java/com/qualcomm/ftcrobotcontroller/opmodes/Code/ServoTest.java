@@ -70,7 +70,7 @@ public class ServoTest extends OpMode {
         }
         //lock on servos
         //x is lock on
-        if(gamepad1.x)
+        if(gamepad1.a)
         {
             attachR.setPosition(.5);
             attachL.setPosition(.5);

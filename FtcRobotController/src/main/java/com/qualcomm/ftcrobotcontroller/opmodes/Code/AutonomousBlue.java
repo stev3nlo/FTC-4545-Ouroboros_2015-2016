@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 /**
  * Created by Steven on 1/9/2016.
  */
-public class Autonomous extends LinearOpMode {
+public class AutonomousBlue extends LinearOpMode {
     DcMotor motorFR;
     DcMotor motorFL;
     DcMotor motorBR;
@@ -31,8 +31,8 @@ public class Autonomous extends LinearOpMode {
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorBR = hardwareMap.dcMotor.get("motorBR");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
         manipulator = hardwareMap.dcMotor.get("manipulator");
+        motorBL = hardwareMap.dcMotor.get("motorBL");
         climber = hardwareMap.servo.get("climber");
         climber.setPosition(1);
 
@@ -42,12 +42,14 @@ public class Autonomous extends LinearOpMode {
             RobotLog.e(e.getMessage());
         }
 
-        forwardWithMani(1, 20000);
-//        turnRight(.5, 2000);
-//        moveForward(1, 2000);
-//        turnLeft(.5, 2000);
-//        moveForward(1, 2000);
-//        dropClimbers();
+        backwardsWithMani(1, 4300);
+        turnLeft(1, 600);
+        backwardsWithMani(1, 1500);
+        turnRight(1, 925);
+        backwardsWithMani(1, 750);
+        dropClimbers();
+        turnRight(1, 925);
+        moveBackwards(1, 1500);
     }
 
     public void moveForward(double speed, int distance) {
@@ -91,6 +93,20 @@ public class Autonomous extends LinearOpMode {
         reset();
     }
 
+    public void backwardsWithMani(double speed, int distance) {
+        getAvg();
+        motorFR.setPower(speed);
+        motorFL.setPower(-speed);
+        motorBR.setPower(speed);
+        motorBL.setPower(-speed);
+        manipulator.setPower(-1);
+        while (avg < distance) {
+            getAvg();
+            showData();
+        }
+        reset();
+    }
+
     public void turnRight(double speed, int distance) {
         getAvg();
         motorFR.setPower(speed);
@@ -124,7 +140,7 @@ public class Autonomous extends LinearOpMode {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        climber.setPosition(.5);
+        climber.setPosition(1);
     }
 
     public void reset(){
