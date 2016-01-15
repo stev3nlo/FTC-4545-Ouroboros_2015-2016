@@ -136,13 +136,12 @@ public class Teleop3 extends OpMode{
         }
         //lock on servos
         //x is lock on
-        if(gamepad2.x)
-        {
+        if(gamepad1.right_trigger > .5) {
             attachR.setPosition(.25);
             attachL.setPosition(.95);
         }
         //y is lock off
-        else if(gamepad2.y){
+        else if(gamepad1.left_trigger > .5){
             attachR.setPosition(.85);
             attachL.setPosition(.35);
         }
