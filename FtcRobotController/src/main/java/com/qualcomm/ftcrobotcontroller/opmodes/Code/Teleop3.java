@@ -51,6 +51,7 @@ public class Teleop3 extends OpMode{
         boxBelt.setPosition(.5);
         boxL.setPosition(0);
         boxR.setPosition(0);
+        climber.setPosition(1);
     }
     public void Normal(){
         //base
@@ -101,11 +102,11 @@ public class Teleop3 extends OpMode{
         }
         //servo climber switch
         if(gamepad1.x){
-            climber.setPosition(.5);
+            climber.setPosition(0);
         }
         else
         {
-            climber.setPosition(0);
+            climber.setPosition(1);
         }
         //box
         //opens to the left

@@ -1,4 +1,5 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.Code;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -45,10 +46,10 @@ public class AutonomousRed extends LinearOpMode {
         turnLeft(1, 600);
         backwardsWithMani(1, 1500);
         turnRight(1, 925);
-        backwardsWithMani(1, 2000);
+        backwardsWithMani(1, 750);
         dropClimbers();
         turnRight(1, 925);
-        backwardsWithMani(1, 1500);
+        moveBackwards(1, 1500);
     }
 
     public void moveForward(double speed, int distance) {
@@ -137,10 +138,10 @@ public class AutonomousRed extends LinearOpMode {
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
         climber.setPosition(1);
-        }
+    }
 
     public void reset(){
         motorFR.setPower(0);
@@ -148,13 +149,13 @@ public class AutonomousRed extends LinearOpMode {
         motorBR.setPower(0);
         motorBL.setPower(0);
         manipulator.setPower(0);
-        avg=0;
+        avg = 0;
         motorBL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         try{
             Thread.sleep(1000);
-        }catch(InterruptedException e){
-        RobotLog.e(e.getMessage());
+        } catch (InterruptedException e) {
+            RobotLog.e(e.getMessage());
         }
         motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
