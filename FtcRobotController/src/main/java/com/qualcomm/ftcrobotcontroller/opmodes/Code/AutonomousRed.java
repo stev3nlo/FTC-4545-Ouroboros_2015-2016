@@ -46,10 +46,10 @@ public class AutonomousRed extends LinearOpMode {
         turnLeft(1, 600);
         backwardsWithMani(1, 1500);
         turnRight(1, 925);
-        backwardsWithMani(1, 750);
+        backwardsWithMani(1, 1250);
         dropClimbers();
-        turnRight(1, 925);
-        moveBackwards(1, 1500);
+        turnRight(1, 910);
+        moveBackwards(1, 1000);
     }
 
     public void moveForward(double speed, int distance) {
@@ -136,7 +136,7 @@ public class AutonomousRed extends LinearOpMode {
     public void dropClimbers() {
         climber.setPosition(0);
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
