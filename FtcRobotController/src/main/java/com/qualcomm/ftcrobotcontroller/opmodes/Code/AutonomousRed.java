@@ -42,15 +42,18 @@ public class AutonomousRed extends LinearOpMode {
             RobotLog.e(e.getMessage());
         }
 
+
         backwardsWithMani(1, 4300);
-        turnLeft(1, 600);
-        backwardsWithMani(1, 1500);
-        turnRight(1, 925);
-        backwardsWithMani(1, 1250);
+        turnRight(1, 600);
+        backwardsWithMani(1, 1400);
+        turnLeft(1, 1100);
+        backwardsWithMani(.5, 1750);
         dropClimbers();
-        turnRight(1, 910);
+        moveForward(1, 250);
+        turnLeft(1, 1200);
         moveBackwards(1, 1000);
-    }
+
+     }
 
     public void moveForward(double speed, int distance) {
         getAvg();
@@ -61,6 +64,11 @@ public class AutonomousRed extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -75,6 +83,11 @@ public class AutonomousRed extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -89,6 +102,11 @@ public class AutonomousRed extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -103,6 +121,11 @@ public class AutonomousRed extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -116,6 +139,11 @@ public class AutonomousRed extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -129,6 +157,11 @@ public class AutonomousRed extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -136,8 +169,8 @@ public class AutonomousRed extends LinearOpMode {
     public void dropClimbers() {
         climber.setPosition(0);
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+            Thread.sleep(1500);
+        } catch (Exception  e) {
             e.printStackTrace();
         }
         climber.setPosition(1);

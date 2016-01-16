@@ -44,13 +44,13 @@ public class AutonomousBlue extends LinearOpMode {
 
         backwardsWithMani(1, 4300);
         turnLeft(1, 600);
-        backwardsWithMani(1, 1500);
-        turnRight(1, 925);
-        backwardsWithMani(1, 1500);
+        backwardsWithMani(1, 1425);
+        turnRight(1, 950);
+        backwardsWithMani(.5 , 2100);
         dropClimbers();
         moveForward(1, 250);
-        turnRight(1, 910);
-        moveBackwards(1, 1000);
+        turnRight(1, 925);
+        backwardsWithMani(1, 1000);
     }
 
     public void moveForward(double speed, int distance) {
@@ -62,6 +62,11 @@ public class AutonomousBlue extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -76,6 +81,11 @@ public class AutonomousBlue extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -90,6 +100,11 @@ public class AutonomousBlue extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -104,6 +119,11 @@ public class AutonomousBlue extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -117,6 +137,11 @@ public class AutonomousBlue extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -130,6 +155,11 @@ public class AutonomousBlue extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
         }
         reset();
     }
@@ -138,7 +168,7 @@ public class AutonomousBlue extends LinearOpMode {
         climber.setPosition(0);
         try {
             Thread.sleep(1500);
-        } catch (InterruptedException e) {
+        } catch (Exception  e) {
             e.printStackTrace();
         }
         climber.setPosition(1);
