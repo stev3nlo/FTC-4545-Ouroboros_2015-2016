@@ -43,13 +43,13 @@ public class AutonomousBlue extends LinearOpMode {
         }
 
         backwardsWithMani(1, 4300);
-        turnLeft(1, 600);
-        backwardsWithMani(1, 1425);
-        turnRight(1, 950);
-        backwardsWithMani(.5 , 2100);
+        turnLeft(.5, 600);
+        backwardsWithMani(1, 1300);
+        turnRight(.5, 950);
+        backwardsWithMani(.5 , 2400);
         dropClimbers();
         moveForward(1, 250);
-        turnRight(1, 925);
+        turnRight(.5, 925);
         backwardsWithMani(1, 1000);
     }
 

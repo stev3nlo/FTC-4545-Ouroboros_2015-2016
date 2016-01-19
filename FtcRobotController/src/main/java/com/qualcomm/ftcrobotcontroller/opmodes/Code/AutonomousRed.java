@@ -45,7 +45,7 @@ public class AutonomousRed extends LinearOpMode {
 
         backwardsWithMani(1, 4300);
         turnRight(1, 600);
-        backwardsWithMani(1, 1400);
+        backwardsWithMani(1, 1300);
         turnLeft(1, 1100);
         backwardsWithMani(.5, 1750);
         dropClimbers();
