@@ -77,10 +77,12 @@ public class TestRunnerWheelsBlue extends OpMode {
         boolean left_y = abs(gamepad1.left_stick_y) > .05;
         if (gamepad1.right_stick_y > .05 && gamepad1.left_stick_y < -.05) {
             speed = .3;
-        } else {
+        }
+        else {
             if (gamepad1.right_stick_y < -.05 && gamepad1.left_stick_y > .05) {
                 speed = .3;
-            } else {
+            }
+            else {
                 speed = FULLSPEED;
             }
         }

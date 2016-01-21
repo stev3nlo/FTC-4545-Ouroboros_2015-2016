@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.configuration.ServoConfiguration;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 /**
@@ -326,6 +327,9 @@ public class Teleop3 extends OpMode{
     public void loop() {
         //loop that checks for halfspeed
         if (gamepad1.a) {
+            ElapsedTime time = new ElapsedTime();
+            time.startTime();
+            time.time();
             currentTime = System.currentTimeMillis();
             // are we waiting?
             if (currentTime > lastTime + DURATION) {
