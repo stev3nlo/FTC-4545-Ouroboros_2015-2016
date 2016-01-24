@@ -19,17 +19,21 @@ public class TeleOp4 extends OpMode{
     boolean halfspeed;
     int direction;
     final double HALFSPEED = .3;
+    final int FULLSPEED = 1;
     public Servo switchL;
     public Servo switchR;
     public Servo climber;
-    long lastTime = 0;
-    final long DURATION = 1500;
+    final long DURATION = 1500000000;;
     public Servo boxR;
     public Servo boxL;
     public Servo boxBelt;
     public Servo attachR;
     public Servo attachL;
-    ElapsedTime time = new ElapsedTime();
+    long currentTimeH = 0;
+    long lastTimeH = 0;
+    long currentTimeR = 0;
+    long lastTimeR = 0;
+    double speed = 0;
     @Override
     public void init() {
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -56,11 +60,125 @@ public class TeleOp4 extends OpMode{
 
     @Override
     public void loop() {
-       if(gamepad1.a)
+        if(gamepad1.a)
        {
-           time.startTime();
-           if(time)
+           if (gamepad1.a) {
+               currentTimeH = System.nanoTime();
+               // are we waiting?
+               if (currentTimeH > lastTimeH + DURATION) {
+                   if (halfspeed) {
+                       halfspeed = false;
+                   }
+                   else {
+                       halfspeed = true;
+                   }
+                   lastTimeH = currentTimeH;
+               }
+           }
        }
+        if(gamepad1.b){
+            currentTimeR = System.nanoTime();
+            if(currentTimeR > lastTimeR + DURATION)
+            {
+                    direction *= -1;
+            }
+            lastTimeR = currentTimeR;
+        }
+        //if statement for deciding speed multiplier
+        speed = (halfspeed)? HALFSPEED:FULLSPEED;
+        //WHEELS: toogle between halfspeed, reverse, reverse halfspeed, and normal
+        if(Math.abs(gamepad1.right_stick_y) > .05)
+        {
+            motorFR.setPower(gamepad1.right_stick_y * speed * direction);
+            motorBR.setPower(gamepad1.right_stick_y * speed * direction);
+        }
+        else{
+            motorFR.setPower(0);
+            motorFL.setPower(0);
+        }
+        if(Math.abs(gamepad1.left_stick_y) > .05){
+            motorFL.setPower(gamepad1.left_stick_y * speed * direction * -1);
+            motorBL.setPower(gamepad1.left_stick_y * speed * direction * -1);
+        }
+        else{
+            motorFL.setPower(0);
+            motorBL.setPower(0);
+        }
+        //servo for flipping switches
+        if (gamepad1.left_bumper) {
+            switchL.setPosition(1);
+        }
+        else {
+            switchL.setPosition(.5);
+        }
+        if (gamepad1.right_bumper) {
+            switchR.setPosition(0);
+        }
+        else {
+            switchR.setPosition(.5);
+        }
+        //manipulator
+        if(Math.abs(gamepad2.left_stick_y) > .1){
+            motorSpinner.setPower(gamepad2.left_stick_y);
+        }
+        else {
+            motorSpinner.setPower(0);
+        }
+        //lift
+        if(Math.abs(gamepad2.right_stick_y) > .1){
+            motorHangL.setPower(gamepad2.right_stick_y);
+            motorHangR.setPower(gamepad2.right_stick_y * -1);
+        }
+        else {
+            motorHangL.setPower(0);
+            motorHangR.setPower(0);
+        }
+        //servo climber switch
+        if(gamepad1.x){
+            climber.setPosition(0);
+        }
+        else
+        {
+            climber.setPosition(1);
+        }
+        //BOX: need to change later
+        //opens to the left
+        if(gamepad2.a){
+            boxL.setPosition(0);
+        }
+        else{
+            boxL.setPosition(.75);
+        }
+        //opens the box to the right
+        if(gamepad2.b){
+            boxR.setPosition(.75);
+        }
+        else{
 
+            boxR.setPosition(0);
+        }
+        //triggers control boxBelt
+        if(gamepad2.right_trigger > .25){
+            boxBelt.setPosition(0);
+        }
+        else if (gamepad2.left_trigger > .25){
+            boxBelt.setPosition(1);
+        }
+        else{
+            boxBelt.setPosition(.5);
+        }
+        //lock on servos
+        //x is lock on
+        if(gamepad1.right_trigger > .5) {
+            attachR.setPosition(.25);
+            attachL.setPosition(.95);
+        }
+        //y is lock off
+        else if(gamepad1.left_trigger > .5){
+            attachR.setPosition(.85);
+            attachL.setPosition(.35);
+        }
     }
 }
+
+

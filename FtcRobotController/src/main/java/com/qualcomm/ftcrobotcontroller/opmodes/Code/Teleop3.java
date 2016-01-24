@@ -24,7 +24,7 @@ public class Teleop3 extends OpMode{
     public Servo switchR;
     public Servo climber;
     long lastTime = 0;
-    final long DURATION = 1500;
+    final long DURATION = 1500000000;
     public Servo boxR;
     public Servo boxL;
     public Servo boxBelt;
@@ -327,10 +327,7 @@ public class Teleop3 extends OpMode{
     public void loop() {
         //loop that checks for halfspeed
         if (gamepad1.a) {
-            ElapsedTime time = new ElapsedTime();
-            time.startTime();
-            time.time();
-            currentTime = System.currentTimeMillis();
+            currentTime = System.nanoTime();
             // are we waiting?
             if (currentTime > lastTime + DURATION) {
                 if (halfspeed) {
@@ -345,7 +342,7 @@ public class Teleop3 extends OpMode{
             }
         }
         else if(gamepad1.b){
-            currentTime = System.currentTimeMillis();
+            currentTime = System.nanoTime();
             // are we waiting?
             if (currentTime > lastTime + DURATION) {
                 if (reverse) {
