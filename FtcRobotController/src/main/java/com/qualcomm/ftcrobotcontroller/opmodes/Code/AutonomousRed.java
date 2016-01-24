@@ -47,6 +47,7 @@ public class AutonomousRed extends LinearOpMode {
         turnRight(1, 600);
         backwardsWithMani(1, 1300);
         turnLeft(1, 1100);
+        //add a while loop that continues along the white line
         backwardsWithMani(.5, 1750);
         dropClimbers();
         moveForward(1, 250);
