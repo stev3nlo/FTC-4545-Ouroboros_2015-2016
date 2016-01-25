@@ -1,8 +1,10 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.RobotLog;
 
@@ -18,6 +20,7 @@ public class AutonomousBlue_v2 extends LinearOpMode {
     Servo climber;
     ColorSensor colorSensorR;
     ColorSensor colorSensorL;
+    DeviceInterfaceModule
     int BR = 0;
     int BL = 0;
     int avg = 0;
