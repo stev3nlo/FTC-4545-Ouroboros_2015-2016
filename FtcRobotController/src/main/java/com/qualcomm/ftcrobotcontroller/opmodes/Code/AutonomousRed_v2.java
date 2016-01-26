@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 /**
  * Created by Steven on 1/9/2016.
  */
-public class AutonomousBlue_v2 extends LinearOpMode {
+public class AutonomousRed_v2 extends LinearOpMode {
     DcMotor motorFR;
     DcMotor motorFL;
     DcMotor motorBR;
@@ -57,16 +57,16 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         }
 
         backwardsWithMani(1, 4300);
-        turnLeft(.5, 600);
+        turnRight(1, 600);
         backwardsWithMani(1, 1300);
-        turnRight(.5, 950);
-        //backwardsWithMani(.5 , 2400);
+        turnLeft(1, 1100);
+        //add a while loop that continues along the white line
         moveToLine(.5);
         followToWallWithMani(.5);
         dropClimbers();
         moveForward(1, 250);
-        turnRight(.5, 925);
-        backwardsWithMani(1, 1000);
+        turnLeft(1, 1200);
+        moveBackwards(1, 1000);
     }
 
     public void getLeftColor (){
@@ -163,8 +163,8 @@ public class AutonomousBlue_v2 extends LinearOpMode {
     }
 
     public void moveToLine (double speed){
-        getRightColor();
-        while(colorR[0] <= 400 && colorR[1] <= 400 && colorR[2] <= 400){
+        getLeftColor();
+        while(colorL[0] <= 400 && colorL[1] <= 400 && colorL[2] <= 400){
             getRightColor();
             motorFL.setPower(speed);
             motorBL.setPower(speed);
