@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.RobotLog;
 
 /**
@@ -20,7 +21,8 @@ public class AutonomousBlue_v2 extends LinearOpMode {
     Servo climber;
     ColorSensor colorSensorR;
     ColorSensor colorSensorL;
-    DeviceInterfaceModule
+    DeviceInterfaceModule cdim;
+    TouchSensor touch;
     int BR = 0;
     int BL = 0;
     int avg = 0;
@@ -43,6 +45,9 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         manipulator = hardwareMap.dcMotor.get("manipulator");
         motorBL = hardwareMap.dcMotor.get("motorBL");
         climber = hardwareMap.servo.get("climber");
+        cdim = hardwareMap.deviceInterfaceModule.get("cdim");
+        colorSensorL = hardwareMap.colorSensor.get("colorSensorL");
+        colorSensorR = hardwareMap.colorSensor.get("colorSensorR");
         climber.setPosition(1);
 
         try {
@@ -62,8 +67,69 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         backwardsWithMani(1, 1000);
     }
 
-    public void senseLeftColor (){
+    public void getLeftColor (){
+
         colorL[0] = colorSensorL.red();
+        colorL[1] = colorSensorL.blue();
+        colorL[2] = colorSensorL.green();
+    }
+
+    public void getRightColor (){
+        colorR[0] = colorSensorR.red();
+        colorR[1] = colorSensorR.blue();
+        colorR[2] = colorSensorR.green();
+    }
+
+    public void followToWall(double speed){
+        while(!touch.isPressed()){
+            getLeftColor();
+            getRightColor();
+            if (colorL[0] > 1000 && colorL[1] > 1000 && colorL[2] > 1000){
+                motorFR.setPower(speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(speed);
+                motorBL.setPower(speed);
+            }
+            else if (colorR[0] > 1000 && colorR[1] > 1000 && colorR[2] > 1000){
+                motorFR.setPower(-speed);
+                motorBR.setPower(-speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(-speed);
+            }
+            else{
+                motorFR.setPower(-speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(speed);
+            }
+        }
+        reset();
+    }
+    public void followToWallWithMani(double speed){
+        manipulator.setPower(-1);
+        while(!touch.isPressed()){
+            getLeftColor();
+            getRightColor();
+            if (colorL[0] > 1000 && colorL[1] > 1000 && colorL[2] > 1000){
+                motorFR.setPower(speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(speed);
+                motorBL.setPower(speed);
+            }
+            else if (colorR[0] > 1000 && colorR[1] > 1000 && colorR[2] > 1000){
+                motorFR.setPower(-speed);
+                motorBR.setPower(-speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(-speed);
+            }
+            else{
+                motorFR.setPower(-speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(speed);
+            }
+        }
+        reset();
     }
 
     public void moveForward(double speed, int distance) {
@@ -82,6 +148,20 @@ public class AutonomousBlue_v2 extends LinearOpMode {
             }
         }
         reset();
+    }
+
+    public void senseLine (int speed){
+        getRightColor();
+        while(colorR[0] <= 400 && colorR[1] <= 400 && colorR[2] <= 400){
+            getRightColor();
+            motorFL.setPower(1);
+            motorBL.setPower(1);
+            motorFR.setPower(-1);
+            motorBR.setPower(-1);
+            manipulator.setPower(-1);
+        }
+        reset();
+
     }
 
     public void moveBackwards(double speed, int distance) {
