@@ -16,6 +16,7 @@ public class TeleOp4 extends OpMode{
     public DcMotor motorHangL;
     public DcMotor motorHangR;
     public DcMotor motorSpinner;
+    public DcMotor motorWinch;
     boolean halfspeed;
     int direction;
     final double HALFSPEED = .3;
@@ -178,6 +179,15 @@ public class TeleOp4 extends OpMode{
             attachR.setPosition(.85);
             attachL.setPosition(.35);
         }
+        //Winch
+        // is tighten
+        if(gamepad2.???) {
+            motorWinch.setTargetPosition(???);
+        }
+        else if{
+            motorWinch.setTargetPosition(???);
+        }
+
     }
 }
 
