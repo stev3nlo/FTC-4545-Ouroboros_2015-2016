@@ -134,6 +134,7 @@ public class TeleOp4 extends OpMode{
             motorHangL.setPower(0);
             motorHangR.setPower(0);
         }
+        //SERVO AND BOX NEED TO BE CHANGED
         //servo climber switch
         if(gamepad1.x){
             climber.setPosition(0);
@@ -181,7 +182,7 @@ public class TeleOp4 extends OpMode{
         }
         //Winch
         // is tighten
-        /* commented in for now
+        /* commented out for now
         if(gamepad2.???) {
             motorWinch.setTargetPosition(???);
         }
