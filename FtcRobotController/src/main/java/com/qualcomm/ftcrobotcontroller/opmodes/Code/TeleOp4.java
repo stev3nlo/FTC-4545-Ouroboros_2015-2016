@@ -181,12 +181,14 @@ public class TeleOp4 extends OpMode{
         }
         //Winch
         // is tighten
+        /* commented in for now
         if(gamepad2.???) {
             motorWinch.setTargetPosition(???);
         }
         else if{
             motorWinch.setTargetPosition(???);
         }
+        **/
 
     }
 }
