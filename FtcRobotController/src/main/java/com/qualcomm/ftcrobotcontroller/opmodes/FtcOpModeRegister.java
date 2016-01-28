@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.LiftTest;
@@ -101,5 +102,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("AutonomousRed", AutonomousRed.class);
     manager.register("ServoTest", ServoTest.class);
     manager.register("TeleOp3", Teleop3.class);
+    manager.register("ArgbTest", AdafruitRGBExample.class);
   }
 }

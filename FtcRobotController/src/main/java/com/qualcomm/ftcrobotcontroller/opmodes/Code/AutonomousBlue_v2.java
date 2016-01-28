@@ -144,6 +144,39 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         reset();
     }
 
+    //if pushing out doesn't work pulling the balls in with a good maniulator might
+    public void followToWallWithManiGoingIn(double speed){
+        manipulator.setPower(1);
+        while(!touch.isPressed()){
+            getLeftColor();
+            getRightColor();
+            if (colorL[0] > 400 && colorL[1] > 400 && colorL[2] > 400){
+                motorFR.setPower(speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(speed);
+                motorBL.setPower(speed);
+            }
+            else if (colorR[0] > 400 && colorR[1] > 400 && colorR[2] > 400){
+                motorFR.setPower(-speed);
+                motorBR.setPower(-speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(-speed);
+            }
+            else{
+                motorFR.setPower(-speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(speed);
+            }
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
+        }
+        reset();
+    }
+
     public void moveForward(double speed, int distance) {
         getAvg();
         motorFR.setPower(-speed);
