@@ -144,6 +144,38 @@ public class AutonomousRed_v2 extends LinearOpMode {
         reset();
     }
 
+    public void followToWallWithManiSuckingin(double speed){
+        manipulator.setPower(-1);
+        while(!touch.isPressed()){
+            getLeftColor();
+            getRightColor();
+            if (colorL[0] > 400 && colorL[1] > 400 && colorL[2] > 400){
+                motorFR.setPower(speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(speed);
+                motorBL.setPower(speed);
+            }
+            else if (colorR[0] > 400 && colorR[1] > 400 && colorR[2] > 400){
+                motorFR.setPower(-speed);
+                motorBR.setPower(-speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(-speed);
+            }
+            else{
+                motorFR.setPower(-speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(speed);
+            }
+            try {
+                waitOneFullHardwareCycle();
+            } catch (InterruptedException e) {
+                RobotLog.e(e.getMessage());
+            }
+        }
+        reset();
+    }
+
     public void moveForward(double speed, int distance) {
         getAvg();
         motorFR.setPower(-speed);
