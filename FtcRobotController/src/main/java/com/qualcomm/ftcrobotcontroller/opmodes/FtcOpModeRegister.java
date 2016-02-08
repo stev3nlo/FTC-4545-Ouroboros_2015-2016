@@ -39,6 +39,8 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Code.LiftTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.Teleop3;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleopBlueBasket;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleopRedBasket;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.newDriveTrainTeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.GyroTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.IMUGyroOnlyTest;
@@ -103,5 +105,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("ServoTest", ServoTest.class);
     manager.register("TeleOp3", Teleop3.class);
     manager.register("ArgbTest", AdafruitRGBExample.class);
+    manager.register("TeleOpRedBasket", TeleopRedBasket.class);
+    manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
   }
 }
