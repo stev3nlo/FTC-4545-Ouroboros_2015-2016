@@ -48,6 +48,7 @@ public class TeleopRedBasket extends OpMode{
         motorHangL = hardwareMap.dcMotor.get("liftL");
         motorHangR = hardwareMap.dcMotor.get("liftR");
         motorSpinner = hardwareMap.dcMotor.get("manipulator");
+        motorWinch = hardwareMap.dcMotor.get("winch");
         climber = hardwareMap.servo.get("climber");
         boxR = hardwareMap.servo.get("boxR");
         boxL = hardwareMap.servo.get("boxL");
