@@ -155,8 +155,6 @@ public class TeleopBlueBasket extends OpMode{
             attachL.setPosition(.35);
         }
         //Winch
-        // is tighten
-        // commented in for now
         if(gamepad2.dpad_up) {
             motorWinch.setPower(1);
 
@@ -167,7 +165,14 @@ public class TeleopBlueBasket extends OpMode{
         else{
             motorWinch.setPower(0);
         }
-
+        //don't know exact values needs to be tested
+        if(gamepad2.dpad_right)
+        {
+            claw.setPosition(1);
+        }
+        if(gamepad2.dpad_left){
+            claw.setPosition(0);
+        }
 
         if(gamepad2.y) {
             ramp.setPosition(.9);

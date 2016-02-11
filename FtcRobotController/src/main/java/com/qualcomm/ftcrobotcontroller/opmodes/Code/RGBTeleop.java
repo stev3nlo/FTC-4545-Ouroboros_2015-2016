@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created by Vandegrift InvenTeam on 1/21/2016.
  */
-public class TeleopRedBasket extends OpMode{
+public class RGBTeleop extends OpMode{
     public DcMotor motorFR;
     public DcMotor motorFL;
     public DcMotor motorBR;
@@ -36,6 +36,11 @@ public class TeleopRedBasket extends OpMode{
     public Servo ramp;
     public Servo drop;
     public Servo claw;
+    ColorSensor colorSensorR;
+    ColorSensor colorSensorL;
+    int[] colorL = new int[3];
+    int[] colorR = new int[3];
+
     @Override
     public void init() {
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -47,7 +52,7 @@ public class TeleopRedBasket extends OpMode{
         motorHangL = hardwareMap.dcMotor.get("liftL");
         motorHangR = hardwareMap.dcMotor.get("liftR");
         motorSpinner = hardwareMap.dcMotor.get("manipulator");
-        motorWinch = hardwareMap.dcMotor.get("winch");
+        motorWinch = hardwareMap.dcMotor.get("motorWinch");
         climber = hardwareMap.servo.get("climber");
         boxBelt = hardwareMap.servo.get("boxBelt");
         attachR = hardwareMap.servo.get("attachR");
@@ -60,6 +65,7 @@ public class TeleopRedBasket extends OpMode{
         climber.setPosition(1);
         ramp.setPosition(0);
         drop.setPosition(0);
+        direction = 1;
     }
 
     @Override
@@ -93,7 +99,7 @@ public class TeleopRedBasket extends OpMode{
             motorBR.setPower(gamepad1.right_stick_y * speed * direction);
         } else {
             motorFR.setPower(0);
-            motorFL.setPower(0);
+            motorBR.setPower(0);
         }
         if (Math.abs(gamepad1.left_stick_y) > .05) {
             motorFL.setPower(gamepad1.left_stick_y * speed * direction * -1);
@@ -109,13 +115,13 @@ public class TeleopRedBasket extends OpMode{
             switchL.setPosition(.5);
         }
         if (gamepad1.right_bumper) {
-            switchR.setPosition(0);
-        } else {
             switchR.setPosition(.5);
+        } else {
+            switchR.setPosition(1);
         }
         //manipulator
         if (Math.abs(gamepad2.left_stick_y) > .1) {
-            motorSpinner.setPower(gamepad2.left_stick_y);
+            motorSpinner.setPower(gamepad2.left_stick_y*-1);
         } else {
             motorSpinner.setPower(0);
         }
@@ -135,9 +141,9 @@ public class TeleopRedBasket extends OpMode{
         }
         //triggers control boxBelt
         if (gamepad2.right_trigger > .25) {
-            boxBelt.setPosition(1);
-        } else if (gamepad2.left_trigger > .25) {
             boxBelt.setPosition(0);
+        } else if (gamepad2.left_trigger > .25) {
+            boxBelt.setPosition(1);
         } else {
             boxBelt.setPosition(.5);
         }
@@ -152,13 +158,13 @@ public class TeleopRedBasket extends OpMode{
             attachR.setPosition(.85);
             attachL.setPosition(.35);
         }
-        //Winch: set to lower power for more control
+        //Winch
         if(gamepad2.dpad_up) {
-            motorWinch.setPower(.5);
+            motorWinch.setPower(1);
 
         }
         else if(gamepad2.dpad_down){
-            motorWinch.setPower(-.5);
+            motorWinch.setPower(-1);
         }
         else{
             motorWinch.setPower(0);
@@ -173,21 +179,36 @@ public class TeleopRedBasket extends OpMode{
         }
 
         if(gamepad2.y) {
-            ramp.setPosition(.1);
+            ramp.setPosition(.9);
         } // Ramp wall falls forward to push debris outwards
         if(gamepad2.a) {
-            ramp.setPosition(1);
+            ramp.setPosition(0);
             //Ramp resets
         }
-        if(gamepad2.x) {
-            drop.setPosition(.25);
+        if(gamepad2.b) {
+            drop.setPosition(.75);
             //Door drops
         }
-        if(gamepad2.b) {
-            drop.setPosition(0);
+        if(gamepad2.x) {
+            drop.setPosition(1);
             //Door resets
         }
+        getLeftColor();
+        getRightColor();
+        telemetry.addData("RGB L", colorL[0] + "," + colorL[1] + "," + colorL[2]);
+        telemetry.addData("RGB R", colorR[0] + "," + colorR[1] + "," + colorR[2]);
+    }
+
+    public void getLeftColor (){
+
+        colorL[0] = colorSensorL.red();
+        colorL[1] = colorSensorL.blue();
+        colorL[2] = colorSensorL.green();
+    }
+
+    public void getRightColor (){
+        colorR[0] = colorSensorR.red();
+        colorR[1] = colorSensorR.blue();
+        colorR[2] = colorSensorR.green();
     }
 }
-
-
