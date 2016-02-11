@@ -25,8 +25,6 @@ public class TeleopBlueBasket extends OpMode{
     public Servo switchR;
     public Servo climber;
     final long DURATION = 1500000000;;
-    public Servo boxR;
-    public Servo boxL;
     public Servo boxBelt;
     public Servo attachR;
     public Servo attachL;
@@ -37,6 +35,8 @@ public class TeleopBlueBasket extends OpMode{
     double speed = 0;
     public Servo ramp;
     public Servo drop;
+    public Servo claw;
+
     @Override
     public void init() {
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -48,21 +48,20 @@ public class TeleopBlueBasket extends OpMode{
         motorHangL = hardwareMap.dcMotor.get("liftL");
         motorHangR = hardwareMap.dcMotor.get("liftR");
         motorSpinner = hardwareMap.dcMotor.get("manipulator");
+        motorWinch = hardwareMap.dcMotor.get("motorWinch");
         climber = hardwareMap.servo.get("climber");
-        boxR = hardwareMap.servo.get("boxR");
-        boxL = hardwareMap.servo.get("boxL");
         boxBelt = hardwareMap.servo.get("boxBelt");
         attachR = hardwareMap.servo.get("attachR");
         attachL = hardwareMap.servo.get("attachL");
         ramp = hardwareMap.servo.get("ramp");
         drop = hardwareMap.servo.get("drop");
+        claw = hardwareMap.servo.get("claw");
         halfspeed = false;
         boxBelt.setPosition(.5);
-        boxL.setPosition(0);
-        boxR.setPosition(0);
         climber.setPosition(1);
         ramp.setPosition(0);
         drop.setPosition(0);
+        direction = 1;
     }
 
     @Override
@@ -96,7 +95,7 @@ public class TeleopBlueBasket extends OpMode{
             motorBR.setPower(gamepad1.right_stick_y * speed * direction);
         } else {
             motorFR.setPower(0);
-            motorFL.setPower(0);
+            motorBR.setPower(0);
         }
         if (Math.abs(gamepad1.left_stick_y) > .05) {
             motorFL.setPower(gamepad1.left_stick_y * speed * direction * -1);
@@ -112,13 +111,13 @@ public class TeleopBlueBasket extends OpMode{
             switchL.setPosition(.5);
         }
         if (gamepad1.right_bumper) {
-            switchR.setPosition(0);
-        } else {
             switchR.setPosition(.5);
+        } else {
+            switchR.setPosition(1);
         }
         //manipulator
         if (Math.abs(gamepad2.left_stick_y) > .1) {
-            motorSpinner.setPower(gamepad2.left_stick_y);
+            motorSpinner.setPower(gamepad2.left_stick_y*-1);
         } else {
             motorSpinner.setPower(0);
         }
@@ -135,20 +134,6 @@ public class TeleopBlueBasket extends OpMode{
             climber.setPosition(0);
         } else {
             climber.setPosition(1);
-        }
-        //BOX: need to change later
-        //opens to the left
-        if (gamepad2.a) {
-            boxL.setPosition(0);
-        } else {
-            boxL.setPosition(.75);
-        }
-        //opens the box to the right
-        if (gamepad2.b) {
-            boxR.setPosition(.75);
-        } else {
-
-            boxR.setPosition(0);
         }
         //triggers control boxBelt
         if (gamepad2.right_trigger > .25) {
@@ -171,28 +156,32 @@ public class TeleopBlueBasket extends OpMode{
         }
         //Winch
         // is tighten
-        /* commented in for now
-        if(gamepad2.???) {
-            motorWinch.setTargetPosition(???);
+        // commented in for now
+        if(gamepad2.dpad_up) {
+            motorWinch.setPower(1);
+
         }
-        else if{
-            motorWinch.setTargetPosition(???);
+        else if(gamepad2.dpad_down){
+            motorWinch.setPower(-1);
         }
-        **/
+        else{
+            motorWinch.setPower(0);
+        }
+
 
         if(gamepad2.y) {
-            ramp.setPosition(.75);
+            ramp.setPosition(.9);
         } // Ramp wall falls forward to push debris outwards
         if(gamepad2.a) {
-            ramp.setPosition(1);
+            ramp.setPosition(0);
             //Ramp resets
         }
-        if(gamepad2.x) {
-            drop.setPosition(.65);
+        if(gamepad2.b) {
+            drop.setPosition(.75);
             //Door drops
         }
-        if(gamepad2.b) {
-            drop.setPosition(0);
+        if(gamepad2.x) {
+            drop.setPosition(1);
             //Door resets
         }
     }
