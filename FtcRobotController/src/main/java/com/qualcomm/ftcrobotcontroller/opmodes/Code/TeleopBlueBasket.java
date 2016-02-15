@@ -59,9 +59,44 @@ public class TeleopBlueBasket extends OpMode{
         halfspeed = false;
         boxBelt.setPosition(.5);
         climber.setPosition(1);
-        ramp.setPosition(0);
-        drop.setPosition(0);
         direction = 1;
+        ramp.setPosition(0);
+        try {
+            wait(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ramp.setPosition(1);
+        try {
+            wait(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ramp.setPosition(0);
+        try {
+            wait(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ramp.setPosition(1);
+        try {
+            wait(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ramp.setPosition(0);
+        try {
+            wait(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ramp.setPosition(1);
+        ramp.setPosition(0);
+        ramp.setPosition(1);
+        ramp.setPosition(0);
+        ramp.setPosition(1);
+
+
     }
 
     @Override
@@ -117,7 +152,7 @@ public class TeleopBlueBasket extends OpMode{
         }
         //manipulator
         if (Math.abs(gamepad2.left_stick_y) > .1) {
-            motorSpinner.setPower(gamepad2.left_stick_y*-1);
+            motorSpinner.setPower(gamepad2.left_stick_y *-1);
         } else {
             motorSpinner.setPower(0);
         }
@@ -175,14 +210,14 @@ public class TeleopBlueBasket extends OpMode{
         }
 
         if(gamepad2.y) {
-            ramp.setPosition(.9);
+            ramp.setPosition(.8);
         } // Ramp wall falls forward to push debris outwards
         if(gamepad2.a) {
-            ramp.setPosition(0);
+            ramp.setPosition(1);
             //Ramp resets
         }
         if(gamepad2.b) {
-            drop.setPosition(.75);
+            drop.setPosition(.60);
             //Door drops
         }
         if(gamepad2.x) {
