@@ -34,8 +34,11 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue_v2;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed_v2;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.LiftTest;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBTeleop;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.Teleop3;
@@ -100,12 +103,13 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("LiftTest", LiftTest.class);
     manager.register("newDriveTrainTeleOp", newDriveTrainTeleOp.class);
     manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
-    manager.register("AutonomousBlue", AutonomousBlue.class);
-    manager.register("AutonomousRed", AutonomousRed.class);
+    manager.register("AutonomousBlue", AutonomousBlue_v2.class);
+    manager.register("AutonomousRed", AutonomousRed_v2.class);
     manager.register("ServoTest", ServoTest.class);
     manager.register("TeleOp3", Teleop3.class);
     manager.register("ArgbTest", AdafruitRGBExample.class);
     manager.register("TeleOpRedBasket", TeleopRedBasket.class);
     manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
+    manager.register("RGBTeleop", RGBTeleop.class);
   }
 }

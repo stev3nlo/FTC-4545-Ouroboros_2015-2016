@@ -61,8 +61,8 @@ public class AutonomousRed_v2 extends LinearOpMode {
         backwardsWithMani(1, 1300);
         turnLeft(1, 1100);
         //add a while loop that continues along the white line
-        moveToLine(.5);
-        followToWallWithMani(.5);
+        moveToLine(.2);
+        followToWallWithMani(.2);
         dropClimbers();
         moveForward(1, 250);
         turnLeft(1, 1200);
@@ -86,13 +86,13 @@ public class AutonomousRed_v2 extends LinearOpMode {
         while(!touch.isPressed()){
             getLeftColor();
             getRightColor();
-            if (colorL[0] > 400 && colorL[1] > 400 && colorL[2] > 400){
+            if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
                 motorFR.setPower(speed);
                 motorBR.setPower(speed);
                 motorFL.setPower(speed);
                 motorBL.setPower(speed);
             }
-            else if (colorR[0] > 400 && colorR[1] > 400 && colorR[2] > 400){
+            else if (colorR[0] > 1500 && colorR[1] > 2000 && colorR[2] > 2000){
                 motorFR.setPower(-speed);
                 motorBR.setPower(-speed);
                 motorFL.setPower(-speed);
@@ -117,13 +117,13 @@ public class AutonomousRed_v2 extends LinearOpMode {
         while(!touch.isPressed()){
             getLeftColor();
             getRightColor();
-            if (colorL[0] > 400 && colorL[1] > 400 && colorL[2] > 400){
+            if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
                 motorFR.setPower(speed);
                 motorBR.setPower(speed);
                 motorFL.setPower(speed);
                 motorBL.setPower(speed);
             }
-            else if (colorR[0] > 400 && colorR[1] > 400 && colorR[2] > 400){
+            else if (colorR[0] > 1500 && colorR[1] > 2000 && colorR[2] > 2000){
                 motorFR.setPower(-speed);
                 motorBR.setPower(-speed);
                 motorFL.setPower(-speed);
@@ -144,18 +144,18 @@ public class AutonomousRed_v2 extends LinearOpMode {
         reset();
     }
 
-    public void followToWallWithManiSuckingin(double speed){
+    public void followToWallWithManiSuckingIn(double speed){
         manipulator.setPower(-1);
         while(!touch.isPressed()){
             getLeftColor();
             getRightColor();
-            if (colorL[0] > 400 && colorL[1] > 400 && colorL[2] > 400){
+            if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
                 motorFR.setPower(speed);
                 motorBR.setPower(speed);
                 motorFL.setPower(speed);
                 motorBL.setPower(speed);
             }
-            else if (colorR[0] > 400 && colorR[1] > 400 && colorR[2] > 400){
+            else if (colorR[0] > 1500 && colorR[1] > 2000 && colorR[2] > 2000){
                 motorFR.setPower(-speed);
                 motorBR.setPower(-speed);
                 motorFL.setPower(-speed);
@@ -196,7 +196,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
     public void moveToLine (double speed){
         getLeftColor();
-        while(colorL[0] <= 400 && colorL[1] <= 400 && colorL[2] <= 400){
+        while(colorL[0] <= 1500 && colorL[1] <= 2000 && colorL[2] <= 2000){
             getRightColor();
             motorFL.setPower(speed);
             motorBL.setPower(speed);

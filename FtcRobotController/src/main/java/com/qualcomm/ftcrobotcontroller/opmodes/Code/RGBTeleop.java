@@ -60,6 +60,8 @@ public class RGBTeleop extends OpMode{
         ramp = hardwareMap.servo.get("ramp");
         drop = hardwareMap.servo.get("drop");
         claw = hardwareMap.servo.get("claw");
+        colorSensorL = hardwareMap.colorSensor.get("colorSensorL");
+        colorSensorR = hardwareMap.colorSensor.get("colorSensorR");
         halfspeed = false;
         boxBelt.setPosition(.5);
         climber.setPosition(1);
