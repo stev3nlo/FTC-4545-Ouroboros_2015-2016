@@ -56,47 +56,12 @@ public class TeleopBlueBasket extends OpMode{
         ramp = hardwareMap.servo.get("ramp");
         drop = hardwareMap.servo.get("drop");
         claw = hardwareMap.servo.get("claw");
+        claw.setPosition(.9);
         halfspeed = false;
         boxBelt.setPosition(.5);
         climber.setPosition(1);
         direction = 1;
         ramp.setPosition(0);
-        try {
-            wait(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ramp.setPosition(1);
-        try {
-            wait(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ramp.setPosition(0);
-        try {
-            wait(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ramp.setPosition(1);
-        try {
-            wait(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ramp.setPosition(0);
-        try {
-            wait(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ramp.setPosition(1);
-        ramp.setPosition(0);
-        ramp.setPosition(1);
-        ramp.setPosition(0);
-        ramp.setPosition(1);
-
-
     }
 
     @Override
@@ -203,17 +168,17 @@ public class TeleopBlueBasket extends OpMode{
         //don't know exact values needs to be tested
         if(gamepad2.dpad_right)
         {
-            claw.setPosition(1);
+            claw.setPosition(.9);
         }
         if(gamepad2.dpad_left){
             claw.setPosition(0);
         }
 
         if(gamepad2.y) {
-            ramp.setPosition(.8);
+            ramp.setPosition(0);
         } // Ramp wall falls forward to push debris outwards
         if(gamepad2.a) {
-            ramp.setPosition(1);
+            ramp.setPosition(.4 );
             //Ramp resets
         }
         if(gamepad2.b) {

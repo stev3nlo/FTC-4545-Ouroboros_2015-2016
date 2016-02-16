@@ -155,7 +155,6 @@ public class TeleopRedBasket extends OpMode{
         //Winch: set to lower power for more control
         if(gamepad2.dpad_up) {
             motorWinch.setPower(.5);
-
         }
         else if(gamepad2.dpad_down){
             motorWinch.setPower(-.5);
@@ -163,7 +162,7 @@ public class TeleopRedBasket extends OpMode{
         else{
             motorWinch.setPower(0);
         }
-        //don't know exact values needs to be tested
+
         if(gamepad2.dpad_right)
         {
             claw.setPosition(1);
