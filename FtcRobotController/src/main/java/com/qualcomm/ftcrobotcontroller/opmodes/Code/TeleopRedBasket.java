@@ -24,7 +24,7 @@ public class TeleopRedBasket extends OpMode{
     public Servo switchL;
     public Servo switchR;
     public Servo climber;
-    final long DURATION = 1500000000;;
+    final long DURATION = 1500000000;
     public Servo boxBelt;
     public Servo attachR;
     public Servo attachL;
