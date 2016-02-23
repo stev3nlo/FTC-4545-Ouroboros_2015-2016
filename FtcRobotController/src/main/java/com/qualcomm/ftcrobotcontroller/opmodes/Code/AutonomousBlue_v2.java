@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.RobotLog;
@@ -18,11 +19,12 @@ public class AutonomousBlue_v2 extends LinearOpMode {
     DcMotor motorBR;
     DcMotor motorBL;
     DcMotor manipulator;
+    Servo boxBelt;
     Servo climber;
     ColorSensor colorSensorR;
     ColorSensor colorSensorL;
     DeviceInterfaceModule cdim;
-    TouchSensor touch;
+    DigitalChannel touch;
     int BR = 0;
     int BL = 0;
     int avg = 0;
@@ -33,11 +35,8 @@ public class AutonomousBlue_v2 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        try {
-            waitOneFullHardwareCycle();
-        } catch (InterruptedException e) {
-            RobotLog.e(e.getMessage());
-        }
+        waitOneFullHardwareCycle();
+
 
         motorFR = hardwareMap.dcMotor.get("motorFR");
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -48,25 +47,28 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         cdim = hardwareMap.deviceInterfaceModule.get("cdim");
         colorSensorL = hardwareMap.colorSensor.get("colorSensorL");
         colorSensorR = hardwareMap.colorSensor.get("colorSensorR");
+        boxBelt = hardwareMap.servo.get("boxBelt");
+        touch = hardwareMap.digitalChannel.get("touch");
         climber.setPosition(1);
+        boxBelt.setPosition(.5);
 
-        try {
-            waitForStart();
-        } catch (InterruptedException e) {
-            RobotLog.e(e.getMessage());
-        }
 
-        backwardsWithMani(1, 4300);
-        turnLeft(.5, 600);
-        backwardsWithMani(1, 1300);
-        turnRight(.5, 950);
-        //backwardsWithMani(.5 , 2400);
-        moveToLine(.2);
-        followToWallWithMani(.2);
+        waitForStart();
+
+        Thread.sleep(10000);
+        backwardsWithMani(1, 3500);
         dropClimbers();
-        moveForward(1, 250);
-        turnRight(.5, 925);
-        backwardsWithMani(1, 1000);
+//        backwardsWithMani(1, 2000);
+//        turnLeft(.5, 200);
+//        backwardsWithMani(1, 100);
+//        //turnRight(.5, 950);
+//        //backwardsWithMani(.5 , 2400);
+//        moveToLine(.1);
+//        followToWallWithMani(.1);
+//        dropClimbers();
+//        moveForward(1, 250);
+//        turnRight(.5, 925);
+//        backwardsWithMani(1, 1000);
     }
 
     public void getLeftColor (){
@@ -82,8 +84,8 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         colorR[2] = colorSensorR.green();
     }
 
-    public void followToWall(double speed){
-        while(!touch.isPressed()){
+    public void followToWall(double speed) throws InterruptedException {
+        while(!touch.getState()){
             getLeftColor();
             getRightColor();
             if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
@@ -104,17 +106,14 @@ public class AutonomousBlue_v2 extends LinearOpMode {
                 motorFL.setPower(-speed);
                 motorBL.setPower(speed);
             }
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
-    public void followToWallWithMani(double speed){
-        manipulator.setPower(-1);
-        while(!touch.isPressed()){
+    public void followToWallWithMani(double speed) throws InterruptedException {
+        manipulator.setPower(1);
+        while(!touch.getState()){
+            waitOneFullHardwareCycle();
             getLeftColor();
             getRightColor();
             if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
@@ -135,19 +134,15 @@ public class AutonomousBlue_v2 extends LinearOpMode {
                 motorFL.setPower(-speed);
                 motorBL.setPower(speed);
             }
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
 
     //if pushing out doesn't work pulling the balls in with a good maniulator might
-    public void followToWallWithManiGoingIn(double speed){
+    public void followToWallWithManiGoingIn(double speed) throws InterruptedException {
         manipulator.setPower(1);
-        while(!touch.isPressed()){
+        while(!touch.getState()){
             getLeftColor();
             getRightColor();
             if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
@@ -163,21 +158,17 @@ public class AutonomousBlue_v2 extends LinearOpMode {
                 motorBL.setPower(-speed);
             }
             else{
-                motorFR.setPower(-speed);
-                motorBR.setPower(speed);
-                motorFL.setPower(-speed);
-                motorBL.setPower(speed);
+                motorFR.setPower(speed);
+                motorBR.setPower(-speed);
+                motorFL.setPower(speed);
+                motorBL.setPower(-speed);
             }
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
 
-    public void moveForward(double speed, int distance) {
+    public void moveForward(double speed, int distance) throws InterruptedException {
         getAvg();
         motorFR.setPower(-speed);
         motorFL.setPower(speed);
@@ -186,35 +177,27 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
 
-    public void moveToLine (double speed){
+    public void moveToLine (double speed) throws InterruptedException {
         getRightColor();
         while(colorR[0] <= 1500 && colorR[1] <= 2000 && colorR[2] <= 2000){
             getRightColor();
-            motorFL.setPower(speed);
-            motorBL.setPower(speed);
-            motorFR.setPower(-speed);
-            motorBR.setPower(-speed);
-            manipulator.setPower(-1);
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            motorFL.setPower(-speed);
+            motorBL.setPower(-speed);
+            motorFR.setPower(speed);
+            motorBR.setPower(speed);
+            manipulator.setPower(1);
+            waitOneFullHardwareCycle();
         }
         reset();
 
     }
 
-    public void moveBackwards(double speed, int distance) {
+    public void moveBackwards(double speed, int distance) throws InterruptedException {
         getAvg();
         motorFR.setPower(speed);
         motorFL.setPower(-speed);
@@ -224,54 +207,43 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
+
         }
         reset();
     }
 
-    public void forwardWithMani(double speed, int distance) {
+    public void forwardWithMani(double speed, int distance) throws InterruptedException {
         getAvg();
         motorFR.setPower(-speed);
         motorFL.setPower(speed);
         motorBR.setPower(-speed);
         motorBL.setPower(speed);
-        manipulator.setPower(-1);
+        manipulator.setPower(1);
         while (avg < distance) {
             getAvg();
             showData();
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
 
-    public void backwardsWithMani(double speed, int distance) {
+    public void backwardsWithMani(double speed, int distance) throws InterruptedException {
         getAvg();
         motorFR.setPower(speed);
         motorFL.setPower(-speed);
         motorBR.setPower(speed);
         motorBL.setPower(-speed);
-        manipulator.setPower(-1);
+        manipulator.setPower(1);
         while (avg < distance) {
             getAvg();
             showData();
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
 
-    public void turnRight(double speed, int distance) {
+    public void turnRight(double speed, int distance) throws InterruptedException {
         getAvg();
         motorFR.setPower(speed);
         motorFL.setPower(speed);
@@ -280,16 +252,12 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
 
-    public void turnLeft(double speed, int distance) {
+    public void turnLeft(double speed, int distance) throws InterruptedException {
         getAvg();
         motorFR.setPower(-speed);
         motorFL.setPower(-speed);
@@ -298,26 +266,18 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         while (avg < distance) {
             getAvg();
             showData();
-            try {
-                waitOneFullHardwareCycle();
-            } catch (InterruptedException e) {
-                RobotLog.e(e.getMessage());
-            }
+            waitOneFullHardwareCycle();
         }
         reset();
     }
 
-    public void dropClimbers() {
+    public void dropClimbers() throws InterruptedException {
         climber.setPosition(0);
-        try {
             Thread.sleep(1500);
-        } catch (Exception  e) {
-            e.printStackTrace();
-        }
         climber.setPosition(1);
     }
 
-    public void reset(){
+    public void reset() throws InterruptedException {
         motorFR.setPower(0);
         motorFL.setPower(0);
         motorBR.setPower(0);
@@ -326,11 +286,7 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         avg = 0;
         motorBL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-        try{
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            RobotLog.e(e.getMessage());
-        }
+        Thread.sleep(1000);
         motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }

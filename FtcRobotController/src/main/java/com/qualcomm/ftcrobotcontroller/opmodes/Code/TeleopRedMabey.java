@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created by Vandegrift InvenTeam on 1/21/2016.
  */
-public class TeleopRedBasket extends OpMode{
+public class TeleopRedMabey extends OpMode{
     public DcMotor motorFR;
     public DcMotor motorFL;
     public DcMotor motorBR;
@@ -24,7 +24,7 @@ public class TeleopRedBasket extends OpMode{
     public Servo switchL;
     public Servo switchR;
     public Servo climber;
-    final long DURATION = 1500000000;
+    final long DURATION = 1500000000;;
     public Servo boxBelt;
     public Servo attachR;
     public Servo attachL;
@@ -56,7 +56,6 @@ public class TeleopRedBasket extends OpMode{
         drop = hardwareMap.servo.get("drop");
         claw = hardwareMap.servo.get("claw");
         halfspeed = false;
-        direction = 1;
         boxBelt.setPosition(.5);
         climber.setPosition(1);
         ramp.setPosition(1);

@@ -32,26 +32,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitRGBExample;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue_v2;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed_v2;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.LiftTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBTeleop;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleOp;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.Teleop3;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleopBlueBasket;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleopRedBasket;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.newDriveTrainTeleOp;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.GyroTest;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.IMUGyroOnlyTest;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleopRedMabey;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.Test;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.ServoTest;
-import com.qualcomm.ftcrobotcontroller.opmodes.Code.Teleop3;
 
 /**
  * Register Op Modes
@@ -97,19 +87,11 @@ public class FtcOpModeRegister implements OpModeRegister {
      *  - K9IrSeeker uses a legacy IR seeker V2 sensor to follow a beacon.
      *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
      */
-    manager.register("TeleOp", TeleOp.class);
-    manager.register("GyroTest", GyroTest.class);
-
-    manager.register("LiftTest", LiftTest.class);
-    manager.register("newDriveTrainTeleOp", newDriveTrainTeleOp.class);
-    manager.register("IMU GYRO TEST", IMUGyroOnlyTest.class);
     manager.register("AutonomousBlue", AutonomousBlue_v2.class);
     manager.register("AutonomousRed", AutonomousRed_v2.class);
-    manager.register("ServoTest", ServoTest.class);
-    manager.register("TeleOp3", Teleop3.class);
-    manager.register("ArgbTest", AdafruitRGBExample.class);
     manager.register("TeleOpRedBasket", TeleopRedBasket.class);
     manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
     manager.register("RGBTeleop", RGBTeleop.class);
+    manager.register("red", TeleopRedMabey.class);
   }
 }

@@ -62,6 +62,7 @@ public class TeleopBlueBasket extends OpMode{
         climber.setPosition(1);
         direction = 1;
         ramp.setPosition(0);
+        drop.setPosition(1);
     }
 
     @Override
@@ -168,7 +169,7 @@ public class TeleopBlueBasket extends OpMode{
         //don't know exact values needs to be tested
         if(gamepad2.dpad_right)
         {
-            claw.setPosition(.9);
+            claw.setPosition(.8);
         }
         if(gamepad2.dpad_left){
             claw.setPosition(0);
@@ -178,7 +179,7 @@ public class TeleopBlueBasket extends OpMode{
             ramp.setPosition(0);
         } // Ramp wall falls forward to push debris outwards
         if(gamepad2.a) {
-            ramp.setPosition(.4 );
+            ramp.setPosition(.5);
             //Ramp resets
         }
         if(gamepad2.b) {
