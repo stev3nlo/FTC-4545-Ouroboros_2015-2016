@@ -67,7 +67,7 @@ public class TeleopBlueBasket extends OpMode{
 		ramp.setPosition(0);
 		drop.setPosition(1);
 		try {
-			gyroSensor = new AdafruitIMU(hardwareMap, "hydro"
+			gyroSensor = new AdafruitIMU(hardwareMap, "gyro"
 
 					//The following was required when the definition of the "I2cDevice" class was incomplete.
 					//, "cdim", 5

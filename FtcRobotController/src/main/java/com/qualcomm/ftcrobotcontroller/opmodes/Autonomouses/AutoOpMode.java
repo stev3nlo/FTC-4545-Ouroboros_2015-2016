@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes.Code;
+package com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses;
 
 import android.util.Log;
 
@@ -45,7 +45,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         manipulator.setPower(0);
         climber.setPosition(1);
         try {
-            gyroSensor = new AdafruitIMU(hardwareMap, "hydro"
+            gyroSensor = new AdafruitIMU(hardwareMap, "gyro"
 
                     //The following was required when the definition of the "I2cDevice" class was incomplete.
                     //, "cdim", 5
