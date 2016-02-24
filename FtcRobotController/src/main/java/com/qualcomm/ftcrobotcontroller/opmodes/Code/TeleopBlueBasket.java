@@ -1,6 +1,8 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.Code;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.AdafruitIMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.configuration.ServoConfiguration;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -34,38 +36,51 @@ public class TeleopBlueBasket extends OpMode{
     long lastTimeR = 0;
     double speed = 0;
     public Servo ramp;
-    public Servo drop;
-    public Servo claw;
+	public Servo drop;
+	public Servo claw;
+    AdafruitIMU gyroSensor;
 
-    @Override
+	@Override
     public void init() {
-        motorFL = hardwareMap.dcMotor.get("motorFL");
-        motorFR = hardwareMap.dcMotor.get("motorFR");
-        motorBL = hardwareMap.dcMotor.get("motorBL");
-        motorBR = hardwareMap.dcMotor.get("motorBR");
-        switchL = hardwareMap.servo.get("switchL");
-        switchR = hardwareMap.servo.get("switchR");
-        motorHangL = hardwareMap.dcMotor.get("liftL");
-        motorHangR = hardwareMap.dcMotor.get("liftR");
-        motorSpinner = hardwareMap.dcMotor.get("manipulator");
-        motorWinch = hardwareMap.dcMotor.get("motorWinch");
-        climber = hardwareMap.servo.get("climber");
-        boxBelt = hardwareMap.servo.get("boxBelt");
-        attachR = hardwareMap.servo.get("attachR");
-        attachL = hardwareMap.servo.get("attachL");
-        ramp = hardwareMap.servo.get("ramp");
-        drop = hardwareMap.servo.get("drop");
-        claw = hardwareMap.servo.get("claw");
-        claw.setPosition(.9);
-        halfspeed = false;
-        boxBelt.setPosition(.5);
-        climber.setPosition(1);
-        direction = 1;
-        ramp.setPosition(0);
-        drop.setPosition(1);
-    }
+		motorFL = hardwareMap.dcMotor.get("motorFL");
+		motorFR = hardwareMap.dcMotor.get("motorFR");
+		motorBL = hardwareMap.dcMotor.get("motorBL");
+		motorBR = hardwareMap.dcMotor.get("motorBR");
+		switchL = hardwareMap.servo.get("switchL");
+		switchR = hardwareMap.servo.get("switchR");
+		motorHangL = hardwareMap.dcMotor.get("liftL");
+		motorHangR = hardwareMap.dcMotor.get("liftR");
+		motorSpinner = hardwareMap.dcMotor.get("manipulator");
+		motorWinch = hardwareMap.dcMotor.get("motorWinch");
+		climber = hardwareMap.servo.get("climber");
+		boxBelt = hardwareMap.servo.get("boxBelt");
+		attachR = hardwareMap.servo.get("attachR");
+		attachL = hardwareMap.servo.get("attachL");
+		ramp = hardwareMap.servo.get("ramp");
+		drop = hardwareMap.servo.get("drop");
+		claw = hardwareMap.servo.get("claw");
+		claw.setPosition(.9);
+		halfspeed = false;
+		boxBelt.setPosition(.5);
+		climber.setPosition(1);
+		direction = 1;
+		ramp.setPosition(0);
+		drop.setPosition(1);
+		try {
+			gyroSensor = new AdafruitIMU(hardwareMap, "hydro"
 
-    @Override
+					//The following was required when the definition of the "I2cDevice" class was incomplete.
+					//, "cdim", 5
+
+					, (byte) (AdafruitIMU.BNO055_ADDRESS_A * 2)//By convention the FTC SDK always does 8-bit I2C bus
+					//addressing
+					, (byte) AdafruitIMU.OPERATION_MODE_IMU);
+		} catch (RobotCoreException e) {
+			telemetry.addData("gyro", "gyro failed");
+		}
+		telemetry.addData("init", "initialized");
+	}
+
     public void loop() {
         if (gamepad1.a) {
             if (gamepad1.a) {
