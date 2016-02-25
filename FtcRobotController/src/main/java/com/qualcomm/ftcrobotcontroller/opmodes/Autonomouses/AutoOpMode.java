@@ -28,7 +28,59 @@ public abstract class AutoOpMode extends LinearOpMode {
     int avg;
     volatile double[] rollAngle = new double[2], pitchAngle = new double[2], yawAngle = new double[2];
 
-    public void initialize() throws InterruptedException {
+	//constant variables
+	public static final int CLIMBERS_ANGLE = 135;
+
+	//constant variables for BLUE side
+	public static final int BLUE_START_TO_WALL = 3000;
+	public static final int BLUE_TURN_TO_LINE = 45;
+	public static final int BLUE_WALL_TO_LINE = 350;
+	public static final int BLUE_TURN_TO_BEACON = 90;
+	public static final int BLUE_LINE_TO_BEACON = 200;
+	public static final int BLUE_BACK_AWAY_FROM_BEACON = 100;
+
+	//move out of way for alliance
+	public static final int BLUE_TURN_TO_CLEAR = 90;
+	public static final int BLUE_BEACON_TO_CLEAR = 400;
+
+	//goes to clear other ramp
+	public static final int BLUE_TURN_TO_OTHER_SIDE = 140;
+	public static final int BLUE_BEACON_TO_OTHER_SIDE = 2000;
+	public static final int BLUE_TURN_TO_RAMP_BASE = 40;
+	public static final int BLUE_OTHER_SIDE_TO_CLEAR_RAMP_BASE = 2000;
+
+	//goes to ramp and hits switches
+	public static final int BLUE_TURN_TO_RAMP =  100;
+	public static final int BLUE_BEACON_TO_RAMP = 2500;
+	public static final int BLUE_TURN_TO_CHURRO = 95;
+	public static final int BLUE_RAMP_TO_CHURRO = 500;
+
+	//constant variables for RED side
+	public static final int RED_START_TO_WALL = 3000;
+	public static final int RED_TURN_TO_LINE = 45;
+	public static final int RED_WALL_TO_LINE = 350;
+	public static final int RED_TURN_TO_BEACON = 90;
+	public static final int RED_LINE_TO_BEACON = 200;
+	public static final int RED_BACK_AWAY_FROM_BEACON = 100;
+
+	//move out of way for alliance
+	public static final int RED_TURN_TO_CLEAR = 90;
+	public static final int RED_BEACON_TO_CLEAR = 400;
+
+	//goes to clear other ramp
+	public static final int RED_TURN_TO_OTHER_SIDE = 140;
+	public static final int RED_BEACON_TO_OTHER_SIDE = 2000;
+	public static final int RED_TURN_TO_RAMP_BASE = 40;
+	public static final int RED_OTHER_SIDE_TO_CLEAR_RAMP_BASE = 2000;
+
+	//goes to ramp and hits switches
+	public static final int RED_TURN_TO_RAMP =  80;
+	public static final int RED_BEACON_TO_RAMP = 2500;
+	public static final int RED_TURN_TO_CHURRO = 95;
+	public static final int RED_RAMP_TO_CHURRO = 500;
+
+	public void initialize() throws InterruptedException {
+
         waitOneFullHardwareCycle();
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
@@ -53,6 +105,7 @@ public abstract class AutoOpMode extends LinearOpMode {
                     , (byte)(AdafruitIMU.BNO055_ADDRESS_A * 2)//By convention the FTC SDK always does 8-bit I2C bus
                     //addressing
                     , (byte) AdafruitIMU.OPERATION_MODE_IMU);
+            waitOneFullHardwareCycle();
         } catch (RobotCoreException e){
             telemetry.addData("gyro", "gyro failed");
         }
@@ -81,12 +134,12 @@ public abstract class AutoOpMode extends LinearOpMode {
                     startMotors(speed, -speed);
                 }
             }
-        }
+		}
         reset();
     }
 
     public void forwardWithManiWithEncoders(double speed, double goal) throws InterruptedException {
-        startMotors(speed, -speed);
+		startMotors(speed, -speed);
         manipulator.setPower(1);
         double angle;
 		angle = yawAngle[0];
@@ -107,24 +160,24 @@ public abstract class AutoOpMode extends LinearOpMode {
             }
         }
         reset();
-    }
+	}
 
-    public void moveBackwardsWithEncoders(double speed, double goal) throws InterruptedException {
+	public void moveBackwardsWithEncoders(double speed, double goal) throws InterruptedException {
         moveForwardWithEncoders(-speed, goal);
     }
 
-    public void backwardsWithManiWithEncoders(double speed, double goal) throws InterruptedException {
+	public void backwardsWithManiWithEncoders(double speed, double goal) throws InterruptedException {
         forwardWithManiWithEncoders(-speed, goal);
     }
 
     public void turnLeft(double speed, double angle) throws InterruptedException {
-        double currAngle;
+		double currAngle;
         getAngles();
 		double newAngle;
 		currAngle = yawAngle[0];
 		newAngle = yawAngle[0];
-        while ((newAngle - currAngle) > angle) {
-            startMotors(speed, speed);
+		while ((newAngle - currAngle) > angle) {
+			startMotors(speed, speed);
 			getAngles();
 			newAngle = yawAngle[0];
         }
@@ -144,8 +197,8 @@ public abstract class AutoOpMode extends LinearOpMode {
     //angle out of 180 degrees
     public void dropClimbers(int angle) throws InterruptedException {
         climber.setPosition(1 - (angle / 180));
-        Thread.sleep(250);
-        climber.setPosition(1);
+		Thread.sleep(250);
+		climber.setPosition(1);
     }
 
     public void getAngles() throws InterruptedException {
@@ -173,6 +226,17 @@ public abstract class AutoOpMode extends LinearOpMode {
         avg = (BR + BL) / 2;
         showData();
     }
+
+	public void showAngles() {
+		gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
+		telemetry.addData("Headings(yaw): ",
+				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", yawAngle[0], yawAngle[1]));
+		telemetry.addData("Pitches: ",
+				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", pitchAngle[0], pitchAngle[1]));
+		telemetry.addData("Max I2C read interval: ",
+				String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
+						, gyroSensor.avgReadInterval));
+	}
 
     public void showData() {
         telemetry.addData("Encoder Value", avg);

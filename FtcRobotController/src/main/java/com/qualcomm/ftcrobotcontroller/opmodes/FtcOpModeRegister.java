@@ -32,6 +32,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbers;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbers10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersClear;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersClear10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersMove;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersMove10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersSwitches;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersSwitches10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbers;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbers10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersClear;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersClear10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersMove;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersMove10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersSwitches;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersSwitches10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue_v2;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed_v2;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBTeleop;
@@ -87,11 +103,28 @@ public class FtcOpModeRegister implements OpModeRegister {
      *  - K9IrSeeker uses a legacy IR seeker V2 sensor to follow a beacon.
      *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
      */
-    manager.register("AutonomousBlue", AutonomousBlue_v2.class);
-    manager.register("AutonomousRed", AutonomousRed_v2.class);
+
     manager.register("TeleOpRedBasket", TeleopRedBasket.class);
     manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
     manager.register("RGBTeleop", RGBTeleop.class);
     manager.register("red", TeleopRedMabey.class);
+
+    //Autonomouses
+    manager.register("BlueClimbers", BlueClimbers.class);
+    manager.register("BlueClimbers10", BlueClimbers10.class);
+    manager.register("BlueClimbersClear", BlueClimbersClear.class);
+    manager.register("BlueClimbersClear10", BlueClimbersClear10.class);
+    manager.register("BlueClimbersMove", BlueClimbersMove.class);
+    manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
+    manager.register("BlueClimbersSwitches", BlueClimbersSwitches.class);
+    manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
+    manager.register("RedClimbers", RedClimbers.class);
+    manager.register("RedClimbersMove", RedClimbersMove.class);
+    manager.register("RedClimbersMove10", RedClimbersMove10.class);
+    manager.register("RedClimbers10", RedClimbers10.class);
+    manager.register("RedClimbersClear", RedClimbersClear.class);
+    manager.register("RedClimbersClear10", RedClimbersClear10.class);
+    manager.register("RedClimbersSwitches", RedClimbersSwitches.class);
+    manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
   }
 }

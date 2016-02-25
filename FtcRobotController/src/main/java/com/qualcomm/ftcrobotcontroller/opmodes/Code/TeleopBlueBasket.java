@@ -39,6 +39,7 @@ public class TeleopBlueBasket extends OpMode{
 	public Servo drop;
 	public Servo claw;
     AdafruitIMU gyroSensor;
+	volatile double[] rollAngle = new double[2], pitchAngle = new double[2], yawAngle = new double[2];
 
 	@Override
     public void init() {
@@ -75,13 +76,21 @@ public class TeleopBlueBasket extends OpMode{
 					, (byte) (AdafruitIMU.BNO055_ADDRESS_A * 2)//By convention the FTC SDK always does 8-bit I2C bus
 					//addressing
 					, (byte) AdafruitIMU.OPERATION_MODE_IMU);
-		} catch (RobotCoreException e) {
+		} catch (Exception e) {
 			telemetry.addData("gyro", "gyro failed");
 		}
 		telemetry.addData("init", "initialized");
 	}
 
     public void loop() {
+		gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
+		telemetry.addData("Headings(yaw): ",
+				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", yawAngle[0], yawAngle[1]));
+		telemetry.addData("Pitches: ",
+				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", pitchAngle[0], pitchAngle[1]));
+		telemetry.addData("Max I2C read interval: ",
+				String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
+						, gyroSensor.avgReadInterval));
         if (gamepad1.a) {
             if (gamepad1.a) {
                 currentTimeH = System.nanoTime();
@@ -194,7 +203,7 @@ public class TeleopBlueBasket extends OpMode{
             ramp.setPosition(0);
         } // Ramp wall falls forward to push debris outwards
         if(gamepad2.a) {
-            ramp.setPosition(.5);
+            ramp.setPosition(.35);
             //Ramp resets
         }
         if(gamepad2.b) {
@@ -207,5 +216,3 @@ public class TeleopBlueBasket extends OpMode{
         }
     }
 }
-
-
