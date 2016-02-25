@@ -113,6 +113,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         BR = 0;
         avg = 0;
         telemetry.addData("init", "initialized");
+		reset();
     }
 
     public void moveForwardWithEncoders(double speed, double goal) throws InterruptedException {
@@ -121,6 +122,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 		angle = yawAngle[0];
 		double currAngle;
         while (avg < goal) {
+			showAngles();
             getAvg();
             waitOneFullHardwareCycle();
             getAngles();
@@ -145,6 +147,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 		angle = yawAngle[0];
 		double currAngle;
         while (avg < goal) {
+			showAngles();
             getAvg();
             waitOneFullHardwareCycle();
             getAngles();
@@ -177,6 +180,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 		currAngle = yawAngle[0];
 		newAngle = yawAngle[0];
 		while ((newAngle - currAngle) > angle) {
+			showAngles();
 			startMotors(speed, speed);
 			getAngles();
 			newAngle = yawAngle[0];
@@ -218,6 +222,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         Thread.sleep(1000);
         motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+		resetGyro();
     }
 
     public void getAvg() {
@@ -236,6 +241,11 @@ public abstract class AutoOpMode extends LinearOpMode {
 		telemetry.addData("Max I2C read interval: ",
 				String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
 						, gyroSensor.avgReadInterval));
+	}
+
+	public void resetGyro() throws InterruptedException {
+		gyroSensor.startIMU();
+		waitOneFullHardwareCycle();
 	}
 
     public void showData() {
