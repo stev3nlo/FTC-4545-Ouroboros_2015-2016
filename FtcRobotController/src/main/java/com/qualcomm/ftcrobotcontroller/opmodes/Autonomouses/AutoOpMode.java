@@ -26,6 +26,7 @@ public abstract class AutoOpMode extends LinearOpMode {
     int BL;
     int BR;
     int avg;
+	String gyroInit;
     volatile double[] rollAngle = new double[2], pitchAngle = new double[2], yawAngle = new double[2];
 
 	//constant variables
@@ -81,6 +82,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 
 	public void initialize() throws InterruptedException {
 
+		gyroInit = "initialized";
         waitOneFullHardwareCycle();
         motorFL = hardwareMap.dcMotor.get("motorFL");
         motorFR = hardwareMap.dcMotor.get("motorFR");
@@ -88,7 +90,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         motorBR = hardwareMap.dcMotor.get("motorBR");
         manipulator = hardwareMap.dcMotor.get("manipulator");
         climber = hardwareMap.servo.get("climber");
-        telemetry.addData("init", "initializing");
+        telemetry.addData("gyro", "initializing");
 
         motorFL.setPower(0);
         motorFR.setPower(0);
@@ -96,7 +98,10 @@ public abstract class AutoOpMode extends LinearOpMode {
         motorBR.setPower(0);
         manipulator.setPower(0);
         climber.setPosition(1);
+
         try {
+			hardwareMap.logDevices();
+
             gyroSensor = new AdafruitIMU(hardwareMap, "gyro"
 
                     //The following was required when the definition of the "I2cDevice" class was incomplete.
@@ -107,12 +112,12 @@ public abstract class AutoOpMode extends LinearOpMode {
                     , (byte) AdafruitIMU.OPERATION_MODE_IMU);
             waitOneFullHardwareCycle();
         } catch (RobotCoreException e){
-            telemetry.addData("gyro", "gyro failed");
+            gyroInit = "failed";
         }
         BL = 0;
         BR = 0;
         avg = 0;
-        telemetry.addData("init", "initialized");
+        telemetry.addData("gyro init", gyroInit);
 		reset();
     }
 
