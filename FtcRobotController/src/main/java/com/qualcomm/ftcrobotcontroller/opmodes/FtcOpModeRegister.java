@@ -115,20 +115,20 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     //Autonomouses
     manager.register("BlueClimbers", BlueClimbers.class);
-//    manager.register("BlueClimbers10", BlueClimbers10.class);
+    manager.register("BlueClimbers10", BlueClimbers10.class);
     manager.register("BlueClimbersClear", BlueClimbersClear.class);
-//    manager.register("BlueClimbersClear10", BlueClimbersClear10.class);
+    manager.register("BlueClimbersClear10", BlueClimbersClear10.class);
     manager.register("BlueClimbersMove", BlueClimbersMove.class);
-//    manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
+    manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
     manager.register("BlueClimbersSwitches", BlueClimbersSwitches.class);
-//    manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
+    manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
     manager.register("RedClimbers", RedClimbers.class);
-//    manager.register("RedClimbers10", RedClimbers10.class);
+    manager.register("RedClimbers10", RedClimbers10.class);
     manager.register("RedClimbersMove", RedClimbersMove.class);
-//    manager.register("RedClimbersMove10", RedClimbersMove10.class);
+    manager.register("RedClimbersMove10", RedClimbersMove10.class);
     manager.register("RedClimbersClear", RedClimbersClear.class);
-//    manager.register("RedClimbersClear10", RedClimbersClear10.class);
+    manager.register("RedClimbersClear10", RedClimbersClear10.class);
     manager.register("RedClimbersSwitches", RedClimbersSwitches.class);
-//    manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
+    manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
   }
 }
