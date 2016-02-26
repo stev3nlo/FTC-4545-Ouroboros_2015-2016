@@ -111,7 +111,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 //    manager.register("red", TeleopRedMabey.class);
 
 
-	manager.register("Gryo Test", IMUGyroOnlyTest.class);
+//	manager.register("Gryo Test", IMUGyroOnlyTest.class);
 
     //Autonomouses
     manager.register("BlueClimbers", BlueClimbers.class);

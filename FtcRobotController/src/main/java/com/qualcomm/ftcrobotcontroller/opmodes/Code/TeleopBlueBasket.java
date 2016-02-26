@@ -26,7 +26,7 @@ public class TeleopBlueBasket extends OpMode{
     public Servo switchL;
     public Servo switchR;
     public Servo climber;
-    final long DURATION = 1500000000;;
+    final long DURATION = 1500000000;
     public Servo boxBelt;
     public Servo attachR;
     public Servo attachL;
@@ -69,6 +69,7 @@ public class TeleopBlueBasket extends OpMode{
 		ramp.setPosition(0);
 		drop.setPosition(1);
 		try {
+			hardwareMap.logDevices();
 			gyroSensor = new AdafruitIMU(hardwareMap, "gyro"
 
 					//The following was required when the definition of the "I2cDevice" class was incomplete.
