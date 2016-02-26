@@ -68,75 +68,73 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Code.Test;
  * Register Op Modes
  */
 public class FtcOpModeRegister implements OpModeRegister {
+	/**
+	 * The Op Mode Manager will call this method when it wants a list of all
+	 * available op modes. Add your op mode to the list to enable it.
+	 *
+	 * @param manager op mode manager
+	 */
+	public void register(OpModeManager manager) {
 
-  /**
-   * The Op Mode Manager will call this method when it wants a list of all
-   * available op modes. Add your op mode to the list to enable it.
-   *
-   * @param manager op mode manager
-   */
-  public void register(OpModeManager manager) {
+		/*
+		 * register your op modes here.
+		 * The first parameter is the name of the op mode
+		 * The second parameter is the op mode class property
+		 *
+		 * If two or more op modes are registered with the same name, the app will display an error.
+		 */
 
-    /*
-     * register your op modes here.
-     * The first parameter is the name of the op mode
-     * The second parameter is the op mode class property
-     *
-     * If two or more op modes are registered with the same name, the app will display an error.
-     */
+		/*
+		 * The following op modes are example op modes provided by QualComm.
+		 * Uncomment the lines to make the op modes available to the driver station.
+		 */
+		//manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
+		//manager.register("LinearIrExample", LinearIrExample.class);
+		//manager.register("IrSeekerOp", IrSeekerOp.class);
+		//manager.register("CompassCalibration", CompassCalibration.class);
+		//manager.register("NxtTeleOp", NxtTeleOp.class);
 
+		/*
+		 * The NullOp op mode
+		 */
+		//manager.register("NullOp", NullOp.class);
+//        manager.register("RGBTest", RGBtest.class);
+//        manager.register("Test", Test.class);
+		/*
+		 * The following example op modes are designed to work with a K9-style robot.
+		 *  - K9TeleOp is a simple driver controlled program.
+		 *  - K9IrSeeker uses a legacy IR seeker V2 sensor to follow a beacon.
+		 *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
+		 */
 
-    /*
-     * The following op modes are example op modes provided by QualComm.
-     * Uncomment the lines to make the op modes available to the driver station.
-     */
-    //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
-    //manager.register("LinearIrExample", LinearIrExample.class);
-    //manager.register("IrSeekerOp", IrSeekerOp.class);
-    //manager.register("CompassCalibration", CompassCalibration.class);
-    //manager.register("NxtTeleOp", NxtTeleOp.class);
-
-    /*
-     * The NullOp op mode
-     */
-    //manager.register("NullOp", NullOp.class);
-//    manager.register("RGBTest", RGBtest.class);
-//    manager.register("Test", Test.class);
-    /*
-     * The following example op modes are designed to work with a K9-style robot.
-     *  - K9TeleOp is a simple driver controlled program.
-     *  - K9IrSeeker uses a legacy IR seeker V2 sensor to follow a beacon.
-     *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
-     */
-
-    manager.register("TeleOpRedBasket", TeleopRedBasket.class);
-    manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
-//    manager.register("RGBTeleop", RGBTeleop.class);
-//    manager.register("red", TeleopRedMabey.class);
+		manager.register("TeleOpRedBasket", TeleopRedBasket.class);
+		manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
+//        manager.register("RGBTeleop", RGBTeleop.class);
+//        manager.register("red", TeleopRedMabey.class);
 
 
-//	manager.register("Gryo Test", IMUGyroOnlyTest.class);
+//	      manager.register("Gryo Test", IMUGyroOnlyTest.class);
 
-    //Autonomouses
-    manager.register("BlueClimbers", BlueClimbers.class);
-    manager.register("BlueClimbers10", BlueClimbers10.class);
-    manager.register("BlueClimbersClear", BlueClimbersClear.class);
-    manager.register("BlueClimbersClear10", BlueClimbersClear10.class);
-    manager.register("BlueClimbersMove", BlueClimbersMove.class);
-    manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
-    manager.register("BlueClimbersSwitches", BlueClimbersSwitches.class);
-    manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
-	  manager.register("BlueClimbersDefense", BlueClimbersDefense.class);
-	  manager.register("BlueClimbersDefense10", BlueClimbersDefense10.class);
-	  manager.register("RedClimbers", RedClimbers.class);
-    manager.register("RedClimbers10", RedClimbers10.class);
-    manager.register("RedClimbersMove", RedClimbersMove.class);
-    manager.register("RedClimbersMove10", RedClimbersMove10.class);
-    manager.register("RedClimbersClear", RedClimbersClear.class);
-    manager.register("RedClimbersClear10", RedClimbersClear10.class);
-    manager.register("RedClimbersSwitches", RedClimbersSwitches.class);
-    manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
-	  manager.register("RedClimbersDefense", RedClimbersDefense.class);
-	  manager.register("RedClimbersDefense10", RedClimbersDefense10.class);
-  }
+		//Autonomouses
+		manager.register("BlueClimbers", BlueClimbers.class);
+		manager.register("BlueClimbers10", BlueClimbers10.class);
+		manager.register("BlueClimbersClear", BlueClimbersClear.class);
+		manager.register("BlueClimbersClear10", BlueClimbersClear10.class);
+		manager.register("BlueClimbersMove", BlueClimbersMove.class);
+		manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
+		manager.register("BlueClimbersSwitches", BlueClimbersSwitches.class);
+		manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
+		manager.register("BlueClimbersDefense", BlueClimbersDefense.class);
+		manager.register("BlueClimbersDefense10", BlueClimbersDefense10.class);
+		manager.register("RedClimbers", RedClimbers.class);
+		manager.register("RedClimbers10", RedClimbers10.class);
+		manager.register("RedClimbersMove", RedClimbersMove.class);
+		manager.register("RedClimbersMove10", RedClimbersMove10.class);
+		manager.register("RedClimbersClear", RedClimbersClear.class);
+		manager.register("RedClimbersClear10", RedClimbersClear10.class);
+		manager.register("RedClimbersSwitches", RedClimbersSwitches.class);
+		manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
+		manager.register("RedClimbersDefense", RedClimbersDefense.class);
+		manager.register("RedClimbersDefense10", RedClimbersDefense10.class);
+	}
 }
