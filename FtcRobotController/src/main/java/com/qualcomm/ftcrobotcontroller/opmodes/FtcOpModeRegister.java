@@ -36,6 +36,8 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbers;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbers10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersClear;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersClear10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersDefense;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersDefense10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersMove;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersMove10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersSwitches;
@@ -44,6 +46,8 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbers;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbers10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersClear;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersClear10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersDefense;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersDefense10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersMove;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersMove10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersSwitches;
@@ -122,7 +126,9 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
     manager.register("BlueClimbersSwitches", BlueClimbersSwitches.class);
     manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
-    manager.register("RedClimbers", RedClimbers.class);
+	  manager.register("BlueClimbersDefense", BlueClimbersDefense.class);
+	  manager.register("BlueClimbersDefense10", BlueClimbersDefense10.class);
+	  manager.register("RedClimbers", RedClimbers.class);
     manager.register("RedClimbers10", RedClimbers10.class);
     manager.register("RedClimbersMove", RedClimbersMove.class);
     manager.register("RedClimbersMove10", RedClimbersMove10.class);
@@ -130,5 +136,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("RedClimbersClear10", RedClimbersClear10.class);
     manager.register("RedClimbersSwitches", RedClimbersSwitches.class);
     manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
+	  manager.register("RedClimbersDefense", RedClimbersDefense.class);
+	  manager.register("RedClimbersDefense10", RedClimbersDefense10.class);
   }
 }

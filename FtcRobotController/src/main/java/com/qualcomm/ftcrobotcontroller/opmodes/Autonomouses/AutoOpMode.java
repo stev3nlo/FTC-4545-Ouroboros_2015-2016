@@ -40,17 +40,21 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int BLUE_LINE_TO_BEACON = 200;
 	public static final int BLUE_BACK_AWAY_FROM_BEACON = 100;
 
-	//move out of way for alliance
+	//move out of way for alliance for BLUE side
 	public static final int BLUE_TURN_TO_CLEAR = 90;
 	public static final int BLUE_BEACON_TO_CLEAR = 400;
 
-	//goes to clear other ramp
+	//goes to clear other ramp for BLUE side
 	public static final int BLUE_TURN_TO_OTHER_SIDE = 140;
 	public static final int BLUE_BEACON_TO_OTHER_SIDE = 2000;
 	public static final int BLUE_TURN_TO_RAMP_BASE = 40;
 	public static final int BLUE_OTHER_SIDE_TO_CLEAR_RAMP_BASE = 2000;
 
-	//goes to ramp and hits switches
+	//goes to block enemy autonomous for BLUE side
+	public static final int BLUE_TURN_TO_OTHER_BEACON = 135;
+	public static final int BLUE_BEACON_TO_BEACON = 3000;
+
+	//goes to ramp and hits switches for RED side
 	public static final int BLUE_TURN_TO_RAMP =  100;
 	public static final int BLUE_BEACON_TO_RAMP = 2500;
 	public static final int BLUE_TURN_TO_CHURRO = 95;
@@ -64,21 +68,26 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int RED_LINE_TO_BEACON = 200;
 	public static final int RED_BACK_AWAY_FROM_BEACON = 100;
 
-	//move out of way for alliance
+	//move out of way for alliance for RED side
 	public static final int RED_TURN_TO_CLEAR = 90;
 	public static final int RED_BEACON_TO_CLEAR = 400;
 
-	//goes to clear other ramp
+	//goes to clear other ramp for RED side
 	public static final int RED_TURN_TO_OTHER_SIDE = 140;
 	public static final int RED_BEACON_TO_OTHER_SIDE = 2000;
 	public static final int RED_TURN_TO_RAMP_BASE = 40;
 	public static final int RED_OTHER_SIDE_TO_CLEAR_RAMP_BASE = 2000;
 
-	//goes to ramp and hits switches
+	//goes to ramp and hits switches for RED side
 	public static final int RED_TURN_TO_RAMP =  80;
 	public static final int RED_BEACON_TO_RAMP = 2500;
 	public static final int RED_TURN_TO_CHURRO = 95;
 	public static final int RED_RAMP_TO_CHURRO = 500;
+
+	//blocks opposite beacon
+	//goes to block enemy autonomous for RED side
+	public static final int RED_TURN_TO_OTHER_BEACON = 135;
+	public static final int RED_BEACON_TO_BEACON = 3000;
 
 	public void initialize() throws InterruptedException {
 
@@ -223,7 +232,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         manipulator.setPower(0);
         avg = 0;
         motorBL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-        motorBR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+		motorBR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         Thread.sleep(1000);
         motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
