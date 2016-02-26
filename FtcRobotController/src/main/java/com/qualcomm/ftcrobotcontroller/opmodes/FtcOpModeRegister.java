@@ -50,6 +50,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersSwitches;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersSwitches10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue_v2;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed_v2;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.IMUGyroOnlyTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBTeleop;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleopBlueBasket;
@@ -95,8 +96,8 @@ public class FtcOpModeRegister implements OpModeRegister {
      * The NullOp op mode
      */
     //manager.register("NullOp", NullOp.class);
-    manager.register("RGBTest", RGBtest.class);
-    manager.register("Test", Test.class);
+//    manager.register("RGBTest", RGBtest.class);
+//    manager.register("Test", Test.class);
     /*
      * The following example op modes are designed to work with a K9-style robot.
      *  - K9TeleOp is a simple driver controlled program.
@@ -106,25 +107,28 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("TeleOpRedBasket", TeleopRedBasket.class);
     manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
-    manager.register("RGBTeleop", RGBTeleop.class);
-    manager.register("red", TeleopRedMabey.class);
+//    manager.register("RGBTeleop", RGBTeleop.class);
+//    manager.register("red", TeleopRedMabey.class);
+
+
+	manager.register("Gryo Test", IMUGyroOnlyTest.class);
 
     //Autonomouses
     manager.register("BlueClimbers", BlueClimbers.class);
-    manager.register("BlueClimbers10", BlueClimbers10.class);
+//    manager.register("BlueClimbers10", BlueClimbers10.class);
     manager.register("BlueClimbersClear", BlueClimbersClear.class);
-    manager.register("BlueClimbersClear10", BlueClimbersClear10.class);
+//    manager.register("BlueClimbersClear10", BlueClimbersClear10.class);
     manager.register("BlueClimbersMove", BlueClimbersMove.class);
-    manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
+//    manager.register("BlueClimbersMove10", BlueClimbersMove10.class);
     manager.register("BlueClimbersSwitches", BlueClimbersSwitches.class);
-    manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
+//    manager.register("BlueClimbersSwitches10", BlueClimbersSwitches10.class);
     manager.register("RedClimbers", RedClimbers.class);
+//    manager.register("RedClimbers10", RedClimbers10.class);
     manager.register("RedClimbersMove", RedClimbersMove.class);
-    manager.register("RedClimbersMove10", RedClimbersMove10.class);
-    manager.register("RedClimbers10", RedClimbers10.class);
+//    manager.register("RedClimbersMove10", RedClimbersMove10.class);
     manager.register("RedClimbersClear", RedClimbersClear.class);
-    manager.register("RedClimbersClear10", RedClimbersClear10.class);
+//    manager.register("RedClimbersClear10", RedClimbersClear10.class);
     manager.register("RedClimbersSwitches", RedClimbersSwitches.class);
-    manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
+//    manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
   }
 }

@@ -43,6 +43,7 @@ public class TeleopBlueBasket extends OpMode{
 
 	@Override
     public void init() {
+		telemetry.addData("gyro", "initializing");
 		motorFL = hardwareMap.dcMotor.get("motorFL");
 		motorFR = hardwareMap.dcMotor.get("motorFR");
 		motorBL = hardwareMap.dcMotor.get("motorBL");
@@ -77,9 +78,14 @@ public class TeleopBlueBasket extends OpMode{
 					//addressing
 					, (byte) AdafruitIMU.OPERATION_MODE_IMU);
 		} catch (Exception e) {
-			telemetry.addData("gyro", "gyro failed");
+			telemetry.addData("gyro", "initialization failed");
 		}
-		telemetry.addData("init", "initialized");
+		telemetry.addData("basic", "initialized");
+	}
+
+	@Override
+	public void start() {
+		gyroSensor.startIMU();
 	}
 
     public void loop() {

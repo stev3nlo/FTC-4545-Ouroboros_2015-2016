@@ -28,7 +28,7 @@ public class IMUGyroOnlyTest extends OpMode {
     public void init() {
         systemTime = System.nanoTime();
         try {
-            boschBNO055 = new AdafruitIMU(hardwareMap, "hydro"
+            boschBNO055 = new AdafruitIMU(hardwareMap, "gyro"
 
                     //The following was required when the definition of the "I2cDevice" class was incomplete.
                     //, "cdim", 5
