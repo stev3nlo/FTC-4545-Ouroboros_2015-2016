@@ -34,6 +34,7 @@ public class AutonomousRed extends LinearOpMode {
         manipulator = hardwareMap.dcMotor.get("manipulator");
         motorBL = hardwareMap.dcMotor.get("motorBL");
         climber = hardwareMap.servo.get("climber");
+
         climber.setPosition(1);
 
         try {
