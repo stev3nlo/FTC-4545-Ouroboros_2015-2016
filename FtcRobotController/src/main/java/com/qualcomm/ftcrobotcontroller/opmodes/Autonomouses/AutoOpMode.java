@@ -32,6 +32,7 @@ public abstract class AutoOpMode extends LinearOpMode {
     volatile double[] rollAngle = new double[2], pitchAngle = new double[2], yawAngle = new double[2];
     int[] colorL = new int[3];
     int[] colorR = new int[3];
+    int[] colorAverage = new int[3];
 
 	//constant variables
 	public static final int CLIMBERS_ANGLE = 135;
@@ -299,7 +300,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         reset();
     }
 
-    public void followToLineWithManipulatorIn(int speed) throws InterruptedException{
+    public void followToWallWithManipulatorOut(int speed) throws InterruptedException{
         manipulator.setPower(1);
         while(yawAngle[0] <= CLIMBERS_ANGLE - 1 || yawAngle[0] >= CLIMBERS_ANGLE + 1){
             getRightColor();
@@ -318,6 +319,40 @@ public abstract class AutoOpMode extends LinearOpMode {
             waitOneFullHardwareCycle();
         }
         reset();
+    }
+
+    public void followToWallWithOnlyColorSensors(int speed) throws InterruptedException{
+        manipulator.setPower(1);
+        while(colorAverage[0] < 1000 && colorAverage[1] < 1000 && colorAverage[2] < 1000){
+            waitOneFullHardwareCycle();
+            getLeftColor();
+            getRightColor();
+            if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
+                motorFR.setPower(speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(speed);
+                motorBL.setPower(speed);
+            }
+            else if (colorR[0] > 1500 && colorR[1] > 2000 && colorR[2] > 2000){
+                motorFR.setPower(-speed);
+                motorBR.setPower(-speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(-speed);
+            }
+            else{
+                motorFR.setPower(-speed);
+                motorBR.setPower(speed);
+                motorFL.setPower(-speed);
+                motorBL.setPower(speed);
+            }
+            waitOneFullHardwareCycle();
+        }
+        reset();
+    }
+
+    public void averageColorSensors(){
+        for(int i = 0; i < colorAverage.length; i++)
+            colorAverage[i] = colorL[i] + colorR[i];
     }
 
     public void showData() {
