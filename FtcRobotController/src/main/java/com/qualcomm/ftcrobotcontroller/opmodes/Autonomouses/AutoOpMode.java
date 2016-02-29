@@ -93,6 +93,10 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int RED_TURN_TO_OTHER_BEACON = 135;
 	public static final int RED_BEACON_TO_BEACON = 3000;
 
+	public AutoOpMode() {
+		super();
+	}
+
 	public void initialize() throws InterruptedException {
 
 		gyroInit = "initialized";
