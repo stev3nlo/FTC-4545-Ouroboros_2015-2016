@@ -210,7 +210,7 @@ public class TeleopBlueBasket extends OpMode{
             ramp.setPosition(0);
         } // Ramp wall falls forward to push debris outwards
         if(gamepad2.a) {
-            ramp.setPosition(.35);
+            ramp.setPosition(.45);
             //Ramp resets
         }
         if(gamepad2.b) {
