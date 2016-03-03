@@ -22,6 +22,9 @@ public abstract class AutoOpMode extends LinearOpMode {
     DcMotor motorBR;
     DcMotor manipulator;
     Servo climber;
+	Servo boxBelt;
+	Servo ramp;
+	Servo drop;
     AdafruitIMU gyroSensor;
     ColorSensor colorSensorR;
     ColorSensor colorSensorL;
@@ -32,13 +35,12 @@ public abstract class AutoOpMode extends LinearOpMode {
     volatile double[] rollAngle = new double[2], pitchAngle = new double[2], yawAngle = new double[2];
     int[] colorL = new int[3];
     int[] colorR = new int[3];
-    int[] colorAverage = new int[3];
 
 	//constant variables
 	public static final int CLIMBERS_ANGLE = 135;
 
 	//constant variables for BLUE side
-	public static final int BLUE_START_TO_WALL = 3000;
+	public static final int BLUE_START_TO_WALL = 2000;
 	public static final int BLUE_TURN_TO_LINE = 45;
 	public static final int BLUE_WALL_TO_LINE = 350;
 	public static final int BLUE_TURN_TO_BEACON = 90;
@@ -66,7 +68,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int BLUE_RAMP_TO_CHURRO = 500;
 
 	//constant variables for RED side
-	public static final int RED_START_TO_WALL = 3000;
+	public static final int RED_START_TO_WALL = 2200;
 	public static final int RED_TURN_TO_LINE = 45;
 	public static final int RED_WALL_TO_LINE = 350;
 	public static final int RED_TURN_TO_BEACON = 90;
@@ -98,8 +100,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 		super();
 	}
 
-	public void initialize() throws InterruptedException {
-
+	public void initialize(String side) throws InterruptedException {
 		gyroInit = "initialized";
         waitOneFullHardwareCycle();
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -108,6 +109,9 @@ public abstract class AutoOpMode extends LinearOpMode {
         motorBR = hardwareMap.dcMotor.get("motorBR");
         manipulator = hardwareMap.dcMotor.get("manipulator");
         climber = hardwareMap.servo.get("climber");
+		boxBelt = hardwareMap.servo.get("boxBelt");
+		ramp = hardwareMap.servo.get("ramp");
+		drop = hardwareMap.servo.get("drop");
         colorSensorL = hardwareMap.colorSensor.get("colorSensorL");
         colorSensorR = hardwareMap.colorSensor.get("colorSensorR");
         telemetry.addData("gyro", "initializing");
@@ -118,6 +122,18 @@ public abstract class AutoOpMode extends LinearOpMode {
         motorBR.setPower(0);
         manipulator.setPower(0);
         climber.setPosition(1);
+		boxBelt.setPosition(.5);
+		if (side.equals("blue")) {
+			ramp.setPosition(0);
+			drop.setPosition(1);
+		} else {
+			if (side.equals("red")) {
+				ramp.setPosition(1);
+				drop.setPosition(0);
+			} else {
+				telemetry.addData("Side", " invalid");
+			}
+		}
 
         try {
 			hardwareMap.logDevices();
@@ -155,6 +171,7 @@ public abstract class AutoOpMode extends LinearOpMode {
     }
 
     public void moveForwardWithEncoders(double speed, double goal) throws InterruptedException {
+		resetGyro();
         startMotors(speed, -speed);
         double angle;
 		angle = yawAngle[0];
@@ -179,6 +196,7 @@ public abstract class AutoOpMode extends LinearOpMode {
     }
 
     public void forwardWithManiWithEncoders(double speed, double goal) throws InterruptedException {
+		resetGyro();
 		startMotors(speed, -speed);
         manipulator.setPower(1);
         double angle;
@@ -213,23 +231,24 @@ public abstract class AutoOpMode extends LinearOpMode {
 
     public void turnLeft(double speed, double angle) throws InterruptedException {
 		double currAngle;
+		resetGyro();
         getAngles();
 		double newAngle;
 		currAngle = yawAngle[0];
 		newAngle = yawAngle[0];
-		while ((newAngle - currAngle) > angle) {
+		while (Math.abs(newAngle - currAngle) < angle) {
 			showAngles();
-			startMotors(speed, speed);
+			startMotors(-speed, -speed);
 			getAngles();
 			newAngle = yawAngle[0];
         }
     }
 
 	public void turnRight(double speed, double angle) throws InterruptedException {
-		turnLeft(-speed, -angle);
+		turnLeft(-speed, angle);
 	}
 
-    public void startMotors(double left, double right) {
+	public void startMotors(double left, double right) {
         motorFL.setPower(left);
         motorFR.setPower(right);
         motorBL.setPower(left);
@@ -241,10 +260,10 @@ public abstract class AutoOpMode extends LinearOpMode {
         climber.setPosition(1 - (angle / 180));
 		Thread.sleep(250);
 		climber.setPosition(1);
-    }
+	}
 
-    public void getAngles() throws InterruptedException {
-        gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
+	public void getAngles() throws InterruptedException {
+		gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
         telemetry.addData("heading", yawAngle[0]);
     }
 
@@ -258,7 +277,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         motorBL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 		motorBR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         Thread.sleep(1000);
-        motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+		motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 		resetGyro();
     }
@@ -266,8 +285,8 @@ public abstract class AutoOpMode extends LinearOpMode {
     public void getAvg() {
         BR = Math.abs(motorBR.getCurrentPosition());
         BL = Math.abs(motorBL.getCurrentPosition());
-        avg = (BR + BL) / 2;
-        showData();
+		avg = (BR + BL) / 2;
+		showData();
     }
 
 	public void showAngles() {
@@ -277,7 +296,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 		telemetry.addData("Pitches: ",
 				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", pitchAngle[0], pitchAngle[1]));
 		telemetry.addData("Max I2C read interval: ",
-                String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
+				String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
                         , gyroSensor.avgReadInterval));
 	}
 
@@ -300,7 +319,7 @@ public abstract class AutoOpMode extends LinearOpMode {
         reset();
     }
 
-    public void followToWallWithManipulatorOut(int speed) throws InterruptedException{
+	public void followToLineWithManipulatorIn(int speed) throws InterruptedException{
         manipulator.setPower(1);
         while(yawAngle[0] <= CLIMBERS_ANGLE - 1 || yawAngle[0] >= CLIMBERS_ANGLE + 1){
             getRightColor();
@@ -314,48 +333,20 @@ public abstract class AutoOpMode extends LinearOpMode {
                 motorFR.setPower(-speed);
                 motorBR.setPower(speed);
                 motorFL.setPower(-speed);
-                motorBL.setPower(speed);
+				motorBL.setPower(speed);
             }
             waitOneFullHardwareCycle();
         }
         reset();
-    }
-
-    public void followToWallWithOnlyColorSensors(int speed) throws InterruptedException{
-        manipulator.setPower(1);
-        while(colorAverage[0] < 1000 && colorAverage[1] < 1000 && colorAverage[2] < 1000){
-            waitOneFullHardwareCycle();
-            getLeftColor();
-            getRightColor();
-            if (colorL[0] > 1500 && colorL[1] > 2000 && colorL[2] > 2000){
-                motorFR.setPower(speed);
-                motorBR.setPower(speed);
-                motorFL.setPower(speed);
-                motorBL.setPower(speed);
-            }
-            else if (colorR[0] > 1500 && colorR[1] > 2000 && colorR[2] > 2000){
-                motorFR.setPower(-speed);
-                motorBR.setPower(-speed);
-                motorFL.setPower(-speed);
-                motorBL.setPower(-speed);
-            }
-            else{
-                motorFR.setPower(-speed);
-                motorBR.setPower(speed);
-                motorFL.setPower(-speed);
-                motorBL.setPower(speed);
-            }
-            waitOneFullHardwareCycle();
-        }
-        reset();
-    }
-
-    public void averageColorSensors(){
-        for(int i = 0; i < colorAverage.length; i++)
-            colorAverage[i] = colorL[i] + colorR[i];
     }
 
     public void showData() {
-        telemetry.addData("Encoder Value", avg);
+		telemetry.addData("Headings(yaw): ",
+				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", yawAngle[0], yawAngle[1]));
+		telemetry.addData("Pitches: ",
+				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", pitchAngle[0], pitchAngle[1]));
+		telemetry.addData("Max I2C read interval: ",
+				String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
+						, gyroSensor.avgReadInterval));
     }
 }

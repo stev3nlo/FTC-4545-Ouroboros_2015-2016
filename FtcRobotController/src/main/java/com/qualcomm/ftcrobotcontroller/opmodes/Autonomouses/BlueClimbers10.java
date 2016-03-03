@@ -7,7 +7,8 @@ public class BlueClimbers10 extends AutoOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-		initialize();
+		initialize("blue");
+		waitForStart();
 
 		Thread.sleep(10000);
 		backwardsWithManiWithEncoders(1, BLUE_START_TO_WALL);

@@ -7,13 +7,14 @@ public class RedClimbers extends AutoOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-		initialize();
+		initialize("red");
+		waitForStart();
 
-		backwardsWithManiWithEncoders(1, RED_START_TO_WALL);
-		turnLeft(.5, RED_TURN_TO_LINE);
-		backwardsWithManiWithEncoders(1, RED_WALL_TO_LINE);
-		turnRight(.5, RED_TURN_TO_BEACON);
-		moveBackwardsWithEncoders(1, RED_LINE_TO_BEACON);
-		dropClimbers(CLIMBERS_ANGLE);
+//		backwardsWithManiWithEncoders(.75, RED_START_TO_WALL);
+		turnRight(.5, RED_TURN_TO_LINE);
+//		backwardsWithManiWithEncoders(1, RED_WALL_TO_LINE);
+//		turnRight(.5, RED_TURN_TO_BEACON);
+//		moveBackwardsWithEncoders(1, RED_LINE_TO_BEACON);
+//		dropClimbers(CLIMBERS_ANGLE);
 	}
 }

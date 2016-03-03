@@ -7,7 +7,8 @@ public class RedClimbersDefense extends AutoOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-		initialize();
+		initialize("red");
+		waitForStart();
 
 		backwardsWithManiWithEncoders(1, RED_START_TO_WALL);
 		turnLeft(.5, RED_TURN_TO_LINE);

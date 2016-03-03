@@ -7,7 +7,8 @@ public class BlueClimbersClear extends AutoOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-		initialize();
+		initialize("blue");
+		waitForStart();
 
 		backwardsWithManiWithEncoders(1, BLUE_START_TO_WALL);
 		turnLeft(.5, BLUE_TURN_TO_LINE);

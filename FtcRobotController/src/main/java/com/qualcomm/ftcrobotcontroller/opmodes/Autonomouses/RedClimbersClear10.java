@@ -7,7 +7,8 @@ public class RedClimbersClear10 extends AutoOpMode {
 
 	@Override
 	public void runOpMode() throws InterruptedException {
-		initialize();
+		initialize("red");
+		waitForStart();
 
 		Thread.sleep(10000);
 		backwardsWithManiWithEncoders(1, RED_START_TO_WALL);

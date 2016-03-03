@@ -38,12 +38,10 @@ public class TeleopBlueBasket extends OpMode{
     public Servo ramp;
 	public Servo drop;
 	public Servo claw;
-    AdafruitIMU gyroSensor;
 	volatile double[] rollAngle = new double[2], pitchAngle = new double[2], yawAngle = new double[2];
 
 	@Override
     public void init() {
-		telemetry.addData("gyro", "initializing");
 		motorFL = hardwareMap.dcMotor.get("motorFL");
 		motorFR = hardwareMap.dcMotor.get("motorFR");
 		motorBL = hardwareMap.dcMotor.get("motorBL");
@@ -68,36 +66,9 @@ public class TeleopBlueBasket extends OpMode{
 		direction = 1;
 		ramp.setPosition(0);
 		drop.setPosition(1);
-		try {
-			hardwareMap.logDevices();
-			gyroSensor = new AdafruitIMU(hardwareMap, "gyro"
-
-					//The following was required when the definition of the "I2cDevice" class was incomplete.
-					//, "cdim", 5
-
-					, (byte) (AdafruitIMU.BNO055_ADDRESS_A * 2)//By convention the FTC SDK always does 8-bit I2C bus
-					//addressing
-					, (byte) AdafruitIMU.OPERATION_MODE_IMU);
-		} catch (Exception e) {
-			telemetry.addData("gyro", "initialization failed");
-		}
-		telemetry.addData("basic", "initialized");
-	}
-
-	@Override
-	public void start() {
-		gyroSensor.startIMU();
 	}
 
     public void loop() {
-		gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
-		telemetry.addData("Headings(yaw): ",
-				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", yawAngle[0], yawAngle[1]));
-		telemetry.addData("Pitches: ",
-				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", pitchAngle[0], pitchAngle[1]));
-		telemetry.addData("Max I2C read interval: ",
-				String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
-						, gyroSensor.avgReadInterval));
         if (gamepad1.a) {
             if (gamepad1.a) {
                 currentTimeH = System.nanoTime();
