@@ -32,10 +32,12 @@ public class TeleopRedBasket extends OpMode{
     long lastTimeH = 0;
     long currentTimeR = 0;
     long lastTimeR = 0;
+    double hitterP = 0;
     double speed = 0;
     public Servo ramp;
     public Servo drop;
     public Servo claw;
+    public Servo hitter;
     @Override
     public void init() {
         motorFL = hardwareMap.dcMotor.get("motorFL");
@@ -55,6 +57,7 @@ public class TeleopRedBasket extends OpMode{
         ramp = hardwareMap.servo.get("ramp");
         drop = hardwareMap.servo.get("drop");
         claw = hardwareMap.servo.get("claw");
+        hitter = hardwareMap.servo.get("hitter");
         halfspeed = false;
         direction = 1;
         boxBelt.setPosition(.5);
@@ -62,6 +65,7 @@ public class TeleopRedBasket extends OpMode{
         ramp.setPosition(1);
         drop.setPosition(0);
         claw.setPosition(.8);
+        hitter.setPosition(0);
     }
 
     @Override
@@ -188,6 +192,15 @@ public class TeleopRedBasket extends OpMode{
         if(gamepad2.b) {
             drop.setPosition(0);
             //Door resets
+        }
+        // Climber Hitter
+        if(gamepad1.dpad_left) {
+            hitterP += .01;
+            hitter.setPosition(hitterP);
+        }
+        if(gamepad1.dpad_right) {
+            hitterP -= .01;
+            hitter.setPosition(hitterP);
         }
     }
 }
