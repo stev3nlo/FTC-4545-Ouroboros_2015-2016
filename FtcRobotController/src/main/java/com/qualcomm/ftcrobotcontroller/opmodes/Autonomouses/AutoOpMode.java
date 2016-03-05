@@ -37,15 +37,17 @@ public abstract class AutoOpMode extends LinearOpMode {
     int[] colorR = new int[3];
 
 	//constant variables
-	public static final int CLIMBERS_ANGLE = 135;
+	public static final double CLIMBERS_ANGLE = 135.0;
 
 	//constant variables for BLUE side
-	public static final int BLUE_START_TO_WALL = 2000;
-	public static final int BLUE_TURN_TO_LINE = 45;
-	public static final int BLUE_WALL_TO_LINE = 350;
-	public static final int BLUE_TURN_TO_BEACON = 90;
-	public static final int BLUE_LINE_TO_BEACON = 200;
-	public static final int BLUE_BACK_AWAY_FROM_BEACON = 100;
+	public static final int BLUE_START = 200;
+	public static final int BLUE_TURN_TO_WALL = 35;
+	public static final int BLUE_START_TO_WALL = 1500;
+	public static final int BLUE_TURN_TO_LINE = 35;
+	public static final int BLUE_WALL_TO_LINE = 250; //increased by 100 on 3-4-16 8:02
+	public static final int BLUE_TURN_TO_BEACON = 70;
+	public static final int BLUE_LINE_TO_BEACON = 400; //increased by 100 on 3-4-16 8:02
+	public static final int BLUE_BACK_AWAY_FROM_BEACON = 150;
 
 	//move out of way for alliance for BLUE side
 	public static final int BLUE_TURN_TO_CLEAR = 90;
@@ -68,7 +70,9 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int BLUE_RAMP_TO_CHURRO = 500;
 
 	//constant variables for RED side
-	public static final int RED_START_TO_WALL = 2200;
+	public static final int RED_START = 200;
+	public static final int RED_TURN_TO_WALL = 45;
+	public static final int RED_START_TO_WALL = 1900;
 	public static final int RED_TURN_TO_LINE = 45;
 	public static final int RED_WALL_TO_LINE = 350;
 	public static final int RED_TURN_TO_BEACON = 90;
@@ -182,10 +186,10 @@ public abstract class AutoOpMode extends LinearOpMode {
             waitOneFullHardwareCycle();
             getAngles();
             currAngle = yawAngle[0];
-            if ((currAngle - angle) > 2) {
+            if ((currAngle - angle) < -2) {
                 startMotors((speed * .75), -speed);
             } else {
-                if ((currAngle - angle) < -2) {
+                if ((currAngle - angle) > 2) {
                     startMotors(speed, -(speed * .75));
                 } else {
                     startMotors(speed, -speed);
@@ -208,10 +212,10 @@ public abstract class AutoOpMode extends LinearOpMode {
             waitOneFullHardwareCycle();
             getAngles();
             currAngle = yawAngle[0];
-            if ((currAngle - angle) > 2) {
+            if ((currAngle - angle) < -2) {
                 startMotors((speed * .75), -speed);
             } else {
-                if ((currAngle - angle) < -2) {
+                if ((currAngle - angle) > 2) {
                     startMotors(speed, -(speed * .75));
                 } else {
                     startMotors(speed, -speed);
@@ -236,44 +240,101 @@ public abstract class AutoOpMode extends LinearOpMode {
 		double newAngle;
 		currAngle = yawAngle[0];
 		newAngle = yawAngle[0];
-		while (Math.abs(newAngle - currAngle) < angle) {
+		while (Math.abs(newAngle - currAngle) < angle - 2) {
+			waitOneFullHardwareCycle();
 			showAngles();
-			startMotors(-speed, -speed);
+			startMotors(-speed / 6, -speed / 6);
 			getAngles();
 			newAngle = yawAngle[0];
+			waitOneFullHardwareCycle();
         }
+		startMotors(0, 0);
+		while (Math.abs(newAngle - currAngle) > angle + 2) {
+			waitOneFullHardwareCycle();
+			showAngles();
+			startMotors(speed / 6, speed / 6);
+			getAngles();
+			newAngle = yawAngle[0];
+			waitOneFullHardwareCycle();
+		}
+
+		startMotors(0 , 0);
+		getAngles();
+		showAngles();
+		reset();
+
     }
+
+	public void loopTurnLeft(double speed, double angle) throws InterruptedException {
+		double currAngle;
+		resetGyro();
+		getAngles();
+		double newAngle;
+		currAngle = yawAngle[0];
+		newAngle = yawAngle[0];
+		double power = speed;
+		double error;
+		while(Math.abs(newAngle - currAngle) < angle - 2) {
+			error = (Math.abs(Math.abs(newAngle) - Math.abs(angle))) / 360;
+			power = speed * error;
+			telemetry.addData("power", power);
+			waitOneFullHardwareCycle();
+			showAngles();
+			startMotors(-power, -power);
+			getAngles();
+			newAngle = yawAngle[0];
+			waitOneFullHardwareCycle();
+		}
+		getAngles();
+		showAngles();
+		reset();
+	}
 
 	public void turnRight(double speed, double angle) throws InterruptedException {
 		turnLeft(-speed, angle);
 	}
 
-	public void startMotors(double left, double right) {
+	public void loopTurnRight(double speed, double angle) throws InterruptedException {
+		loopTurnLeft(-speed, angle);
+	}
+
+	public void startMotors(double left, double right) throws InterruptedException {
+		waitOneFullHardwareCycle();
         motorFL.setPower(left);
+		waitOneFullHardwareCycle();
         motorFR.setPower(right);
+		waitOneFullHardwareCycle();
         motorBL.setPower(left);
+		waitOneFullHardwareCycle();
         motorBR.setPower(right);
+		waitOneFullHardwareCycle();
     }
 
     //angle out of 180 degrees
-    public void dropClimbers(int angle) throws InterruptedException {
-        climber.setPosition(1 - (angle / 180));
-		Thread.sleep(250);
+    public void dropClimbers(double angle) throws InterruptedException {
+        waitOneFullHardwareCycle();
+		climber.setPosition(1 - (angle / 180));
+		Thread.sleep(2000);
 		climber.setPosition(1);
+		waitOneFullHardwareCycle();
 	}
 
 	public void getAngles() throws InterruptedException {
+		waitOneFullHardwareCycle();
 		gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
         telemetry.addData("heading", yawAngle[0]);
+		waitOneFullHardwareCycle();
     }
 
     public void reset() throws InterruptedException {
+		waitOneFullHardwareCycle();
         motorFR.setPower(0);
         motorFL.setPower(0);
         motorBR.setPower(0);
         motorBL.setPower(0);
         manipulator.setPower(0);
         avg = 0;
+		waitOneFullHardwareCycle();
         motorBL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 		motorBR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         Thread.sleep(1000);
@@ -282,14 +343,17 @@ public abstract class AutoOpMode extends LinearOpMode {
 		resetGyro();
     }
 
-    public void getAvg() {
+    public void getAvg() throws InterruptedException {
+		waitOneFullHardwareCycle();
         BR = Math.abs(motorBR.getCurrentPosition());
         BL = Math.abs(motorBL.getCurrentPosition());
 		avg = (BR + BL) / 2;
 		showData();
+		waitOneFullHardwareCycle();
     }
 
-	public void showAngles() {
+	public void showAngles() throws InterruptedException {
+		waitOneFullHardwareCycle();
 		gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
 		telemetry.addData("Headings(yaw): ",
 				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", yawAngle[0], yawAngle[1]));
@@ -298,9 +362,11 @@ public abstract class AutoOpMode extends LinearOpMode {
 		telemetry.addData("Max I2C read interval: ",
 				String.format("%4.4f ms. Average interval: %4.4f ms.", gyroSensor.maxReadInterval
                         , gyroSensor.avgReadInterval));
+		waitOneFullHardwareCycle();
 	}
 
 	public void resetGyro() throws InterruptedException {
+		waitOneFullHardwareCycle();
 		gyroSensor.startIMU();
 		waitOneFullHardwareCycle();
 	}
@@ -340,7 +406,8 @@ public abstract class AutoOpMode extends LinearOpMode {
         reset();
     }
 
-    public void showData() {
+    public void showData() throws InterruptedException {
+		waitOneFullHardwareCycle();
 		telemetry.addData("Headings(yaw): ",
 				String.format("Euler= %4.5f, Quaternion calculated= %4.5f", yawAngle[0], yawAngle[1]));
 		telemetry.addData("Pitches: ",
