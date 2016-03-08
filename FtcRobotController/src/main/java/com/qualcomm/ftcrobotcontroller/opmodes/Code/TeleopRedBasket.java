@@ -62,7 +62,7 @@ public class TeleopRedBasket extends OpMode{
         direction = 1;
         boxBelt.setPosition(.5);
         climber.setPosition(1);
-        ramp.setPosition(1);
+        ramp.setPosition(.75);
         drop.setPosition(0);
         claw.setPosition(.8);
         hitter.setPosition(0);

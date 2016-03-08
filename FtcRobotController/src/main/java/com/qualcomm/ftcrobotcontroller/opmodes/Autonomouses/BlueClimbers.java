@@ -10,7 +10,6 @@ public class BlueClimbers extends AutoOpMode {
 		initialize("blue");
 		waitForStart();
 
-
 		backwardsWithManiWithEncoders(.4, BLUE_START);
 		loopTurnRight(.35, BLUE_TURN_TO_WALL);
 		backwardsWithManiWithEncoders(.4, BLUE_START_TO_WALL);

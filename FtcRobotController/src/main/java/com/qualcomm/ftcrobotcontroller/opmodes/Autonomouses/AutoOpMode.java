@@ -46,7 +46,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int BLUE_TURN_TO_LINE = 35;
 	public static final int BLUE_WALL_TO_LINE = 250; //increased by 100 on 3-4-16 8:02
 	public static final int BLUE_TURN_TO_BEACON = 70;
-	public static final int BLUE_LINE_TO_BEACON = 400; //increased by 100 on 3-4-16 8:02
+	public static final int BLUE_LINE_TO_BEACON = 475; //increased by 100 on 3-4-16 8:02
 	public static final int BLUE_BACK_AWAY_FROM_BEACON = 150;
 
 	//move out of way for alliance for BLUE side
@@ -71,13 +71,13 @@ public abstract class AutoOpMode extends LinearOpMode {
 
 	//constant variables for RED side
 	public static final int RED_START = 200;
-	public static final int RED_TURN_TO_WALL = 45;
-	public static final int RED_START_TO_WALL = 1900;
-	public static final int RED_TURN_TO_LINE = 45;
-	public static final int RED_WALL_TO_LINE = 350;
-	public static final int RED_TURN_TO_BEACON = 90;
-	public static final int RED_LINE_TO_BEACON = 200;
-	public static final int RED_BACK_AWAY_FROM_BEACON = 100;
+	public static final int RED_TURN_TO_WALL = 35;
+	public static final int RED_START_TO_WALL = 1500;
+	public static final int RED_TURN_TO_LINE = 35;
+	public static final int RED_WALL_TO_LINE = 275;
+	public static final int RED_TURN_TO_BEACON = 70;
+	public static final int RED_LINE_TO_BEACON = 475;
+	public static final int RED_BACK_AWAY_FROM_BEACON = 150;
 
 	//move out of way for alliance for RED side
 	public static final int RED_TURN_TO_CLEAR = 90;
