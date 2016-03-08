@@ -35,7 +35,7 @@ public class TeleopBlueBasket extends OpMode{
     long lastTimeH = 0;
     long currentTimeR = 0;
     long lastTimeR = 0;
-    double hitterP = 0:
+    double hitterP = 0;
     double speed = 0;
     public Servo ramp;
 	public Servo drop;

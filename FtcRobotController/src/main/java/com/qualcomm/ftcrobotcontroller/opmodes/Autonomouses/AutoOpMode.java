@@ -41,12 +41,12 @@ public abstract class AutoOpMode extends LinearOpMode {
 
 	//constant variables for BLUE side
 	public static final int BLUE_START = 200;
-	public static final int BLUE_TURN_TO_WALL = 35;
-	public static final int BLUE_START_TO_WALL = 1500;
-	public static final int BLUE_TURN_TO_LINE = 35;
+	public static final int BLUE_TURN_TO_WALL = 45;
+	public static final int BLUE_START_TO_WALL = 1575;
+	public static final int BLUE_TURN_TO_LINE = 45;
 	public static final int BLUE_WALL_TO_LINE = 250; //increased by 100 on 3-4-16 8:02
-	public static final int BLUE_TURN_TO_BEACON = 70;
-	public static final int BLUE_LINE_TO_BEACON = 475; //increased by 100 on 3-4-16 8:02
+	public static final int BLUE_TURN_TO_BEACON = 90;
+	public static final int BLUE_LINE_TO_BEACON = 550; //increased by 100 on 3-4-16 8:02
 	public static final int BLUE_BACK_AWAY_FROM_BEACON = 150;
 
 	//move out of way for alliance for BLUE side
@@ -63,7 +63,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int BLUE_TURN_TO_OTHER_BEACON = 135;
 	public static final int BLUE_BEACON_TO_BEACON = 3000;
 
-	//goes to ramp and hits switches for RED side
+	//goes to ramp and hits switches for BLUE side
 	public static final int BLUE_TURN_TO_RAMP =  100;
 	public static final int BLUE_BEACON_TO_RAMP = 2500;
 	public static final int BLUE_TURN_TO_CHURRO = 95;
@@ -76,7 +76,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int RED_TURN_TO_LINE = 35;
 	public static final int RED_WALL_TO_LINE = 275;
 	public static final int RED_TURN_TO_BEACON = 70;
-	public static final int RED_LINE_TO_BEACON = 475;
+	public static final int RED_LINE_TO_BEACON = 600;
 	public static final int RED_BACK_AWAY_FROM_BEACON = 150;
 
 	//move out of way for alliance for RED side
@@ -202,7 +202,7 @@ public abstract class AutoOpMode extends LinearOpMode {
     public void forwardWithManiWithEncoders(double speed, double goal) throws InterruptedException {
 		resetGyro();
 		startMotors(speed, -speed);
-        manipulator.setPower(1);
+        manipulator.setPower(-1);
         double angle;
 		angle = yawAngle[0];
 		double currAngle;
@@ -213,10 +213,10 @@ public abstract class AutoOpMode extends LinearOpMode {
             getAngles();
             currAngle = yawAngle[0];
             if ((currAngle - angle) < -2) {
-                startMotors((speed * .75), -speed);
+                startMotors(speed, (-speed * .75));
             } else {
                 if ((currAngle - angle) > 2) {
-                    startMotors(speed, -(speed * .75));
+                    startMotors((speed * .75), -speed);
                 } else {
                     startMotors(speed, -speed);
                 }
@@ -379,14 +379,14 @@ public abstract class AutoOpMode extends LinearOpMode {
             motorBL.setPower(-speed);
             motorFR.setPower(speed);
             motorBR.setPower(speed);
-            manipulator.setPower(1);
+            manipulator.setPower(-1);
             waitOneFullHardwareCycle();
         }
         reset();
     }
 
 	public void followToLineWithManipulatorIn(int speed) throws InterruptedException{
-        manipulator.setPower(1);
+        manipulator.setPower(-1);
         while(yawAngle[0] <= CLIMBERS_ANGLE - 1 || yawAngle[0] >= CLIMBERS_ANGLE + 1){
             getRightColor();
             if (colorR[0] > 1500 && colorR[1] > 2000 && colorR[2] > 2000){
