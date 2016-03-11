@@ -28,18 +28,16 @@ public class TeleopBlueBasket extends OpMode{
     public Servo climber;
     final long DURATION = 1500000000;
     public Servo boxBelt;
-    public Servo attachR;
     public Servo attachL;
     public Servo hitter;
     long currentTimeH = 0;
     long lastTimeH = 0;
+    public Servo attachR;
     long currentTimeR = 0;
     long lastTimeR = 0;
-    double hitterP = 0;
     double speed = 0;
     public Servo ramp;
 	public Servo drop;
-	public Servo claw;
 	volatile double[] rollAngle = new double[2], pitchAngle = new double[2], yawAngle = new double[2];
 
 	@Override
@@ -60,14 +58,16 @@ public class TeleopBlueBasket extends OpMode{
 		attachL = hardwareMap.servo.get("attachL");
 		ramp = hardwareMap.servo.get("ramp");
 		drop = hardwareMap.servo.get("drop");
-		claw = hardwareMap.servo.get("claw");
-		claw.setPosition(.9);
+        hitter = hardwareMap.servo.get("hitter");
+        switchL.setPosition(.5);
+        switchR.setPosition(1);
 		halfspeed = false;
 		boxBelt.setPosition(.5);
 		climber.setPosition(1);
 		direction = 1;
 		ramp.setPosition(0);
 		drop.setPosition(1);
+        hitter.setPosition(.5);
 	}
 
     public void loop() {
@@ -170,15 +170,6 @@ public class TeleopBlueBasket extends OpMode{
         else{
             motorWinch.setPower(0);
         }
-        //don't know exact values needs to be tested
-        if(gamepad2.dpad_right)
-        {
-            claw.setPosition(.8);
-        }
-        if(gamepad2.dpad_left){
-            claw.setPosition(0);
-        }
-
         if(gamepad2.y) {
             ramp.setPosition(0);
         } // Ramp wall falls forward to push debris outwards
@@ -195,12 +186,13 @@ public class TeleopBlueBasket extends OpMode{
             //Door resets
         } //Climber Hitter
         if(gamepad1.dpad_left) {
-            hitterP -= .01;
-            hitter.setPosition(hitterP);
+            hitter.setPosition(1);
         }
-        if(gamepad1.dpad_right) {
-            hitterP += .01;
-            hitter.setPosition(hitterP);
+        else if(gamepad1.dpad_right) {
+            hitter.setPosition(0);
+        }
+        else {
+            hitter.setPosition(.5);
         }
     }
 }

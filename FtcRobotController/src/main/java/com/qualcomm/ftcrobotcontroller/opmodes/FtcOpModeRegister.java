@@ -42,6 +42,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersMove;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersMove10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersSwitches;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.BlueClimbersSwitches10;
+import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.GyroStabilizationTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbers;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbers10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersClear;
@@ -106,7 +107,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 		 *  - K9IrSeeker uses a legacy IR seeker V2 sensor to follow a beacon.
 		 *  - K9Line uses a legacy LEGO NXT light sensor to follow a white line.
 		 */
-
+		manager.register("GyroStabilizationTest", GyroStabilizationTest.class);
 		manager.register("TeleOpRedBasket", TeleopRedBasket.class);
 		manager.register("TeleOpBlueBasket", TeleopBlueBasket.class);
 //        manager.register("RGBTeleop", RGBTeleop.class);
@@ -136,5 +137,6 @@ public class FtcOpModeRegister implements OpModeRegister {
 		manager.register("RedClimbersSwitches10", RedClimbersSwitches10.class);
 		manager.register("RedClimbersDefense", RedClimbersDefense.class);
 		manager.register("RedClimbersDefense10", RedClimbersDefense10.class);
+		manager.register("GyroTesting", GyroStabilizationTest.class);
 	}
 }

@@ -25,6 +25,9 @@ public abstract class AutoOpMode extends LinearOpMode {
 	Servo boxBelt;
 	Servo ramp;
 	Servo drop;
+	Servo switchL;
+	Servo switchR;
+	Servo hitter;
     AdafruitIMU gyroSensor;
     ColorSensor colorSensorR;
     ColorSensor colorSensorL;
@@ -37,7 +40,7 @@ public abstract class AutoOpMode extends LinearOpMode {
     int[] colorR = new int[3];
 
 	//constant variables
-	public static final double CLIMBERS_ANGLE = 135.0;
+	public static final double CLIMBERS_ANGLE = 160;
 
 	//constant variables for BLUE side
 	public static final int BLUE_START = 200;
@@ -71,11 +74,11 @@ public abstract class AutoOpMode extends LinearOpMode {
 
 	//constant variables for RED side
 	public static final int RED_START = 200;
-	public static final int RED_TURN_TO_WALL = 35;
+	public static final int RED_TURN_TO_WALL = 40;
 	public static final int RED_START_TO_WALL = 1500;
-	public static final int RED_TURN_TO_LINE = 35;
-	public static final int RED_WALL_TO_LINE = 275;
-	public static final int RED_TURN_TO_BEACON = 70;
+	public static final int RED_TURN_TO_LINE = 40;
+	public static final int RED_WALL_TO_LINE = 260;
+	public static final int RED_TURN_TO_BEACON = 80;
 	public static final int RED_LINE_TO_BEACON = 600;
 	public static final int RED_BACK_AWAY_FROM_BEACON = 150;
 
@@ -118,7 +121,10 @@ public abstract class AutoOpMode extends LinearOpMode {
 		drop = hardwareMap.servo.get("drop");
         colorSensorL = hardwareMap.colorSensor.get("colorSensorL");
         colorSensorR = hardwareMap.colorSensor.get("colorSensorR");
+		switchL = hardwareMap.servo.get("switchL");
+		switchR = hardwareMap.servo.get("switchR");
         telemetry.addData("gyro", "initializing");
+		hitter = hardwareMap.servo.get("hitter");
 
         motorFL.setPower(0);
         motorFR.setPower(0);
@@ -126,7 +132,10 @@ public abstract class AutoOpMode extends LinearOpMode {
         motorBR.setPower(0);
         manipulator.setPower(0);
         climber.setPosition(1);
+		hitter.setPosition(.5);
 		boxBelt.setPosition(.5);
+		switchL.setPosition(.5);
+		switchR.setPosition(1);
 		if (side.equals("blue")) {
 			ramp.setPosition(0);
 			drop.setPosition(1);
@@ -186,10 +195,10 @@ public abstract class AutoOpMode extends LinearOpMode {
             waitOneFullHardwareCycle();
             getAngles();
             currAngle = yawAngle[0];
-            if ((currAngle - angle) < -2) {
+            if ((currAngle - angle) < -1) {
                 startMotors((speed * .75), -speed);
             } else {
-                if ((currAngle - angle) > 2) {
+                if ((currAngle - angle) > 1) {
                     startMotors(speed, -(speed * .75));
                 } else {
                     startMotors(speed, -speed);
@@ -212,18 +221,20 @@ public abstract class AutoOpMode extends LinearOpMode {
             waitOneFullHardwareCycle();
             getAngles();
             currAngle = yawAngle[0];
-            if ((currAngle - angle) < -2) {
-                startMotors(speed, (-speed * .75));
-            } else {
-                if ((currAngle - angle) > 2) {
-                    startMotors((speed * .75), -speed);
-                } else {
+			telemetry.addData("stuff: ", String.format("current:%.2f, target:%.2f", currAngle, angle));
+            if ((currAngle - angle) < -1) {
+                startMotors(speed, (-speed * .2));
+				telemetry.addData("I'm inside", " the first");
+            } else if ((currAngle - angle) > 1) {
+                    startMotors((speed * .2), -speed);
+					telemetry.addData("I'm inside", " the second");
+			} else {
                     startMotors(speed, -speed);
                 }
             }
-        }
-        reset();
-	}
+		reset();
+		}
+
 
 	public void moveBackwardsWithEncoders(double speed, double goal) throws InterruptedException {
         moveForwardWithEncoders(-speed, goal);

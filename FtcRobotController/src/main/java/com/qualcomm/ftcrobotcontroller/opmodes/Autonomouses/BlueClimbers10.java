@@ -11,10 +11,12 @@ public class BlueClimbers10 extends AutoOpMode {
 		waitForStart();
 
 		Thread.sleep(10000);
+		backwardsWithManiWithEncoders(.4, BLUE_START);
+		loopTurnRight(.35, BLUE_TURN_TO_WALL);
 		backwardsWithManiWithEncoders(1, BLUE_START_TO_WALL);
-		turnLeft(.5, BLUE_TURN_TO_LINE);
+		loopTurnLeft(.5, BLUE_TURN_TO_LINE);
 		backwardsWithManiWithEncoders(1, BLUE_WALL_TO_LINE);
-		turnRight(.5, BLUE_TURN_TO_BEACON);
+		loopTurnRight(.5, BLUE_TURN_TO_BEACON);
 		moveBackwardsWithEncoders(1, BLUE_LINE_TO_BEACON);
 		dropClimbers(CLIMBERS_ANGLE);
 	}
