@@ -8,6 +8,7 @@ public class GyroStabilizationTest extends AutoOpMode {
 	public void runOpMode() throws InterruptedException {
 		initialize("blue");
 		waitForStart();
-		backwardsWithManiWithEncoders(.4, 5000);
+		Thread.sleep(10000);
+		backwardsWithManiWithEncoders(.4, 2000);
 	}
 }

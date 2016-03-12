@@ -15,8 +15,8 @@ public class RedClimbers extends AutoOpMode {
 		backwardsWithManiWithEncoders(.4, RED_START_TO_WALL);
 		loopTurnRight(.35, RED_TURN_TO_LINE);
 		backwardsWithManiWithEncoders(.4, RED_WALL_TO_LINE);
-		loopTurnLeft(.5, RED_TURN_TO_BEACON);
-		moveBackwardsWithEncoders(1, RED_LINE_TO_BEACON);
+		loopTurnLeft(.4, RED_TURN_TO_BEACON);
+		moveBackwardsWithEncoders(.4, RED_LINE_TO_BEACON);
 		dropClimbers(CLIMBERS_ANGLE);
 	}
 }

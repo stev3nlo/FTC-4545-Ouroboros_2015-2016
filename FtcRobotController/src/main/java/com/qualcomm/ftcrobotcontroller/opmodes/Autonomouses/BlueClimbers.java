@@ -16,7 +16,7 @@ public class BlueClimbers extends AutoOpMode {
 		loopTurnLeft(.35, BLUE_TURN_TO_LINE);
 		backwardsWithManiWithEncoders(.4, BLUE_WALL_TO_LINE);
 		loopTurnRight(.4, BLUE_TURN_TO_BEACON);
-		moveBackwardsWithEncoders(1, BLUE_LINE_TO_BEACON);
+		moveBackwardsWithEncoders(.4, BLUE_LINE_TO_BEACON);
 		dropClimbers(CLIMBERS_ANGLE);
 	}
 }
