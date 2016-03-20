@@ -55,6 +55,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersSwitches;
 import com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses.RedClimbersSwitches10;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousBlue_v2;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.AutonomousRed_v2;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.FrictionTests;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.IMUGyroOnlyTest;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBTeleop;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.RGBtest;
@@ -138,5 +139,6 @@ public class FtcOpModeRegister implements OpModeRegister {
 		manager.register("RedClimbersDefense", RedClimbersDefense.class);
 		manager.register("RedClimbersDefense10", RedClimbersDefense10.class);
 		manager.register("GyroTesting", GyroStabilizationTest.class);
+		manager.register("FrictionTests", FrictionTests.class);
 	}
 }

@@ -11,10 +11,8 @@ import com.qualcomm.robotcore.util.RobotLog;
 public class FrictionTests extends LinearOpMode {
     public DcMotor FR;
     public DcMotor FL;
-    public DcMotor BR;
-    public DcMotor BL;
-    int BRV = 0;
-    int BLV = 0;
+    int FRV = 0;
+    int FLV = 0;
     int average = 0;
     double cOF = 0;
 
@@ -26,10 +24,8 @@ public class FrictionTests extends LinearOpMode {
         catch (InterruptedException e) {
             RobotLog.e(e.getMessage());
         }
-        DcMotor FR = hardwareMap.dcMotor.get("FR");
-        DcMotor FL = hardwareMap.dcMotor.get("FR");
-        DcMotor BR = hardwareMap.dcMotor.get("FR");
-        DcMotor BL = hardwareMap.dcMotor.get("FR");
+        DcMotor FR = hardwareMap.dcMotor.get("motor_1");
+        DcMotor FL = hardwareMap.dcMotor.get("motor_2");
         try {
             waitForStart();
         } catch (InterruptedException e) {
@@ -44,8 +40,6 @@ public class FrictionTests extends LinearOpMode {
         getAvg();
         FR.setPower(speed);
         FL.setPower(-speed);
-        BR.setPower(speed);
-        BL.setPower(-speed);
         while (average < distance) {
             getAvg();
             showData();
@@ -66,8 +60,6 @@ public class FrictionTests extends LinearOpMode {
         getAvg();
         FR.setPower(speed);
         FL.setPower(speed);
-        BR.setPower(speed);
-        BL.setPower(speed);
         while (average < distance) {
             getAvg();
             showData();
@@ -92,24 +84,22 @@ public class FrictionTests extends LinearOpMode {
     public void reset(){
         FR.setPower(0);
         FL.setPower(0);
-        BR.setPower(0);
-        BL.setPower(0);
         average = 0;
-        BL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-        BR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        FL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        FR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         try{
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             RobotLog.e(e.getMessage());
         }
-        BL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        BR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        FL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        FR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
     public void getAvg() {
-        BRV = Math.abs(BR.getCurrentPosition());
-        BLV = Math.abs(BL.getCurrentPosition());
-        average = (BRV + BLV) / 2;
+        FRV = Math.abs(FR.getCurrentPosition());
+        FLV = Math.abs(FL.getCurrentPosition());
+        average = (FRV + FLV) / 2;
     }
 }
 
