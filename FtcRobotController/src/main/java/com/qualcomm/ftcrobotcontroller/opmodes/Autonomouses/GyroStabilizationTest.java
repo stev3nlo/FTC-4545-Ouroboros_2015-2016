@@ -6,9 +6,9 @@ package com.qualcomm.ftcrobotcontroller.opmodes.Autonomouses;
 public class GyroStabilizationTest extends AutoOpMode {
 	@Override
 	public void runOpMode() throws InterruptedException {
-		initialize("blue");
+		initialize("red");
 		waitForStart();
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 		backwardsWithManiWithEncoders(.4, 2000);
 	}
 }
