@@ -35,10 +35,7 @@ public class TeleopBlueBasket extends OpMode{
     public Servo attachR;
     long currentTimeR = 0;
     long lastTimeR = 0;
-<<<<<<< HEAD
     double hitterP = 0;
-=======
->>>>>>> origin/master
     double speed = 0;
     public Servo ramp;
 	public Servo drop;
@@ -190,22 +187,12 @@ public class TeleopBlueBasket extends OpMode{
             //Door resets
         } //Climber Hitter
         if(gamepad1.dpad_left) {
-<<<<<<< HEAD
             hitterP += .01;
             hitter.setPosition(hitterP);
         }
         if(gamepad1.dpad_right) {
             hitterP -= .01;
             hitter.setPosition(hitterP);
-=======
-            hitter.setPosition(1);
-        }
-        else if(gamepad1.dpad_right) {
-            hitter.setPosition(0);
-        }
-        else {
-            hitter.setPosition(.5);
->>>>>>> origin/master
         }
     }
 }
