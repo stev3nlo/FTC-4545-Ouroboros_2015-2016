@@ -32,11 +32,9 @@ public class TeleopRedBasket extends OpMode{
     long lastTimeH = 0;
     long currentTimeR = 0;
     long lastTimeR = 0;
-    double hitterP = 0;
     double speed = 0;
     public Servo ramp;
     public Servo drop;
-    public Servo claw;
     public Servo hitter;
     @Override
     public void init() {
@@ -56,16 +54,16 @@ public class TeleopRedBasket extends OpMode{
         attachL = hardwareMap.servo.get("attachL");
         ramp = hardwareMap.servo.get("ramp");
         drop = hardwareMap.servo.get("drop");
-        claw = hardwareMap.servo.get("claw");
         hitter = hardwareMap.servo.get("hitter");
+        switchL.setPosition(.5);
+        switchR.setPosition(1);
         halfspeed = false;
         direction = 1;
         boxBelt.setPosition(.5);
         climber.setPosition(1);
-        ramp.setPosition(1);
+        ramp.setPosition(.75);
         drop.setPosition(0);
-        claw.setPosition(.8);
-        hitter.setPosition(0);
+        hitter.setPosition(.5);
     }
 
     @Override
@@ -121,7 +119,7 @@ public class TeleopRedBasket extends OpMode{
         }
         //manipulator
         if (Math.abs(gamepad2.left_stick_y) > .1) {
-            motorSpinner.setPower(gamepad2.left_stick_y *-1);
+            motorSpinner.setPower(gamepad2.left_stick_y * -1);
         } else {
             motorSpinner.setPower(0);
         }
@@ -169,14 +167,6 @@ public class TeleopRedBasket extends OpMode{
         else{
             motorWinch.setPower(0);
         }
-        //don't know exact values needs to be tested
-        if(gamepad2.dpad_right)
-        {
-            claw.setPosition(.8);
-        }
-        if(gamepad2.dpad_left){
-            claw.setPosition(0);
-        }
 
         if(gamepad2.y) {
             ramp.setPosition(.75);
@@ -193,14 +183,14 @@ public class TeleopRedBasket extends OpMode{
             drop.setPosition(0);
             //Door resets
         }
-        // Climber Hitter
         if(gamepad1.dpad_left) {
-            hitterP += .01;
-            hitter.setPosition(hitterP);
+            hitter.setPosition(1);
         }
-        if(gamepad1.dpad_right) {
-            hitterP -= .01;
-            hitter.setPosition(hitterP);
+        else if(gamepad1.dpad_right) {
+            hitter.setPosition(0);
+        }
+        else {
+            hitter.setPosition(.5);
         }
     }
 }

@@ -25,6 +25,9 @@ public abstract class AutoOpMode extends LinearOpMode {
 	Servo boxBelt;
 	Servo ramp;
 	Servo drop;
+	Servo switchL;
+	Servo switchR;
+	Servo hitter;
     AdafruitIMU gyroSensor;
     ColorSensor colorSensorR;
     ColorSensor colorSensorL;
@@ -37,17 +40,17 @@ public abstract class AutoOpMode extends LinearOpMode {
     int[] colorR = new int[3];
 
 	//constant variables
-	public static final double CLIMBERS_ANGLE = 135.0;
+	public static final double CLIMBERS_ANGLE = 180;
 
 	//constant variables for BLUE side
 	public static final int BLUE_START = 200;
 	public static final int BLUE_TURN_TO_WALL = 35;
-	public static final int BLUE_START_TO_WALL = 1500;
+	public static final int BLUE_START_TO_WALL = 1575;
 	public static final int BLUE_TURN_TO_LINE = 35;
-	public static final int BLUE_WALL_TO_LINE = 250; //increased by 100 on 3-4-16 8:02
-	public static final int BLUE_TURN_TO_BEACON = 70;
-	public static final int BLUE_LINE_TO_BEACON = 400; //increased by 100 on 3-4-16 8:02
-	public static final int BLUE_BACK_AWAY_FROM_BEACON = 150;
+	public static final int BLUE_WALL_TO_LINE = 150; //increased by 100 on 3-4-16 8:02
+	public static final int BLUE_TURN_TO_BEACON = 65;
+	public static final int BLUE_LINE_TO_BEACON = 550; //increased by 100 on 3-4-16 8:02
+	public static final int BLUE_BACK_AWAY_FROM_BEACON = 2000;
 
 	//move out of way for alliance for BLUE side
 	public static final int BLUE_TURN_TO_CLEAR = 90;
@@ -63,7 +66,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 	public static final int BLUE_TURN_TO_OTHER_BEACON = 135;
 	public static final int BLUE_BEACON_TO_BEACON = 3000;
 
-	//goes to ramp and hits switches for RED side
+	//goes to ramp and hits switches for BLUE side
 	public static final int BLUE_TURN_TO_RAMP =  100;
 	public static final int BLUE_BEACON_TO_RAMP = 2500;
 	public static final int BLUE_TURN_TO_CHURRO = 95;
@@ -71,13 +74,13 @@ public abstract class AutoOpMode extends LinearOpMode {
 
 	//constant variables for RED side
 	public static final int RED_START = 200;
-	public static final int RED_TURN_TO_WALL = 45;
-	public static final int RED_START_TO_WALL = 1900;
-	public static final int RED_TURN_TO_LINE = 45;
-	public static final int RED_WALL_TO_LINE = 350;
-	public static final int RED_TURN_TO_BEACON = 90;
-	public static final int RED_LINE_TO_BEACON = 200;
-	public static final int RED_BACK_AWAY_FROM_BEACON = 100;
+	public static final int RED_TURN_TO_WALL = 40;
+	public static final int RED_START_TO_WALL = 1500;
+	public static final int RED_TURN_TO_LINE = 40;
+	public static final int RED_WALL_TO_LINE = 250;
+	public static final int RED_TURN_TO_BEACON = 80;
+	public static final int RED_LINE_TO_BEACON = 600;
+	public static final int RED_BACK_AWAY_FROM_BEACON = 2000;
 
 	//move out of way for alliance for RED side
 	public static final int RED_TURN_TO_CLEAR = 90;
@@ -118,7 +121,10 @@ public abstract class AutoOpMode extends LinearOpMode {
 		drop = hardwareMap.servo.get("drop");
         colorSensorL = hardwareMap.colorSensor.get("colorSensorL");
         colorSensorR = hardwareMap.colorSensor.get("colorSensorR");
+		switchL = hardwareMap.servo.get("switchL");
+		switchR = hardwareMap.servo.get("switchR");
         telemetry.addData("gyro", "initializing");
+		hitter = hardwareMap.servo.get("hitter");
 
         motorFL.setPower(0);
         motorFR.setPower(0);
@@ -126,7 +132,10 @@ public abstract class AutoOpMode extends LinearOpMode {
         motorBR.setPower(0);
         manipulator.setPower(0);
         climber.setPosition(1);
+		hitter.setPosition(.5);
 		boxBelt.setPosition(.5);
+		switchL.setPosition(.5);
+		switchR.setPosition(1);
 		if (side.equals("blue")) {
 			ramp.setPosition(0);
 			drop.setPosition(1);
@@ -186,10 +195,10 @@ public abstract class AutoOpMode extends LinearOpMode {
             waitOneFullHardwareCycle();
             getAngles();
             currAngle = yawAngle[0];
-            if ((currAngle - angle) < -2) {
+            if ((currAngle - angle) < -1) {
                 startMotors((speed * .75), -speed);
             } else {
-                if ((currAngle - angle) > 2) {
+                if ((currAngle - angle) > 1) {
                     startMotors(speed, -(speed * .75));
                 } else {
                     startMotors(speed, -speed);
@@ -202,28 +211,29 @@ public abstract class AutoOpMode extends LinearOpMode {
     public void forwardWithManiWithEncoders(double speed, double goal) throws InterruptedException {
 		resetGyro();
 		startMotors(speed, -speed);
-        manipulator.setPower(1);
+        manipulator.setPower(-1);
         double angle;
 		angle = yawAngle[0];
 		double currAngle;
         while (avg < goal) {
-			showAngles();
+//			showAngles();
             getAvg();
             waitOneFullHardwareCycle();
             getAngles();
-            currAngle = yawAngle[0];
-            if ((currAngle - angle) < -2) {
-                startMotors((speed * .75), -speed);
-            } else {
-                if ((currAngle - angle) > 2) {
-                    startMotors(speed, -(speed * .75));
-                } else {
+			telemetry.addData("stuff: ", String.format("current:%.2f, target:%.2f", getYawAngle(), angle));
+            if (getYawAngle() < -1) {
+                startMotors(speed * 1.5, -speed);
+				telemetry.addData("I'm inside", " the first");
+            } else if (getYawAngle() > 1) {
+                    startMotors(speed, -speed * 1.5);
+					telemetry.addData("I'm inside", " the second");
+			} else {
                     startMotors(speed, -speed);
                 }
             }
-        }
-        reset();
-	}
+		reset();
+		}
+
 
 	public void moveBackwardsWithEncoders(double speed, double goal) throws InterruptedException {
         moveForwardWithEncoders(-speed, goal);
@@ -314,7 +324,7 @@ public abstract class AutoOpMode extends LinearOpMode {
     public void dropClimbers(double angle) throws InterruptedException {
         waitOneFullHardwareCycle();
 		climber.setPosition(1 - (angle / 180));
-		Thread.sleep(2000);
+		Thread.sleep(500);
 		climber.setPosition(1);
 		waitOneFullHardwareCycle();
 	}
@@ -325,6 +335,11 @@ public abstract class AutoOpMode extends LinearOpMode {
         telemetry.addData("heading", yawAngle[0]);
 		waitOneFullHardwareCycle();
     }
+
+	public double getYawAngle() {
+		gyroSensor.getIMUGyroAngles(rollAngle, pitchAngle, yawAngle);
+		return yawAngle[0];
+	}
 
     public void reset() throws InterruptedException {
 		waitOneFullHardwareCycle();
@@ -337,7 +352,7 @@ public abstract class AutoOpMode extends LinearOpMode {
 		waitOneFullHardwareCycle();
         motorBL.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 		motorBR.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-        Thread.sleep(1000);
+        Thread.sleep(250);
 		motorBL.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motorBR.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 		resetGyro();
@@ -379,14 +394,14 @@ public abstract class AutoOpMode extends LinearOpMode {
             motorBL.setPower(-speed);
             motorFR.setPower(speed);
             motorBR.setPower(speed);
-            manipulator.setPower(1);
+            manipulator.setPower(-1);
             waitOneFullHardwareCycle();
         }
         reset();
     }
 
 	public void followToLineWithManipulatorIn(int speed) throws InterruptedException{
-        manipulator.setPower(1);
+        manipulator.setPower(-1);
         while(yawAngle[0] <= CLIMBERS_ANGLE - 1 || yawAngle[0] >= CLIMBERS_ANGLE + 1){
             getRightColor();
             if (colorR[0] > 1500 && colorR[1] > 2000 && colorR[2] > 2000){
