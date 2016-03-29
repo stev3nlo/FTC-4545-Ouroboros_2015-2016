@@ -9,6 +9,6 @@ public class GyroStabilizationTest extends AutoOpMode {
 		initialize("red");
 		waitForStart();
 		Thread.sleep(1000);
-		backwardsWithManiWithEncoders(.4, 2000);
+		backwardsWithManiWithEncoders(.1, 2000);
 	}
 }
