@@ -24,7 +24,7 @@ public class TeleOp4 extends OpMode{
     public Servo switchL;
     public Servo switchR;
     public Servo climber;
-    final long DURATION = 1500000000;;
+    final long DURATION = 1500000000;
     public Servo boxR;
     public Servo boxL;
     public Servo boxBelt;

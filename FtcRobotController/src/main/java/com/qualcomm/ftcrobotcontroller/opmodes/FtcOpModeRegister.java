@@ -65,6 +65,8 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Code.TeleopRedMabey;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.ftcrobotcontroller.opmodes.Code.Test;
+import com.qualcomm.ftcrobotcontroller.opmodes.Code.justcause;
+
 
 /**
  * Register Op Modes
@@ -140,5 +142,6 @@ public class FtcOpModeRegister implements OpModeRegister {
 		manager.register("RedClimbersDefense10", RedClimbersDefense10.class);
 		manager.register("GyroTesting", GyroStabilizationTest.class);
 		manager.register("FrictionTests", FrictionTests.class);
+		manager.register("DragBot.CaitylnJenner", justcause.class);
 	}
 }
