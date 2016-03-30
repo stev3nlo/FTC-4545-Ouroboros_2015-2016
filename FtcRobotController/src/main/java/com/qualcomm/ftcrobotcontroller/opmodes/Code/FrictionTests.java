@@ -36,7 +36,7 @@ public class FrictionTests extends LinearOpMode {
         turnRight(.5, 500);
     }
 
-    public void moveForward(double speed, int distance ) {
+    public void moveForward(double speed, int distance) {
         getAvg();
         FR.setPower(speed);
         FL.setPower(-speed);

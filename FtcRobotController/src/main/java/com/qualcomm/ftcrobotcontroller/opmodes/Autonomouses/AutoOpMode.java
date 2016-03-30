@@ -185,29 +185,28 @@ public abstract class AutoOpMode extends LinearOpMode {
 
     public void moveForwardWithEncoders(double speed, double goal) throws InterruptedException {
 		resetGyro();
-        startMotors(speed, -speed);
-        double angle;
+		startMotors(speed, -speed);
+		double angle;
 		angle = yawAngle[0];
 		double currAngle;
-        while (avg < goal) {
-			showAngles();
-            getAvg();
-            waitOneFullHardwareCycle();
-            getAngles();
-            currAngle = yawAngle[0];
-            if ((currAngle - angle) < -1) {
-                startMotors((speed * .75), -speed);
-            } else {
-                if ((currAngle - angle) > 1) {
-                    startMotors(speed, -(speed * .75));
-                } else {
-                    startMotors(speed, -speed);
-                }
-            }
+		while (avg < goal) {
+//			showAngles();
+			getAvg();
+			waitOneFullHardwareCycle();
+			getAngles();
+			telemetry.addData("stuff: ", String.format("current:%.2f, target:%.2f", getYawAngle(), angle));
+			if (getYawAngle() < -3) {
+				startMotors(speed * .5, -speed);
+				telemetry.addData("I'm inside", " the first");
+			} else if (getYawAngle() > 1) {
+				startMotors(speed, -speed * .5);
+				telemetry.addData("I'm inside", " the second");
+			} else {
+				startMotors(speed, -speed);
+			}
 		}
-        reset();
-    }
-
+		reset();
+	}
     public void forwardWithManiWithEncoders(double speed, double goal) throws InterruptedException {
 		resetGyro();
 		startMotors(speed, -speed);
@@ -221,11 +220,11 @@ public abstract class AutoOpMode extends LinearOpMode {
             waitOneFullHardwareCycle();
             getAngles();
 			telemetry.addData("stuff: ", String.format("current:%.2f, target:%.2f", getYawAngle(), angle));
-            if (getYawAngle() < -1) {
-                startMotors(speed * 1.5, -speed);
+            if (getYawAngle() < -3) {
+                startMotors(speed * .5, -speed);
 				telemetry.addData("I'm inside", " the first");
             } else if (getYawAngle() > 1) {
-                    startMotors(speed, -speed * 1.5);
+                    startMotors(speed, -speed * .5);
 					telemetry.addData("I'm inside", " the second");
 			} else {
                     startMotors(speed, -speed);
