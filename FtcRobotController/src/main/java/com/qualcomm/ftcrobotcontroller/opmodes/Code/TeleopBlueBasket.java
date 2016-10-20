@@ -94,7 +94,7 @@ public class TeleopBlueBasket extends OpMode{
             lastTimeR = currentTimeR;
         }
         //if statement for deciding speed multiplier
-        speed = (halfspeed) ? HALFSPEED : FULLSPEED;
+        speed = (halfspeed) ? HALFSPEED : FULLSPEED; //speed = halfspeed
         //WHEELS: toogle between halfspeed, reverse, reverse halfspeed, and normal
         if (Math.abs(gamepad1.right_stick_y) > .05) {
             motorFR.setPower(gamepad1.right_stick_y * speed * direction);
